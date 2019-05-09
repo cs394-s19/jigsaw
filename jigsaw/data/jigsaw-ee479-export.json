@@ -1,0 +1,117 @@
+{
+  "Users" : {
+    "Justin" : {
+      "Email" : "justinpeh2019@u.northwestern.edu",
+      "Schedule" : {
+        "Event1" : {
+          "Busy " : 1
+        }
+      },
+      "Token" : ""
+    },
+    "Matthew" : {
+      "Email" : "matthewwang2020@u.northwestern.edu",
+      "Schedule" : {
+        "Event1" : {
+          "Busy" : 1,
+          "End" : "22:00",
+          "Name" : "Monday",
+          "Start" : "11:00"
+        },
+        "Event2" : {
+          "Busy" : 1
+        }
+      },
+      "token" : " "
+    },
+    "Andres": {
+      "Email" : "andreskim315@gmail.com",
+      "Schedule" : {
+        "Event1" : {
+          "Busy": 1,
+          "End" : "12:00",
+          "Day" : "Sunday",
+          "Start" : "09:00",
+          "Name": "School Work"
+        },
+        "Event2" : {
+          "Busy": 1,
+          "End" : "11:00",
+          "Day" : "Monday",
+          "Start" : "09:00",
+          "Name": "School Work"
+        },
+        "Event3" : {
+          "Busy": 1,
+          "End" : "16:00",
+          "Day" : "Monday",
+          "Start" : "14:00",
+          "Name": "School Work"
+        },
+        "Event4" : {
+          "Busy": 1,
+          "End" : "21:00",
+          "Day" : "Monday",
+          "Start" : "18:00",
+          "Name": "School Work"
+        },
+        "Event5" : {
+          "Busy": 1,
+          "End" : "13:00",
+          "Day" : "Tuesday",
+          "Start" : "09:00",
+          "Name": "School Work"
+        },
+        "Event6" : {
+          "Busy": 1,
+          "End" : "16:00",
+          "Day" : "Tuesday",
+          "Start" : "14:00",
+          "Name": "School Work"
+        },
+        "Event7" : {
+          "Busy": 1,
+          "End" : "12:00",
+          "Day" : "Wednesday",
+          "Start" : "09:00",
+          "Name": "School Work"
+        },
+        "Event8" : {
+          "Busy": 1,
+          "End" : "16:00",
+          "Day" : "Wednesday",
+          "Start" : "14:00",
+          "Name": "School Work"
+        },
+        "Event9" : {
+          "Busy": 1,
+          "End" : "13:00",
+          "Day" : "Thursday",
+          "Start" : "09:00",
+          "Name": "School Work"
+        },
+        "Event10" : {
+          "Busy": 1,
+          "End" : "16:00",
+          "Day" : "Thursday",
+          "Start" : "14:00",
+          "Name": "School Work"
+        },
+        "Event11" : {
+          "Busy": 1,
+          "End" : "12:00",
+          "Day" : "Friday",
+          "Start" : "09:00",
+          "Name": "School Work"
+        },
+        "Event12" : {
+          "Busy": 1,
+          "End" : "12:00",
+          "Day" : "Saturday",
+          "Start" : "09:00",
+          "Name": "School Work"
+        }
+      }
+    }
+  }
+}

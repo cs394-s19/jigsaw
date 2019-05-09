@@ -1,0 +1,30 @@
+{
+  "users" : {
+    "id1" : {
+      "token": "",
+      "name": "",
+      "schedule": "schedule_id"
+    }
+  },
+  "schedules": {
+    "sched_id1" : [{}, {}, {}],
+    "sched_id2" : [{}, {}, {}],
+    "sched_id3" : [{}, {}, {}]
+  },
+  "meetings": {
+    "meetingid1" : {
+      "name": "",
+      "users": [],
+      "schedule": [],
+      "preferences": {
+        "start_time": "",
+        "end_time": ""
+      }
+    }
+  }
+}
+
+"andreskim315@gmail.com": {
+  "token": "",
+  "name": "Andres"
+}
