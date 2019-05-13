@@ -30,7 +30,9 @@ export default class CreateEventForm extends Component {
 
                 <View style={styles.timeField}>
                     <Text style={styles.timeLabel}>Duration:</Text>
-                    <Text style={styles.timeInput}> {this.state.selectedHours}hr {this.state.selectedMinutes}min</Text>
+                    <View style={styles.time}>
+                        <Text style={styles.timeInput}> {this.state.selectedHours}hr {this.state.selectedMinutes}min</Text>
+                    </View>
                     <View style={styles.timePicker}>
                         <TimePicker
                             selectedHours={this.state.selectedHours}
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         top: 125,
+        alignItems: 'stretch',
     },
     timeLabel: {
         flex: 4,
@@ -70,14 +73,21 @@ const styles = StyleSheet.create({
     },
     timeInput: {
         flex: 6,
-        fontSize: 24,
+        fontSize: 20,
+        fontWeight: 'bold',
         marginLeft: 10,
         justifyContent: 'center',
+        alignContent: 'center',
+        color: 'steelblue',
+    },
+    time: {
+        justifyContent: 'center',
+        alignContent: 'center',
     },
     timePicker: {
         width: '100%',
         height: '70%',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     addButton: {
         alignItems: 'center',

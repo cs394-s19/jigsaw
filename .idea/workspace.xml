@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="74ab27ed-6a0d-4c5e-8af6-27642b3faf5f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/jigsaw/components/CreateEventForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/jigsaw/components/CreateEventForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jigsaw/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/jigsaw/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jigsaw/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/jigsaw/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +26,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jigsaw/components/CreateEventForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="626">
-              <caret line="74" column="33" selection-start-line="74" selection-start-column="33" selection-end-line="74" selection-end-column="33" />
+            <state relative-caret-position="577">
+              <caret line="76" column="27" selection-start-line="76" selection-start-column="27" selection-end-line="76" selection-end-column="27" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -128,12 +126,12 @@
       <option name="presentableId" value="Default" />
       <updated>1557418948824</updated>
       <workItem from="1557418951791" duration="255000" />
-      <workItem from="1557784083263" duration="4090000" />
+      <workItem from="1557784083263" duration="4536000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4345000" />
+    <option name="totallyTimeSpent" value="4791000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1280" y="23" width="1280" height="1498" extended-state="0" />
@@ -200,8 +198,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jigsaw/components/CreateEventForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="626">
-          <caret line="74" column="33" selection-start-line="74" selection-start-column="33" selection-end-line="74" selection-end-column="33" />
+        <state relative-caret-position="577">
+          <caret line="76" column="27" selection-start-line="76" selection-start-column="27" selection-end-line="76" selection-end-column="27" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
