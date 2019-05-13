@@ -114,8 +114,6 @@ export function schedule(users, preferences) {
 
   // First check if we need to make a new hash map.
 
-
   // With hash map, inc free times in our hash map.
-
 
 }
