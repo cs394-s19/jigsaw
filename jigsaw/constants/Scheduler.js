@@ -5,10 +5,7 @@ var map = {};
 // map is a hashmap
 // obj is a sorted array of events for the user
 function populateMapForUser(user,obj,map){
-  //var map = {};
-  //var obj = [];
   var timeblock = 30;
-
   for(var i = 1; i<8; i++){
     for(var j = 0; j<23; j++){
       for(var k = 0; k<2; k++){
@@ -111,9 +108,10 @@ var parseEventForUser = (user) => {
 }
 
 export function schedule(users, preferences) {
-
-  // First check if we need to make a new hash map.
-
   // With hash map, inc free times in our hash map.
-
+  var map = {};
+  for(var i = 0; i<users.length; i++){
+    map = populateMapForUser(users[i],parseEventForUser(users[i]),map);
+  }
+  return map;
 }
