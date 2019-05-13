@@ -110,8 +110,6 @@ const MainBtmTabNav = createBottomTabNavigator({
 
 export default class MainTabNavigator extends React.Component {
   render() {
-    console.log('inside main tab navigator');
-    console.log(this.props);
     return(<MainBtmTabNav screenProps={this.props.screenProps}/>)
   }
 }

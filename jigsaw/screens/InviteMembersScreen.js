@@ -15,7 +15,6 @@ export default class CreateEventScreen extends React.Component {
   }; 
 
   render() {
-    console.log('inside invitemembers screen')
     return (
       <ScrollView style={styles.container}>
         <InviteMembersForm data={this.props.screenProps.data}/>

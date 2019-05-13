@@ -36,7 +36,6 @@ export default class InviteMembersForm extends Component {
     }
 
     render() {
-        console.log(this.props.data);
         return (
             <View style={styles.container}>
                 <Text style={styles.header}>Invited members:</Text>
@@ -56,9 +55,8 @@ export default class InviteMembersForm extends Component {
                 <ScrollView style={styles.userlist}>
                     {
                         this.props.data.map((userdata, index) => {
-                            const colorStyle = this.state.invited.includes(userdata.uid) ? styles.userinfoSelected : styles.userinfoUnSelected
                             return (
-                                <View style={colorStyle}>
+                                <View style={styles.userinfo}>
                                     <TouchableOpacity onPress={() => {this.handleTapMember(userdata.uid)}}> 
                                         <View>
                                             <Text style={styles.userid}>{userdata.uid}</Text>
@@ -115,26 +113,14 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 2
     },
-    userinfoUnselected: {
+    userinfo: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
         height: 100,
         borderColor: 'red',
-        color: 'black',
         borderWidth: 2,
-        backgroundColor: 'rgba(0, 0, 200, 0.1)'
-    },
-    userinfoSelected: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        width: '100%',
-        height: 100,
-        borderColor: 'black',
-        color: 'Red',
-        borderWidth: 1,
         backgroundColor: 'rgba(0, 0, 200, 0.1)'
     },
     userid: {

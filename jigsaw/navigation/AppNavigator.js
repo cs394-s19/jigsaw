@@ -11,7 +11,6 @@ const MainNav = createSwitchNavigator({
 
 export default class AppNavigator extends React.Component {
   render() {
-    console.log('inside appnavigator');
     return (<MainNav screenProps={{data: this.props.data}} />)
   }
 }
