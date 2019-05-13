@@ -12,6 +12,7 @@ import CreateEventScreen from '../screens/CreateEventScreen';
 import EventsScreen from '../screens/EventsScreen';
 import RequestsScreen from '../screens/RequestsScreen';
 import AccountScreen from '../screens/AccountScreen';
+//
 
 const CalendarStack = createStackNavigator({
   Calendar: CalendarScreen,

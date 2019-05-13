@@ -12,7 +12,7 @@ import InviteMembersForm from '../components/InviteMembersForm';
 export default class CreateEventScreen extends React.Component {
   static navigationOptions = {
     title: 'Invite Members',
-  };
+  }; //asfd
 
   render() {
     console.log(this.props);
