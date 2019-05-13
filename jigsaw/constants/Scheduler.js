@@ -63,7 +63,9 @@ var parseEvents = (users) => {
       events.push(newEvent);
     });
   });
-
+  events.sort(function(a,b) {
+    return (a.Start > b.Start) ? 1 : ((b.Start > a.Start) ? -1 : ((a.End > b.End) ? 1 : 0));
+  })
   return events;
 }
 
