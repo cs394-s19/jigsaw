@@ -7,7 +7,7 @@ import firebase from './firebaseConfig';
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
-    data: {}
+    data: {},
   };
 
   componentDidMount() {
@@ -16,8 +16,17 @@ export default class App extends React.Component {
 
   readUserData() {
     firebase.database().ref('Users/').once('value', (snapshot) => {
-        this.setState({data: snapshot.val});
-        console.log(this.state.data);
+      const pulledData = snapshot.val();
+      if (pulledData) {
+        const data = Object.keys(pulledData).map(key => ({
+          ...pulledData[key],
+          uid: key
+        }))
+
+        this.setState({
+          data
+        });
+      }
     });
   }
 

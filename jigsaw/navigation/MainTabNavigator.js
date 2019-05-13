@@ -6,7 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-
+import InviteMembersScreen from '../screens/InviteMembersScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import CreateEventScreen from '../screens/CreateEventScreen';
 import EventsScreen from '../screens/EventsScreen';
@@ -32,6 +32,7 @@ CalendarStack.navigationOptions = {
 
 const CreateEventStack = createStackNavigator({
   CreateEvent: CreateEventScreen,
+  InviteMembers: InviteMembersScreen,
 });
 CreateEventStack.navigationOptions = {
   tabBarLabel: 'Create Event',

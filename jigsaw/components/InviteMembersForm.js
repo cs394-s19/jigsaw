@@ -21,6 +21,16 @@ export default class CreateEventForm extends Component {
         })
     }
 
+    submitEvent = () => {
+        console.log(this.state);
+        const eventDetails = {...this.state};
+        this.setState({
+            eventName: '',
+            selectedHours: 0,
+            selectedMinutes: 0
+        })
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -50,7 +60,7 @@ export default class CreateEventForm extends Component {
                 </View>
 
                 <View style={styles.formbutton}>
-                    <TouchableOpacity style={styles.addButton} onPress={() => {this.props.submitEvent({...this.state})}}>
+                    <TouchableOpacity style={styles.addButton} onPress={this.submitEvent}>
                         <Text style={styles.addButtonText}>Create Event</Text>
                     </TouchableOpacity>
                 </View>
