@@ -3,67 +3,74 @@ import {
     StyleSheet,
     Text,
     View,
-    TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
-import TimePicker from 'react-native-simple-time-picker';
 
-export default class CreateEventForm extends Component {
+export default class InviteMembersForm extends Component {
     state = {
-        eventName: '',
-        selectedHours: 0,
-        selectedMinutes: 0
-    };
+        invited: []
+    }
 
-    onChangeText = (key, value) => {
+    handleTapMember = (username) => {
+        let invited = [...this.state.invited];
+
+        if (invited.includes(username)) {
+            this.removeMember(username);
+            return
+        }
+        
+        invited.push(username);
         this.setState({
-            [key]: value
+            invited
         })
     }
 
-    submitEvent = () => {
-        console.log(this.state);
-        const eventDetails = {...this.state};
+    removeMember = (toDelete) => {
+        let invited = [...this.state.invited].filter((username) => {
+            return username !== toDelete;
+        })
         this.setState({
-            eventName: '',
-            selectedHours: 0,
-            selectedMinutes: 0
+            invited
         })
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.eventfield}>
-                    <Text style={styles.fieldlabel}>Event Name: </Text>
-                    <TextInput style={styles.fieldinput}
-                        placeholder="Event name"
-                        onChangeText={val => this.setState({
-                            eventName: val
-                        })}
-                        value = {this.state.eventName}
+                <Text style={styles.header}>Invited members:</Text>
+                <View style={styles.invitedlist}>
+                    {
+                        this.state.invited.map((username) => {
+                            return (
+                                <View style={styles.inviteduser}>
+                                    <TouchableOpacity onPress={() => {this.removeMember(username)}}>
+                                        <Text>{username}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        })
+                    }
+                </View>
+                <ScrollView style={styles.userlist}>
+                    {
+                        this.props.data.map((userdata, index) => {
+                            return (
+                                <View style={styles.userinfo}>
+                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata.uid)}}> 
+                                        <View>
+                                            <Text style={styles.userid}>{userdata.uid}</Text>
+                                            <Text style={styles.useremail}>{userdata.Email}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        })
+                    }
+                </ScrollView>
+                <TouchableOpacity>
 
-                    />
-                </View>
-                <View style={styles.timefield}>
-                    <Text style={styles.timelabel}>Duration:</Text>
-                    <Text style={styles.timeinput}> {this.state.selectedHours}hr:{this.state.selectedMinutes}min</Text>
-                    <View style={styles.timepicker}>
-                        <TimePicker
-                            selectedHours={this.state.selectedHours}
-                            selectedMinutes={this.state.selectedMinutes}
-                            onChange={(hours, minutes) =>
-                                this.setState({ selectedHours: hours, selectedMinutes: minutes })
-                            }
-                        />
-                    </View>
-                </View>
-
-                <View style={styles.formbutton}>
-                    <TouchableOpacity style={styles.addButton} onPress={this.submitEvent}>
-                        <Text style={styles.addButtonText}>Create Event</Text>
-                    </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -71,71 +78,70 @@ export default class CreateEventForm extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
-        position: 'absolute',
-        justifyContent: 'center',
-    },
-    eventfield: {
-        position: 'absolute',
         flex: 1,
+        alignItems: 'flex-start',
+        width: '100%',
+        height: '100%'
+    },
+    header: {
+        flex: 4,
+        fontSize: 20
+    },
+    invitedlist: {
+        flex: 2,
         flexDirection: 'row',
-        top: 30,
+        flexWrap: 'wrap',
         width: '100%',
+        position: 'absolute',
+        top: 20,
         height: 50,
-        alignItems: 'center',
+        fontSize: 30,
+        color: 'red',
+    },
+    inviteduser: {
+        height: 20,
+        width: 50,
+        borderColor: 'black',
+        borderWidth: 2,
+        fontSize: 20,
+    },
+    userlist: {
+        flex: 8,
+        width: '100%',
+        position: 'absolute',
+        top: 100,
         borderColor: 'black',
         borderWidth: 2
     },
-    fieldlabel: {
-        flex: 4,
-        justifyContent: 'center',
-        left: 10
-    },
-    fieldinput: {
-        flex: 6,
-        color: 'black',
-        justifyContent: 'center',
-        left: 10
-    },
-    timefield: {
+    userinfo: {
         flex: 1,
-        position: 'absolute',
-        width: '100%',
-        top: 120,
-        alignItems: 'center',
-        borderColor: 'black',
-        borderWidth: 2
-    },
-    timelabel: {
-        flex: 4,
+        flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    timeinput: {
-        flex: 6,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    timepicker: {
         width: '100%',
+        height: 100,
+        borderColor: 'red',
+        borderWidth: 2,
+        backgroundColor: 'rgba(0, 0, 200, 0.1)'
+    },
+    userid: {
         height: '70%',
-        justifyContent: 'center'
+        width: '100%',
+        flexWrap: 'wrap',
+        alignSelf: 'stretch',
+        left: 10,
+        color: 'black',
+        fontSize: 30,
     },
-    formbutton: {
-        position: 'absolute',
-        top: 450,
-        alignItems: 'center',
-        width: '100%'
+    useremail: {
+        height: '30%',
+        width: '100%',
+        flexWrap: 'wrap',
+        left: 10,
+        alignSelf: 'stretch',
+        fontSize: 15,
+        color: 'rgba(0, 0, 0, 0.3)',
     },
-    addButton: {
-      backgroundColor: 'blue',
-      width: 200,
-      height: 70,
-      alignItems: 'center', 
-      justifyContent: 'center'
-    },
-    addButtonText: {
-      color: 'white',
-      fontSize: 24
-    }
+
+
+
 });

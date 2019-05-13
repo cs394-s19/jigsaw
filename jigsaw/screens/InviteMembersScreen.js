@@ -12,13 +12,12 @@ import InviteMembersForm from '../components/InviteMembersForm';
 export default class CreateEventScreen extends React.Component {
   static navigationOptions = {
     title: 'Invite Members',
-  }; //asfd
+  }; 
 
   render() {
-    console.log(this.props);
     return (
       <ScrollView style={styles.container}>
-        <Text>Inside InviteMembersScreen.js</Text>
+        <InviteMembersForm data={this.props.screenProps.data}/>
       </ScrollView>
     );
   }

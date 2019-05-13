@@ -15,9 +15,8 @@ export default class CreateEventScreen extends React.Component {
   };
 
   submitEvent = ({eventdetails}) => {
-    console.log('in submitEvent')
     console.log(eventdetails);
-    console.log(this.props);
+    if (eventdetails[eventName] == '' || (eventdetails[selectedHours] === 0 && eventdetails[selectedMinutes] === 0)) return
     this.props.navigation.navigate('InviteMembers', {eventdetails});
   }
 
