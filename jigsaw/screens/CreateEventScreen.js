@@ -1,5 +1,13 @@
-import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import {
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    TouchableOpacity,
+    ScrollView
+} from 'react-native';
+import CreateEventForm from '../components/CreateEventForm';
 
 export default class CreateEventScreen extends React.Component {
   static navigationOptions = {
@@ -9,6 +17,7 @@ export default class CreateEventScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
+        <CreateEventForm />
       </ScrollView>
     );
   }
@@ -17,7 +26,7 @@ export default class CreateEventScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: '#fff',
-  },
+    width: '100%'
+  }
 });

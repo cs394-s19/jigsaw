@@ -17,6 +17,7 @@ export default class App extends React.Component {
   readUserData() {
     firebase.database().ref('Users/').once('value', (snapshot) => {
         this.setState({data: snapshot.val});
+        console.log(this.state.data);
     });
   }
 
