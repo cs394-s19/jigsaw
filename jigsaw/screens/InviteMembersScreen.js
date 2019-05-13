@@ -7,24 +7,18 @@ import {
     TouchableOpacity,
     ScrollView
 } from 'react-native';
-import CreateEventForm from '../components/CreateEventForm';
+import InviteMembersForm from '../components/InviteMembersForm';
 
 export default class CreateEventScreen extends React.Component {
   static navigationOptions = {
-    title: 'Create Event',
-  };
-
-  submitEvent = ({eventdetails}) => {
-    console.log('in submitEvent')
-    console.log(eventdetails);
-    console.log(this.props);
-    this.props.navigation.navigate('InviteMembers', {eventdetails});
-  }
+    title: 'Invite Members',
+  }; //asfd
 
   render() {
+    console.log(this.props);
     return (
       <ScrollView style={styles.container}>
-        <CreateEventForm submitEvent={this.submitEvent}/>
+        <Text>Inside InviteMembersScreen.js</Text>
       </ScrollView>
     );
   }
