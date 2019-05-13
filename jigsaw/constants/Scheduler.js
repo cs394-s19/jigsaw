@@ -49,19 +49,17 @@ var parseTime = (se, time) => {
   return newhour + ":" + newmin;
 }
 
-var parseEvents = (users) => {
+var parseEventForUser = (user) => {
   var events = [];
-  users.forEach((user) => {
-    user.Schedule.forEach((event) => {
-      var newEvent  = {
-        "Busy": 1,
-        "Day": days.indexOf(event.Day) + 1,
-        "Name": event.Name,
-        "Start": parseTime("start", event.Start),
-        "End": parseTime("end", event.End);
-      };
-      events.push(newEvent);
-    });
+  user.Schedule.forEach((event) => {
+    var newEvent  = {
+      "Busy": 1,
+      "Day": days.indexOf(event.Day) + 1,
+      "Name": event.Name,
+      "Start": parseTime("start", event.Start),
+      "End": parseTime("end", event.End);
+    };
+    events.push(newEvent);
   });
   events.sort(function(a,b) {
     return (a.Start > b.Start) ? 1 : ((b.Start > a.Start) ? -1 : ((a.End > b.End) ? 1 : 0));
@@ -73,9 +71,8 @@ export function schedule(users, preferences) {
 
   // First check if we need to make a new hash map.
 
-  // get all events into 1 array.
-  const allEvents = parseEvents(users);
 
   // With hash map, inc free times in our hash map.
+
 
 }
