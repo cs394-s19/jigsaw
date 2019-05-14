@@ -14,10 +14,15 @@ export default class CreateEventScreen extends React.Component {
     title: 'Create Event',
   };
 
+  submitEvent = (eventdetails) => {
+    if (eventdetails["eventName"] == '' || (eventdetails["selectedHours"] === 0 && eventdetails["selectedMinutes"] === 0)) return
+    this.props.navigation.navigate('InviteMembers', {eventdetails});
+  }
+
   render() {
     return (
       <ScrollView style={styles.container}>
-        <CreateEventForm />
+        <CreateEventForm submitEvent={this.submitEvent}/>
       </ScrollView>
     );
   }
