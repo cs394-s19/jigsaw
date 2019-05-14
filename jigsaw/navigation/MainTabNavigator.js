@@ -14,9 +14,11 @@ import MeetingTimesScreen from '../screens/MeetingTimesScreen';
 import EventsScreen from '../screens/EventsScreen';
 import RequestsScreen from '../screens/RequestsScreen';
 import AccountScreen from '../screens/AccountScreen';
+import CreateCalendarEventScreen from '../screens/CreateCalendarScreen'
 
 const CalendarStack = createStackNavigator({
   Calendar: CalendarScreen,
+  CreateCalendarEvent: CreateCalendarEventScreen
 });
 CalendarStack.navigationOptions = {
   tabBarLabel: 'Calendar',
