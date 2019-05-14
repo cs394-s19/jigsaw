@@ -7,13 +7,11 @@ var map = {};
 function populateMapForUser(user,obj,map){
   var timeblock = 30;
   for(var i = 1; i<8; i++){
-    for(var j = 0; j<23; j++){
+    for(var j = 0; j<24; j++){
       for(var k = 0; k<2; k++){
-        var hash = i+":"+j+":"+(k*inc);
+        var hash = i+":"+j+":"+(k*timeblock);
         var empty = [];
         map[hash] = empty;
-        // console.log(hash);
-        // console.log(map[hash]);
       }
     }
   }
@@ -21,14 +19,14 @@ function populateMapForUser(user,obj,map){
   var counter = 0;
 
   for(var i = 1; i<8; i++){
-    for(var j = 0; j<23; j++){
+    for(var j = 0; j<24; j++){
       for(var k = 0; k<2; k++){
-        var hash = i+":"+j+":"+(k*inc);
-        while (check(i,j,k,obj[counter]) == "after"){
+        var hash = i+":"+j+":"+(k*timeblock);
+        while (counter < obj.length && check(i,j,k,obj[counter]) == "after"){
           counter++;
         }
-        if(check(i,j,k,obj[counter]) == "nonoverlap" || counter == obj.length){
-          map[hash].push[user];
+        if(counter == obj.length || check(i,j,k,obj[counter]) == "nonoverlap"){
+          map[hash] = map[hash].concat(user);
         }
       }
     }
@@ -39,19 +37,21 @@ function populateMapForUser(user,obj,map){
 function check(i,j,k,event){
   var start = event.Start;
   var end = event.End;
-  var startTime = event.day*1440 + parseInt(start.split(":")[0],10)*60 + parseInt(start.split(":")[1],10);
-  var endTime = event.day*1440 +  parseInt(end.split(":")[0],10)*60 + parseInt(end.split(":")[1],10);
+  var startTime = event.Day*1440 + parseInt(start.split(":")[0],10)*60 + parseInt(start.split(":")[1],10);
+  var endTime = event.Day*1440 +  parseInt(end.split(":")[0],10)*60 + parseInt(end.split(":")[1],10);
   endTime = endTime % 30 == 0
     ? endTime
     : endTime + 30;
   var timeBlock = i*1440+j*60+k*30;
-  if(startTime/30 > timeBlock){
+  startTime = startTime - startTime%30;
+  endTime = endTime - endTime%30;
+  if(startTime > timeBlock){
     return "nonoverlap";
   }
-  if(startTime/30 == timeBlock){
+  if(startTime == timeBlock){
     return "overlap";
   }
-  if(startTime/30<timeBlock && timeBlock < endTime/30){
+  if(startTime<timeBlock && timeBlock < endTime){
     return "overlap";
   }
   return "after";
@@ -97,21 +97,77 @@ var parseEventForUser = (user) => {
       "Day": days.indexOf(event.Day) + 1,
       "Name": event.Name,
       "Start": parseTime("start", event.Start),
-      "End": parseTime("end", event.End);
+      "End": parseTime("end", event.End),
     };
     events.push(newEvent);
   });
   events.sort(function(a,b) {
-    return (a.Start > b.Start) ? 1 : ((b.Start > a.Start) ? -1 : ((a.End > b.End) ? 1 : 0));
+    return (a.Day > b.Day) ? 1 : ((b.Day > a.Day) ? -1 : ((a.Start > b.Start) ? 1 : ((b.Start > a.Start) ? -1 : ((a.End > b.End) ? 1 : 0))));
   })
   return events;
 }
 
-export function schedule(users, preferences) {
-  // With hash map, inc free times in our hash map.
+function schedule(users, preferences) {
+  // With hash map, timeblock free times in our hash map.
   var map = {};
   for(var i = 0; i<users.length; i++){
     map = populateMapForUser(users[i],parseEventForUser(users[i]),map);
   }
   return map;
 }
+
+class timeBlock{
+  constructor(){
+    var people = 0;
+    var startTime = 0;
+    var endTime = 0;
+  }
+}
+
+function getBestTimes(blockSize, map){
+  // startP = 0;
+  // endP = blockSize;
+  // dayP = 48;
+  // dayCounter = 1;
+  // while(dayCounter < 8) {
+    
+  // }
+  // for (var key in map) {
+  //   console.log(key, map[key]);
+  // }
+}
+
+function test(){
+  var map = {};
+  var events = [];
+  var event1  = {
+    "Busy": 1,
+    "Day": 1,
+    "Name": "Event Name",
+    "Start": "11:12",
+    "End": "13:55",
+  };
+  var event2  = {
+    "Busy": 1,
+    "Day": 2,
+    "Name": "Event Name",
+    "Start": "11:12",
+    "End": "13:23",
+  };
+  var event3  = {
+    "Busy": 1,
+    "Day": 2,
+    "Name": "Event Name",
+    "Start": "11:12",
+    "End": "14:44",
+  };
+  events.push(event2);
+  events.push(event1);
+  events.push(event3);
+  events.sort(function(a,b) {
+    return (a.Day > b.Day) ? 1 : ((b.Day > a.Day) ? -1 : ((a.Start > b.Start) ? 1 : ((b.Start > a.Start) ? -1 : ((a.End > b.End) ? 1 : 0))));
+  })
+  map = populateMapForUser("userA",events, map);
+  getBestTimes(2,map);
+}
+test();
