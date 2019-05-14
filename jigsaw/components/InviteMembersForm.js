@@ -4,26 +4,28 @@ import {
     Text,
     View,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
 } from 'react-native';
 
 export default class InviteMembersForm extends Component {
+
     state = {
         invited: []
     }
 
-    handleTapMember = (username) => {
+    handleTapMember = (user) => {
         let invited = [...this.state.invited];
 
-        if (invited.includes(username)) {
-            this.removeMember(username);
+        if (invited.includes(user.Email)) {
+            this.removeMember(user.Email);
             return
         }
-        
-        invited.push(username);
+
+        invited.push(user);
         this.setState({
             invited
         })
+        this.props.updateInvited(invited);
     }
 
     removeMember = (toDelete) => {
@@ -41,11 +43,11 @@ export default class InviteMembersForm extends Component {
                 <Text style={styles.header}>Invited members:</Text>
                 <View style={styles.invitedlist}>
                     {
-                        this.state.invited.map((username) => {
+                        this.state.invited.map((username, index) => {
                             return (
-                                <View style={styles.inviteduser}>
-                                    <TouchableOpacity onPress={() => {this.removeMember(username)}}>
-                                        <Text>{username}</Text>
+                                <View key={index} style={styles.inviteduser}>
+                                    <TouchableOpacity onPress={() => {this.removeMember(username.Email)}}>
+                                        <Text>{username.uid}</Text>
                                     </TouchableOpacity>
                                 </View>
                             )
@@ -54,10 +56,10 @@ export default class InviteMembersForm extends Component {
                 </View>
                 <ScrollView style={styles.userlist}>
                     {
-                        this.props.data.map((userdata, index) => {
+                        this.props.data.data.map((userdata, index) => {
                             return (
-                                <View style={styles.userinfo}>
-                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata.uid)}}> 
+                                <View key={index} style={styles.userinfo}>
+                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}}>
                                         <View>
                                             <Text style={styles.userid}>{userdata.uid}</Text>
                                             <Text style={styles.useremail}>{userdata.Email}</Text>
