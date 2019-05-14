@@ -102,16 +102,10 @@ AccountStack.navigationOptions = {
   ),
 }
 
-const MainBtmTabNav = createBottomTabNavigator({
+export default createBottomTabNavigator({
   CalendarStack,
   CreateEventStack,
   EventsStack,
   RequestsStack,
   AccountStack,
 });
-
-export default class MainTabNavigator extends React.Component {
-  render() {
-    return(<MainBtmTabNav screenProps={this.props.screenProps}/>)
-  }
-}

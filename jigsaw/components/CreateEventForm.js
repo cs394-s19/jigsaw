@@ -43,8 +43,7 @@ export default class CreateEventForm extends Component {
                         />
                     </View>
                 </View>
-
-                <Button buttonStyle={styles.addButton} title='Create Event' onPress={() => {this.props.submitEvent({...this.state})}}/>
+                <Button style={styles.addButton} title='Create Event' onPress={() => {this.props.submitEvent({...this.state})}}/>
             </View>
         )
     }
@@ -92,7 +91,6 @@ const styles = StyleSheet.create({
     addButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'absolute',
         top: 200,
     },
     inputLabel: {

@@ -9,6 +9,7 @@ import {
     Button
 } from 'react-native';
 import InviteMembersForm from '../components/InviteMembersForm';
+import firebase from 'firebase';
 
 export default class CreateEventScreen extends React.Component {
   componentDidMount () {
@@ -20,19 +21,32 @@ export default class CreateEventScreen extends React.Component {
       invited: []
   };
 
-  // static navigationOptions = {
-  //     header: ({ state }) => ({
-  //         right: <Button title={"Send"} onPress={state.params.sendInvites} />
-  //     })
-  // };
-
   updateInvited = (invited) => {
     this.setState({invited});
   }
 
   sendInvites = () => {
-    this.props.navigation.navigate('MeetingTimes');
-    // this.props.navigation.navigate('MeetingTimes', {state});
+    alert('Successfully Invited Members!');
+
+    // PUSH NEW MEETING TO FIREBASE DATABASE (commented out for testing purposes)
+
+    // const newMeeting = {
+    //   title: this.state.eventDetails["eventName"],
+    //   duration_hour: this.state.eventDetails["selectedHours"],
+    //   duration_minute: this.state.eventDetails["selectedMinutes"],
+    //   members: this.state.invited
+    // }
+    //
+    // firebase.app().database().ref('Meetings/').push({
+    //   ...newMeeting
+    // }).then((data) => {
+    //   console.log('data ' , data)
+    //   // do scheduling here maybe?
+    // }).catch((error) => {
+    //   console.log('error ' , error)
+    // });
+
+    this.props.navigation.navigate('MeetingTimes', {...this.state});
   }
 
   render() {

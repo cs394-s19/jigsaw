@@ -13,15 +13,15 @@ export default class InviteMembersForm extends Component {
         invited: []
     }
 
-    handleTapMember = (username) => {
+    handleTapMember = (user) => {
         let invited = [...this.state.invited];
 
-        if (invited.includes(username)) {
-            this.removeMember(username);
+        if (invited.includes(user.Email)) {
+            this.removeMember(user.Email);
             return
         }
 
-        invited.push(username);
+        invited.push(user);
         this.setState({
             invited
         })
@@ -46,8 +46,8 @@ export default class InviteMembersForm extends Component {
                         this.state.invited.map((username, index) => {
                             return (
                                 <View key={index} style={styles.inviteduser}>
-                                    <TouchableOpacity onPress={() => {this.removeMember(username)}}>
-                                        <Text>{username}</Text>
+                                    <TouchableOpacity onPress={() => {this.removeMember(username.Email)}}>
+                                        <Text>{username.uid}</Text>
                                     </TouchableOpacity>
                                 </View>
                             )
@@ -56,10 +56,10 @@ export default class InviteMembersForm extends Component {
                 </View>
                 <ScrollView style={styles.userlist}>
                     {
-                        this.props.data.map((userdata, index) => {
+                        this.props.data.data.map((userdata, index) => {
                             return (
                                 <View key={index} style={styles.userinfo}>
-                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata.uid)}}>
+                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}}>
                                         <View>
                                             <Text style={styles.userid}>{userdata.uid}</Text>
                                             <Text style={styles.useremail}>{userdata.Email}</Text>

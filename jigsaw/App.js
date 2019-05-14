@@ -2,11 +2,14 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import LoginScreen from './screens/LoginScreen';
 import firebase from './firebaseConfig';
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
+    fetchDataComplete: false,
+    currentUser: "adelinerohrbach2020@u.northwestern.edu", // adelinerohrbach2020@u.northwestern.edu
     data: {},
   };
 
@@ -24,14 +27,19 @@ export default class App extends React.Component {
         }))
 
         this.setState({
+          fetchDataComplete: true,
           data
         });
       }
     });
   }
 
+  logInUser = (userEmail) => {
+    this.setState({currentUser: userEmail});
+  }
+
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen && !this.state.fetchDataComplete) {
       return (
         <AppLoading
           startAsync={this._loadResourcesAsync}
@@ -39,11 +47,15 @@ export default class App extends React.Component {
           onFinish={this._handleFinishLoading}
         />
       );
+    } else if (this.state.currentUser == "") {
+      return (
+        <LoginScreen logInUser={this.logInUser} />
+      )
     } else {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator data={this.state.data} />
+          <AppNavigator data={this.state} />
         </View>
       );
     }
