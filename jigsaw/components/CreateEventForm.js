@@ -6,6 +6,8 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input, Button } from 'react-native-elements';
 import TimePicker from 'react-native-simple-time-picker';
 
 export default class CreateEventForm extends Component {
@@ -24,21 +26,14 @@ export default class CreateEventForm extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.eventfield}>
-                    <Text style={styles.fieldlabel}>Event Name: </Text>
-                    <TextInput style={styles.fieldinput}
-                        placeholder="Event name"
-                        onChangeText={val => this.setState({
-                            eventName: val
-                        })}
-                        value = {this.state.eventName}
+                <Input labelStyle={styles.inputLabel} containerStyle={styles.meetingName} label='Event Name:' onChangeText={val => this.setState({eventName: val})} value={this.state.eventName}/>
 
-                    />
-                </View>
-                <View style={styles.timefield}>
-                    <Text style={styles.timelabel}>Duration:</Text>
-                    <Text style={styles.timeinput}> {this.state.selectedHours}hr:{this.state.selectedMinutes}min</Text>
-                    <View style={styles.timepicker}>
+                <View style={styles.timeField}>
+                    <Text style={styles.timeLabel}>Duration:</Text>
+                    <View style={styles.time}>
+                        <Text style={styles.timeInput}> {this.state.selectedHours}hr {this.state.selectedMinutes}min</Text>
+                    </View>
+                    <View style={styles.timePicker}>
                         <TimePicker
                             selectedHours={this.state.selectedHours}
                             selectedMinutes={this.state.selectedMinutes}
@@ -48,12 +43,7 @@ export default class CreateEventForm extends Component {
                         />
                     </View>
                 </View>
-
-                <View style={styles.formbutton}>
-                    <TouchableOpacity style={styles.addButton} onPress={() => {this.props.submitEvent({...this.state})}}>
-                        <Text style={styles.addButtonText}>Create Event</Text>
-                    </TouchableOpacity>
-                </View>
+                <Button style={styles.addButton} title='Create Event' onPress={() => {this.props.submitEvent({...this.state})}}/>
             </View>
         )
     }
@@ -61,71 +51,50 @@ export default class CreateEventForm extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
-        position: 'absolute',
-        justifyContent: 'center',
+        flexDirection: 'column',
     },
-    eventfield: {
+    meetingName: {
         position: 'absolute',
+        top: 25,
+    },
+    timeField: {
         flex: 1,
-        flexDirection: 'row',
-        top: 30,
         width: '100%',
-        height: 50,
-        alignItems: 'center',
-        borderColor: 'black',
-        borderWidth: 2
+        top: 125,
+        alignItems: 'stretch',
     },
-    fieldlabel: {
+    timeLabel: {
         flex: 4,
-        justifyContent: 'center',
-        left: 10
+        fontSize: 18,
+        marginLeft: 10,
+        color: 'gray',
+        fontWeight: 'bold',
     },
-    fieldinput: {
+    timeInput: {
         flex: 6,
-        color: 'black',
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginLeft: 10,
         justifyContent: 'center',
-        left: 10
+        alignContent: 'center',
+        color: 'steelblue',
     },
-    timefield: {
-        flex: 1,
-        position: 'absolute',
-        width: '100%',
-        top: 120,
-        alignItems: 'center',
-        borderColor: 'black',
-        borderWidth: 2
-    },
-    timelabel: {
-        flex: 4,
+    time: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignContent: 'center',
     },
-    timeinput: {
-        flex: 6,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    timepicker: {
+    timePicker: {
         width: '100%',
         height: '70%',
-        justifyContent: 'center'
-    },
-    formbutton: {
-        position: 'absolute',
-        top: 450,
-        alignItems: 'center',
-        width: '100%'
+        justifyContent: 'center',
     },
     addButton: {
-      backgroundColor: 'blue',
-      width: 200,
-      height: 70,
-      alignItems: 'center', 
-      justifyContent: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        top: 200,
     },
-    addButtonText: {
-      color: 'white',
-      fontSize: 24
+    inputLabel: {
+        fontSize: 18,
+        color: 'gray',
     }
 });
