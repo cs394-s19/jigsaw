@@ -1,10 +1,206 @@
 {
   "Users" : {
+    "Addie" : {
+      "Email" : "adelinerohrbach2020@u.northwestern.edu",
+      "Schedule" : {
+        "Event1" : {
+          "Busy" : 1,
+          "Day" : "Tuesday",
+          "End" : "10:50",
+          "Name" : "English 338",
+          "Start" : "09:30"
+        },
+        "Event2" : {
+          "Busy" : 1,
+          "Day" : "Tuesday",
+          "End" : "12:20",
+          "Name" : "EECS 394",
+          "Start" : "11:00"
+        },
+        "Event3" : {
+          "Busy" : 1,
+          "Day" : "Tuesday",
+          "End" : "1:50",
+          "Name" : "EECS 348",
+          "Start" : "12:30"
+        },
+        "Event4" : {
+          "Busy" : 1,
+          "Day" : "Thursday",
+          "End" : "10:50",
+          "Name" : "English 338",
+          "Start" : "09:30"
+        },
+        "Event5" : {
+          "Busy" : 1,
+          "Day" : "Thursday",
+          "End" : "12:20",
+          "Name" : "EECS 394",
+          "Start" : "11:00"
+        },
+        "Event6" : {
+          "Busy" : 1,
+          "Day" : "Thursday",
+          "End" : "13:50",
+          "Name" : "EECS 348",
+          "Start" : "12:30"
+        },
+        "Event7" : {
+          "Busy" : 1,
+          "Day" : "Thursday",
+          "End" : "17:30",
+          "Name" : "EECS 338",
+          "Start" : "14:30"
+        }
+      }
+    },
+    "Andres" : {
+      "Email" : "andreskim315@gmail.com",
+      "Schedule" : {
+        "Event1" : {
+          "Busy" : 1,
+          "Day" : "Sunday",
+          "End" : "12:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event10" : {
+          "Busy" : 1,
+          "Day" : "Thursday",
+          "End" : "16:00",
+          "Name" : "School Work",
+          "Start" : "14:00"
+        },
+        "Event11" : {
+          "Busy" : 1,
+          "Day" : "Friday",
+          "End" : "12:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event12" : {
+          "Busy" : 1,
+          "Day" : "Saturday",
+          "End" : "12:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event2" : {
+          "Busy" : 1,
+          "Day" : "Monday",
+          "End" : "11:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event3" : {
+          "Busy" : 1,
+          "Day" : "Monday",
+          "End" : "16:00",
+          "Name" : "School Work",
+          "Start" : "14:00"
+        },
+        "Event4" : {
+          "Busy" : 1,
+          "Day" : "Monday",
+          "End" : "21:00",
+          "Name" : "School Work",
+          "Start" : "18:00"
+        },
+        "Event5" : {
+          "Busy" : 1,
+          "Day" : "Tuesday",
+          "End" : "13:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event6" : {
+          "Busy" : 1,
+          "Day" : "Tuesday",
+          "End" : "16:00",
+          "Name" : "School Work",
+          "Start" : "14:00"
+        },
+        "Event7" : {
+          "Busy" : 1,
+          "Day" : "Wednesday",
+          "End" : "12:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event8" : {
+          "Busy" : 1,
+          "Day" : "Wednesday",
+          "End" : "16:00",
+          "Name" : "School Work",
+          "Start" : "14:00"
+        },
+        "Event9" : {
+          "Busy" : 1,
+          "Day" : "Thursday",
+          "End" : "13:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        }
+      }
+    },
     "Justin" : {
       "Email" : "justinpeh2019@u.northwestern.edu",
       "Schedule" : {
         "Event1" : {
-          "Busy " : 1
+          "Busy " : 1,
+          "Day" : "Sunday",
+          "End" : "23:00",
+          "Name" : "Church",
+          "Start" : "09:00"
+        },
+        "Event2" : {
+          "Busy " : 1,
+          "Day" : "Monday",
+          "End" : "11:30",
+          "Name" : "Piano Lessons",
+          "Start" : "09:00"
+        },
+        "Event3" : {
+          "Busy " : 1,
+          "Day" : "Monday",
+          "End" : "17:00",
+          "Name" : "Guitar Lessons",
+          "Start" : "15:00"
+        },
+        "Event4" : {
+          "Busy " : 1,
+          "Day" : "Tuesday",
+          "End" : "16:00",
+          "Name" : "Violin Lessons",
+          "Start" : "11:00"
+        },
+        "Event5" : {
+          "Busy " : 1,
+          "Day" : "Wednesday",
+          "End" : "16:00",
+          "Name" : "Harp Lessons",
+          "Start" : "09:00"
+        },
+        "Event6" : {
+          "Busy " : 1,
+          "Day" : "Wednesday",
+          "End" : "23:00",
+          "Name" : "Gong Lessons",
+          "Start" : "22:00"
+        },
+        "Event7" : {
+          "Busy " : 1,
+          "Day" : "Thursday",
+          "End" : "16:00",
+          "Name" : "Drum Lessons",
+          "Start" : "11:00"
+        },
+        "Event8" : {
+          "Busy " : 1,
+          "Day" : "Thursday",
+          "End" : "23:00",
+          "Name" : "Timpani Lessons",
+          "Start" : "18:00"
         }
       },
       "Token" : ""
@@ -14,104 +210,37 @@
       "Schedule" : {
         "Event1" : {
           "Busy" : 1,
-          "End" : "22:00",
+          "Day" : "Monday",
+          "End" : "17:00",
           "Name" : "Monday",
           "Start" : "11:00"
         },
         "Event2" : {
-          "Busy" : 1
+          "Busy" : 1,
+          "Day" : "Tuesday",
+          "End" : "15:00",
+          "Name" : "School",
+          "Start" : "11:00"
+        },
+        "Event3" : {
+          "Busy" : 1,
+          "Day" : "Wednesday",
+          "End" : "14:00",
+          "Name" : "School",
+          "Start" : "11:00"
+        },
+        "Event4" : {
+          "Busy" : 1,
+          "Day" : "Thursday",
+          "End" : "18:00",
+          "Name" : "School",
+          "Start" : "11:00"
         }
       },
       "token" : " "
-    },
-    "Andres": {
-      "Email" : "andreskim315@gmail.com",
-      "Schedule" : {
-        "Event1" : {
-          "Busy": 1,
-          "End" : "12:00",
-          "Day" : "Sunday",
-          "Start" : "09:00",
-          "Name": "School Work"
-        },
-        "Event2" : {
-          "Busy": 1,
-          "End" : "11:00",
-          "Day" : "Monday",
-          "Start" : "09:00",
-          "Name": "School Work"
-        },
-        "Event3" : {
-          "Busy": 1,
-          "End" : "16:00",
-          "Day" : "Monday",
-          "Start" : "14:00",
-          "Name": "School Work"
-        },
-        "Event4" : {
-          "Busy": 1,
-          "End" : "21:00",
-          "Day" : "Monday",
-          "Start" : "18:00",
-          "Name": "School Work"
-        },
-        "Event5" : {
-          "Busy": 1,
-          "End" : "13:00",
-          "Day" : "Tuesday",
-          "Start" : "09:00",
-          "Name": "School Work"
-        },
-        "Event6" : {
-          "Busy": 1,
-          "End" : "16:00",
-          "Day" : "Tuesday",
-          "Start" : "14:00",
-          "Name": "School Work"
-        },
-        "Event7" : {
-          "Busy": 1,
-          "End" : "12:00",
-          "Day" : "Wednesday",
-          "Start" : "09:00",
-          "Name": "School Work"
-        },
-        "Event8" : {
-          "Busy": 1,
-          "End" : "16:00",
-          "Day" : "Wednesday",
-          "Start" : "14:00",
-          "Name": "School Work"
-        },
-        "Event9" : {
-          "Busy": 1,
-          "End" : "13:00",
-          "Day" : "Thursday",
-          "Start" : "09:00",
-          "Name": "School Work"
-        },
-        "Event10" : {
-          "Busy": 1,
-          "End" : "16:00",
-          "Day" : "Thursday",
-          "Start" : "14:00",
-          "Name": "School Work"
-        },
-        "Event11" : {
-          "Busy": 1,
-          "End" : "12:00",
-          "Day" : "Friday",
-          "Start" : "09:00",
-          "Name": "School Work"
-        },
-        "Event12" : {
-          "Busy": 1,
-          "End" : "12:00",
-          "Day" : "Saturday",
-          "Start" : "09:00",
-          "Name": "School Work"
-        }
-      }
     }
+  },
+  "Meetings": {
+
   }
 }
