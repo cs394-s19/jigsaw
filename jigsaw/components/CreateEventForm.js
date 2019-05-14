@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         flex: 6,
         fontSize: 20,
         fontWeight: 'bold',
-        marginLeft: 10,
+        marginLeft: '40%',
         justifyContent: 'center',
         alignContent: 'center',
         color: 'steelblue',
