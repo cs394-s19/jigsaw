@@ -16,9 +16,15 @@ export default class LoginScreen extends Component {
     isRegistering: false,
   }
 
-  registerUser = () => {
+  goToRegisterScreen = () => {
     this.setState({
       isRegistering: true
+    })
+  }
+
+  returnToLogin = () => {
+    this.setState({
+      isRegistering: false
     })
   }
 
@@ -32,7 +38,7 @@ export default class LoginScreen extends Component {
           <TouchableOpacity>
             <Text>Login</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.registerUser}>
+          <TouchableOpacity onPress={this.goToRegisterScreen}>
             <Text>Register</Text>
           </TouchableOpacity>
         </View>
@@ -40,7 +46,9 @@ export default class LoginScreen extends Component {
     }
 
     else if (this.state.isRegistering) {
-      <RegisterScreen.js email={this.state.email} />
+      return (
+        <RegisterScreen email={this.state.email} submitUserData={this.props.submitUserData} returnToLogin={this.returnToLogin}/>
+      )
     }
 
   }

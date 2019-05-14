@@ -15,18 +15,17 @@ export default class RegisterScreen extends Component {
     email: "",
   }
 
-  submitUserData = (email) => {
-    
-  }
-
   render() {
+    let name = this.state.name;
+    let email = this.state.email;
+
     return (
       <View style={styles.container}>
         <Image source={require('../data/images/wave.png')} style={styles.logo} />
         <Text style={styles.headerMessage}>Sign up with Jigsaw!</Text>
         <Input labelStyle={styles.inputLabel} containerStyle={styles.email} label='Name: ' onChangeText={val => this.setState({name: val})} value={this.state.name}/>
         <Input labelStyle={styles.inputLabel} containerStyle={styles.email} label='Email:' onChangeText={val => this.setState({email: val})} value={this.state.email}/>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {this.props.submitUserData(name,email); this.props.returnToLogin()}}>
           <Text>Submit</Text>
         </TouchableOpacity>
       </View>
