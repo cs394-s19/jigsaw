@@ -52,8 +52,8 @@ export default class CreateEventScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Button title={"Invite"} onPress={this.sendInvites} />
         <InviteMembersForm updateInvited={this.updateInvited} data={this.props.screenProps.data}/>
+        <Button title={"Invite"} onPress={this.sendInvites} />
       </ScrollView>
     );
   }
