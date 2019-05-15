@@ -13,12 +13,12 @@ export default class CalendarScreen extends React.Component {
     fullView: false
   }
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({ navigation, screenProps }) => {
     return {
       headerTitle: 'Calendar',
       headerRight: (
         <Button
-          onPress={() => { navigation.navigate('CreateCalendarEvent'); }}
+          onPress={() => { navigation.navigate('CreateCalendarEvent', screenProps); }}
           title="Add Event"
           color="#007AFF"
         />
