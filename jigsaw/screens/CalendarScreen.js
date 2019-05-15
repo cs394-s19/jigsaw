@@ -45,7 +45,7 @@ export default class CalendarScreen extends React.Component {
             !this.state.fullView ? (
               <WeeklyCalendarView data={this.props.screenProps.data} />
             ) : (
-              null
+              <FullCalendarView data={this.props.screenProps.data} />
             )
           }
         </ScrollView>
