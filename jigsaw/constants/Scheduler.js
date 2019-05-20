@@ -125,12 +125,24 @@ class timeBlock{
 }
 
 function getBestTimes(blockSize, map){
+  for(var i = 1; i<8; i++){
+    for(var j = 0; j<24; j++){
+      for(var k = 0; k<2; k++){
+        if((i*1440+j*60+k*30 + blockSize*30) > (7*1440+23*60+30)){
+          break;
+        }
+        var hash = i+":"+j+":"+(k*timeblock);
+        var arr = map[hash];
+        
+      }
+    }
+  }
   // startP = 0;
   // endP = blockSize;
   // dayP = 48;
   // dayCounter = 1;
   // while(dayCounter < 8) {
-    
+
   // }
   // for (var key in map) {
   //   console.log(key, map[key]);
