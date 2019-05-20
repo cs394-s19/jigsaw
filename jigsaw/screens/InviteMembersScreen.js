@@ -30,21 +30,29 @@ export default class CreateEventScreen extends React.Component {
 
     // PUSH NEW MEETING TO FIREBASE DATABASE (commented out for testing purposes)
 
-    // const newMeeting = {
-    //   title: this.state.eventDetails["eventName"],
-    //   duration_hour: this.state.eventDetails["selectedHours"],
-    //   duration_minute: this.state.eventDetails["selectedMinutes"],
-    //   members: this.state.invited
-    // }
-    //
-    // firebase.app().database().ref('Meetings/').push({
-    //   ...newMeeting
-    // }).then((data) => {
-    //   console.log('data ' , data)
-    //   // do scheduling here maybe?
-    // }).catch((error) => {
-    //   console.log('error ' , error)
-    // });
+    var members = this.state.invited.map(i => {
+      return {
+        email: i["Email"],
+        status: (i["Email"] == this.props.screenProps.data.currentUser) ? 2 : 1, // 0: declined, 1: invited, 2: accepted
+        isOwner: (i["Email"] == this.props.screenProps.data.currentUser) ? true : false
+      }
+    });
+
+    const newMeeting = {
+      title: this.state.eventDetails["eventName"],
+      duration_hour: this.state.eventDetails["selectedHours"],
+      duration_minute: this.state.eventDetails["selectedMinutes"],
+      members: members
+    }
+
+    firebase.app().database().ref('Meetings/').push({
+      ...newMeeting
+    }).then((data) => {
+      console.log('data ' , data)
+      // do scheduling here maybe?
+    }).catch((error) => {
+      console.log('error ' , error)
+    });
 
     this.props.navigation.navigate('MeetingTimes', {...this.state});
   }

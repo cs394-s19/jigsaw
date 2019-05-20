@@ -9,8 +9,9 @@ export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
     fetchDataComplete: false,
-    currentUser: "adelinerohrbach2020@u.northwestern.edu", // adelinerohrbach2020@u.northwestern.edu
+    currentUser: "justinpeh2019@u.northwestern.edu", // adelinerohrbach2020@u.northwestern.edu
     data: {},
+    meetings: {},
   };
 
   componentDidMount() {
@@ -18,17 +19,22 @@ export default class App extends React.Component {
   }
 
   readUserData() {
-    firebase.database().ref('Users/').once('value', (snapshot) => {
+    firebase.database().ref('/').once('value', (snapshot) => {
       const pulledData = snapshot.val();
       if (pulledData) {
-        const data = Object.keys(pulledData).map(key => ({
-          ...pulledData[key],
+        const user_data = Object.keys(pulledData["Users"]).map(key => ({
+          ...pulledData["Users"][key],
           uid: key
-        }))
+        }));
+        const meetings_data = Object.keys(pulledData["Meetings"]).map(key => ({
+          ...pulledData["Meetings"][key],
+          uid: key
+        }));
 
         this.setState({
           fetchDataComplete: true,
-          data
+          data: user_data,
+          meetings: meetings_data
         });
       }
     });
