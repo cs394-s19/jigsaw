@@ -161,25 +161,6 @@ function grabintersect(window) {
 // 1. Given block size and configured map with all users.
 // 2. Output best blocksize amount of blocks from map.
 function getBestTimes(blockSize, map){
-  // for(var i = 1; i<8; i++){
-  //   for(var j = 0; j<24; j++){
-  //     for(var k = 0; k<2; k++){
-  //
-  //       // check if RHS of window is out of range.
-  //       if((i*1440+j*60+k*30 + blockSize*30) > (7*1440+23*60+30)){
-  //         break;
-  //       }
-  //       var hash = i+":"+j+":"+(k*timeblock);
-  //       var arr = map[hash];
-  //
-  //
-  //       for(var x = 0; x < blockSize - 1; x++) {
-  //         compareBlock(map[hash ])
-  //       }
-  //     }
-  //   }
-  // }
-
   // assume that map is ordered.
   var times = Object.keys(map);
   var bestTimes = [];
@@ -194,6 +175,9 @@ function getBestTimes(blockSize, map){
     }
 
     // check for blocks that are in the same day...
+    // given the window (size of blocksize), return bool if all blocks in window are valid
+    // valid means all consecutive times in the window are 30 minutes apart.
+    if()
 
     // grab intersection of people
     var smallWindow = {
