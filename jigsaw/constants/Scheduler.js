@@ -126,25 +126,36 @@ class timeBlock{
 
 // grabintersect returns the people that are available for all blocks in window.
 // Takes in window.
-function incrementTime(timestamp,increment){
-  var times = timestamp.split(":");
-  var i = parseInt(times[0],10);
-  var j = parseInt(times[1],10);
-  var k = parseInt(times[2],10);
-  if(k == 0){
-    k = 1;
-    return i+":"+j+":"+k*30;
+function timeCheck(window){
+  //window[0][0], window[1][0];
+  for(var i = 1; i<window.length; i++){
+    var times = windows[i-1][0].split(":");
+    var i = parseInt(times[0],10);
+    var j = parseInt(times[1],10);
+    var k = parseInt(times[2],10);
+    // Second time
+    var times2 = windows[i][0].split(":");
+    var i2 = parseInt(times[0],10);
+    var j2 = parseInt(times[1],10);
+    var k2 = parseInt(times[2],10);
+    if(!noGap(i,j,k,i2,j2,k2)){
+      return false;
+    }
   }
-  else if(j == 23){
-    i++;
-    j = 0;
-    k = 0;
-    return i+":"+j+":"+k*30;
+  return true;
+}
+
+function noGap(i,j,k,i2,j2,k2){
+  if(i == i2){
+    if(j == j2){
+      return k2 == k+30;
+    }
+    else{
+      return k2 == k-30;
+    }
   }
   else{
-    k = 0;
-    j++;
-    return i+":"+j+":"+k*30;
+    return i == i2-1 && j==23 && j2==0 && k2 == k-30;
   }
 }
 
@@ -177,7 +188,9 @@ function getBestTimes(blockSize, map){
     // check for blocks that are in the same day...
     // given the window (size of blocksize), return bool if all blocks in window are valid
     // valid means all consecutive times in the window are 30 minutes apart.
-    if()
+    if(!timeCheck(window)){
+      continue;
+    }
 
     // grab intersection of people
     var smallWindow = {
