@@ -124,29 +124,59 @@ class timeBlock{
   }
 }
 
-function getBestTimes(blockSize, map){
-  for(var i = 1; i<8; i++){
-    for(var j = 0; j<24; j++){
-      for(var k = 0; k<2; k++){
-        if((i*1440+j*60+k*30 + blockSize*30) > (7*1440+23*60+30)){
-          break;
-        }
-        var hash = i+":"+j+":"+(k*timeblock);
-        var arr = map[hash];
-        
-      }
-    }
-  }
-  // startP = 0;
-  // endP = blockSize;
-  // dayP = 48;
-  // dayCounter = 1;
-  // while(dayCounter < 8) {
+// grabintersect returns the people that are available for all blocks in window.
+// Takes in window.
+function grabintersect(window) {
 
+}
+
+// Blocksize is how many 30 min blocks.
+// getBestTimes should:
+// 1. Given block size and configured map with all users.
+// 2. Output best blocksize amount of blocks from map.
+function getBestTimes(blockSize, map){
+  // for(var i = 1; i<8; i++){
+  //   for(var j = 0; j<24; j++){
+  //     for(var k = 0; k<2; k++){
+  //
+  //       // check if RHS of window is out of range.
+  //       if((i*1440+j*60+k*30 + blockSize*30) > (7*1440+23*60+30)){
+  //         break;
+  //       }
+  //       var hash = i+":"+j+":"+(k*timeblock);
+  //       var arr = map[hash];
+  //
+  //
+  //       for(var x = 0; x < blockSize - 1; x++) {
+  //         compareBlock(map[hash ])
+  //       }
+  //     }
+  //   }
   // }
-  // for (var key in map) {
-  //   console.log(key, map[key]);
-  // }
+
+  // assume that map is ordered.
+  var times = Object.keys(map);
+  var bestTimes = [];
+
+  for(var i = 0; i < times.length - blockSize; i++){
+    // get window of blockSize
+    var window = [];
+    for(var x = 0; x < blockSize; x++) {
+      // times[i+x] = i:j:k
+      // map[times[i+x]] = the users...
+      window.push([times[i+x], map[times[i+x]]]);
+    }
+
+    // check for blocks that are in the same day...
+
+    // grab intersection of people
+    var smallWindow = {
+      starTime: window[0][0],
+      people: grabintersect(window),
+    };
+    bestTimes.push(smallWindow);
+  }
+
 }
 
 function test(){
