@@ -9,7 +9,9 @@ export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
     fetchDataComplete: false,
+
     currentUser: "andreskim315@gmail.com", // adelinerohrbach2020@u.northwestern.edu
+
     data: {},
   };
 
@@ -38,6 +40,12 @@ export default class App extends React.Component {
     this.setState({currentUser: userEmail});
   }
 
+  submitUserData = (name, email) => {
+    firebase.database().ref('Users/').child(name).set({
+      Email: email
+    });
+  }
+
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen && !this.state.fetchDataComplete) {
       return (
@@ -49,7 +57,7 @@ export default class App extends React.Component {
       );
     } else if (this.state.currentUser == "") {
       return (
-        <LoginScreen logInUser={this.logInUser} />
+        <LoginScreen logInUser={this.logInUser} submitUserData={this.submitUserData}/>
       )
     } else {
       return (
