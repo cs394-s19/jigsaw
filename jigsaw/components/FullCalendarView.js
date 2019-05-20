@@ -4,13 +4,14 @@ import {
     View
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
+import 'babel-polyfill'
+
 
 
 export default class FullCalendarView extends Component {
   render() {
     return (
-      //<View style={styles.container}>
-<Agenda
+      <Agenda
   // the list of items that have to be displayed in agenda. If you want to render item as empty date
   // the value of date key kas to be an empty array []. If there exists no value for date key it is
   // considered that the date in question is not yet loaded
@@ -18,10 +19,8 @@ export default class FullCalendarView extends Component {
     '2019-05-22': [{text: 'item 1 - any js object'}],
     '2019-05-23': [{text: 'item 2 - any js object'}],
     '2019-05-24': [],
-    '2019-08-25': [{text: 'item 3 - any js object'},{text: 'any js object'}]
+    '2019-05-25': [{text: 'item 3 - any js object'},{text: 'any js object'}]
   }}
-
-  current={'2019-05-13'}
   // callback that gets called when items for a certain month should be loaded (month became visible)
   loadItemsForMonth={(month) => {console.log('trigger items loading')}}
   // callback that fires when the calendar is opened or closed
@@ -31,9 +30,9 @@ export default class FullCalendarView extends Component {
   // callback that gets called when day changes while scrolling agenda list
   onDayChange={(day)=>{console.log('day changed')}}
   // initially selected day
-  selected={'2019-05-14'}
+  selected={'2019-05-16'}
   // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-  minDate={'2019-01-01'}
+  minDate={'2018-05-10'}
   // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
   maxDate={'2020-05-30'}
   // Max amount of months allowed to scroll to the past. Default = 50
@@ -53,7 +52,7 @@ export default class FullCalendarView extends Component {
   // specify your item comparison function for increased performance
   rowHasChanged={(r1, r2) => {return r1.text !== r2.text}}
   // Hide knob button. Default = false
-  hideKnob={true}
+  hideKnob={false}
   // By default, agenda dates are marked if they have at least one item, but you can override this if needed
   markedDates={{
     '2019-05-16': {selected: true, marked: true},
@@ -74,6 +73,7 @@ export default class FullCalendarView extends Component {
     agendaTodayColor: 'red',
     agendaKnobColor: 'blue'
   }}
+
   // agenda container style
   style={{}}
 />

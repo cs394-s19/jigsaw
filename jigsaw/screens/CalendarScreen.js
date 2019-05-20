@@ -40,15 +40,14 @@ export default class CalendarScreen extends React.Component {
   render() {
     if (this.props.screenProps.data.fetchDataComplete) {
       return (
-        <ScrollView style={styles.container}>
-          {
+          
             !this.state.fullView ? (
-              <WeeklyCalendarView data={this.props.screenProps.data} />
-            ) : (
               <FullCalendarView data={this.props.screenProps.data} />
-            )
-          }
-        </ScrollView>
+            ) : (
+              <ScrollView style={styles.container}>
+              <WeeklyCalendarView data={this.props.screenProps.data} />
+              </ScrollView>
+            )          
       );
     } else {
       return (
