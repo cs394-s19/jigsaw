@@ -30,7 +30,6 @@ export default class WeeklyCalendarView extends Component {
       if (event["Day"] == day) {
         return (
           <TouchableOpacity key={index} style={styles.eventContainer}>
-            <Text style={styles.eventDay}>{event["Day"]}</Text>
             <Text style={styles.eventTitle}>{event["Name"]}</Text>
             <Text style={styles.eventTime}>{event["Start"]} - {event["End"]}</Text>
           </TouchableOpacity>
@@ -94,20 +93,22 @@ const styles = StyleSheet.create({
   },
   eventContainer: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     width: '100%',
     height: 100,
-    borderColor: '#000000',
-    borderWidth: 2,
+    paddingTop: 40,
+    paddingLeft: 40,
+    paddingRight: 40
   },
   eventDay: {
     fontSize: 20
   },
   eventTitle: {
-    fontSize: 15
+    fontSize: 15,
   },
-  meetingTime: {
-    fontSize: 20
+  eventTime: {
+    fontSize: 20,
+    marginLeft: 'auto'
   },
 });
