@@ -126,6 +126,28 @@ class timeBlock{
 
 // grabintersect returns the people that are available for all blocks in window.
 // Takes in window.
+function incrementTime(timestamp,increment){
+  var times = timestamp.split(":");
+  var i = parseInt(times[0],10);
+  var j = parseInt(times[1],10);
+  var k = parseInt(times[2],10);
+  if(k == 0){
+    k = 1;
+    return i+":"+j+":"+k*30;
+  }
+  else if(j == 23){
+    i++;
+    j = 0;
+    k = 0;
+    return i+":"+j+":"+k*30;
+  }
+  else{
+    k = 0;
+    j++;
+    return i+":"+j+":"+k*30;
+  }
+}
+
 function grabintersect(window) {
 
 }
