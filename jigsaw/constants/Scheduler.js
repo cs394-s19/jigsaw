@@ -149,7 +149,11 @@ function incrementTime(timestamp,increment){
 }
 
 function grabintersect(window) {
-
+  var initialpeople = window[0][1];
+  for(var i = 1; i < window.length; i++) {
+    initialpeople = initialpeople.filter(value => window[i][1].includes(value))
+  }
+  return initialpeople;
 }
 
 // Blocksize is how many 30 min blocks.
