@@ -39,7 +39,7 @@ export default class InviteMembersForm extends Component {
     }
 
     render() {
-        handleClick = (e) => {
+        handleClick = (e, user) => {
             let invited = [...this.state.invited];
 
             if (invited.includes(user.Email)) {
@@ -71,7 +71,7 @@ export default class InviteMembersForm extends Component {
                             return (
                                 <View key={index}>
                                     <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}}
-                                                      onClick={((e) => this.handleClick(e))}>
+                                                      onClick={((e) => this.handleClick(e, userdata))}>
                                         <View style={this.state.invited.includes(userdata.Email) ? styles.greenInfo : styles.noInfo}>
                                             <Text style={styles.userid}>{userdata.uid}</Text>
                                             <Text style={styles.useremail}>{userdata.Email}</Text>
