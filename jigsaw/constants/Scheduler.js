@@ -206,7 +206,7 @@ function getBestTimes(blockSize, map){
 
   }
   // order bestTimes by the amount of people.
-  bestTimes.sort((a, b) => a.people > b.people);
+  bestTimes.sort((a, b) => a.people.length > b.people.length);
   return bestTimes;
 }
 
