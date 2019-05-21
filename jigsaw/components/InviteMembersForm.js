@@ -10,7 +10,7 @@ import {
 export default class InviteMembersForm extends Component {
 
     state = {
-        invited: []
+        invited: [],
     }
 
     handleTapMember = (user) => {
@@ -26,6 +26,7 @@ export default class InviteMembersForm extends Component {
             invited
         })
         this.props.updateInvited(invited);
+
     }
 
     removeMember = (toDelete) => {
@@ -38,6 +39,16 @@ export default class InviteMembersForm extends Component {
     }
 
     render() {
+        handleClick = (e) => {
+            let invited = [...this.state.invited];
+
+            if (invited.includes(user.Email)) {
+                e.style = styles.noInfo;
+            } else {
+                e.style = styles.greenInfo;
+            }
+        }
+
         return (
             <View style={styles.container}>
                 <Text style={styles.header}>Invited members:</Text>
@@ -58,9 +69,10 @@ export default class InviteMembersForm extends Component {
                     {
                         this.props.data.data.map((userdata, index) => {
                             return (
-                                <View key={index} style={styles.userinfo}>
-                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}}>
-                                        <View>
+                                <View key={index}>
+                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}}
+                                                      onClick={((e) => this.handleClick(e))}>
+                                        <View style={this.state.invited.includes(userdata.Email) ? styles.greenInfo : styles.noInfo}>
                                             <Text style={styles.userid}>{userdata.uid}</Text>
                                             <Text style={styles.useremail}>{userdata.Email}</Text>
                                         </View>
@@ -103,8 +115,6 @@ const styles = StyleSheet.create({
     inviteduser: {
         height: 20,
         width: 50,
-        borderColor: 'black',
-        borderWidth: 2,
         fontSize: 20,
     },
     userlist: {
@@ -112,18 +122,21 @@ const styles = StyleSheet.create({
         width: '100%',
         position: 'absolute',
         top: 100,
-        borderColor: 'black',
-        borderWidth: 2
     },
-    userinfo: {
+    noInfo: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
         height: 100,
-        borderColor: 'red',
-        borderWidth: 2,
-        backgroundColor: 'rgba(0, 0, 200, 0.1)'
+    },
+    greenInfo: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: '100%',
+        height: 100,
+        backgroundColor: 'green',
     },
     userid: {
         height: '70%',
@@ -133,6 +146,7 @@ const styles = StyleSheet.create({
         left: 10,
         color: 'black',
         fontSize: 30,
+        paddingTop: 20,
     },
     useremail: {
         height: '30%',
@@ -142,6 +156,7 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         fontSize: 15,
         color: 'rgba(0, 0, 0, 0.3)',
+        paddingBottom: 30,
     },
 
 
