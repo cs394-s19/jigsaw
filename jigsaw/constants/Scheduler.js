@@ -90,16 +90,17 @@ var parseTime = (se, time) => {
 
 var parseEventForUser = (user) => {
   var events = [];
-  user.Schedule.forEach((event) => {
+  for (var event in user.Schedule) {
     var newEvent  = {
       "Busy": 1,
-      "Day": days.indexOf(event.Day) + 1,
-      "Name": event.Name,
-      "Start": parseTime("start", event.Start),
-      "End": parseTime("end", event.End),
+      "Day": days.indexOf(user.Schedule[event].Day) + 1,
+      "Name": user.Schedule[event].Name,
+      "Start": parseTime("start", user.Schedule[event].Start),
+      "End": parseTime("end", user.Schedule[event].End),
     };
     events.push(newEvent);
-  });
+  }
+
   events.sort(function(a,b) {
     return (a.Day > b.Day) ? 1 : ((b.Day > a.Day) ? -1 : ((a.Start > b.Start) ? 1 : ((b.Start > a.Start) ? -1 : ((a.End > b.End) ? 1 : 0))));
   })
@@ -210,52 +211,209 @@ function getBestTimes(blockSize, map){
   return bestTimes;
 }
 
-var scheduleBestTime = (blockSize, users) {
+var scheduleBestTime = (blockSize, users) => {
   var map = {};
 
   // populate map with user data.
   for (var user in users) {
     if (users.hasOwnProperty(user)) {
-      var userEvents = parseEventForUser(user);
-      map = populateMapForUser(user.Email, userEvents, map);
+      var userEvents = parseEventForUser(users[user]);
+      map = populateMapForUser(user, userEvents, map);
     }
   }
   return getBestTimes(blockSize, map);
 }
 
 function test(){
-  var map = {};
-  var events = [];
-  var event1  = {
-    "Busy": 1,
-    "Day": 1,
-    "Name": "Event Name",
-    "Start": "11:12",
-    "End": "13:55",
-  };
-  var event2  = {
-    "Busy": 1,
-    "Day": 2,
-    "Name": "Event Name",
-    "Start": "11:12",
-    "End": "13:23",
-  };
-  var event3  = {
-    "Busy": 1,
-    "Day": 2,
-    "Name": "Event Name",
-    "Start": "11:12",
-    "End": "14:44",
-  };
-  events.push(event2);
-  events.push(event1);
-  events.push(event3);
-  events.sort(function(a,b) {
-    return (a.Day > b.Day) ? 1 : ((b.Day > a.Day) ? -1 : ((a.Start > b.Start) ? 1 : ((b.Start > a.Start) ? -1 : ((a.End > b.End) ? 1 : 0))));
-  })
-  map = populateMapForUser("userA",events, map);
-  var bestTimes = getBestTimes(2,map);
+  const users = {
+    "Andres" : {
+      "Email" : "andreskim315@gmail.com",
+      "Schedule" : {
+        "Event1" : {
+          "Busy" : 1,
+          "Day" : "Sunday",
+          "End" : "12:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event10" : {
+          "Busy" : 1,
+          "Day" : "Thursday",
+          "End" : "16:00",
+          "Name" : "School Work",
+          "Start" : "14:00"
+        },
+        "Event11" : {
+          "Busy" : 1,
+          "Day" : "Friday",
+          "End" : "12:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event12" : {
+          "Busy" : 1,
+          "Day" : "Saturday",
+          "End" : "12:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event2" : {
+          "Busy" : 1,
+          "Day" : "Monday",
+          "End" : "11:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event3" : {
+          "Busy" : 1,
+          "Day" : "Monday",
+          "End" : "16:00",
+          "Name" : "School Work",
+          "Start" : "14:00"
+        },
+        "Event4" : {
+          "Busy" : 1,
+          "Day" : "Monday",
+          "End" : "21:00",
+          "Name" : "School Work",
+          "Start" : "18:00"
+        },
+        "Event5" : {
+          "Busy" : 1,
+          "Day" : "Tuesday",
+          "End" : "13:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event6" : {
+          "Busy" : 1,
+          "Day" : "Tuesday",
+          "End" : "16:00",
+          "Name" : "School Work",
+          "Start" : "14:00"
+        },
+        "Event7" : {
+          "Busy" : 1,
+          "Day" : "Wednesday",
+          "End" : "12:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        },
+        "Event8" : {
+          "Busy" : 1,
+          "Day" : "Wednesday",
+          "End" : "16:00",
+          "Name" : "School Work",
+          "Start" : "14:00"
+        },
+        "Event9" : {
+          "Busy" : 1,
+          "Day" : "Thursday",
+          "End" : "13:00",
+          "Name" : "School Work",
+          "Start" : "09:00"
+        }
+      }
+    },
+    "Justin" : {
+      "Email" : "justinpeh2019@u.northwestern.edu",
+      "Schedule" : {
+        "Event1" : {
+          "Busy " : 1,
+          "Day" : "Sunday",
+          "End" : "23:00",
+          "Name" : "Church",
+          "Start" : "09:00"
+        },
+        "Event2" : {
+          "Busy " : 1,
+          "Day" : "Monday",
+          "End" : "11:30",
+          "Name" : "Piano Lessons",
+          "Start" : "09:00"
+        },
+        "Event3" : {
+          "Busy " : 1,
+          "Day" : "Monday",
+          "End" : "17:00",
+          "Name" : "Guitar Lessons",
+          "Start" : "15:00"
+        },
+        "Event4" : {
+          "Busy " : 1,
+          "Day" : "Tuesday",
+          "End" : "16:00",
+          "Name" : "Violin Lessons",
+          "Start" : "11:00"
+        },
+        "Event5" : {
+          "Busy " : 1,
+          "Day" : "Wednesday",
+          "End" : "16:00",
+          "Name" : "Harp Lessons",
+          "Start" : "09:00"
+        },
+        "Event6" : {
+          "Busy " : 1,
+          "Day" : "Wednesday",
+          "End" : "23:00",
+          "Name" : "Gong Lessons",
+          "Start" : "22:00"
+        },
+        "Event7" : {
+          "Busy " : 1,
+          "Day" : "Thursday",
+          "End" : "16:00",
+          "Name" : "Drum Lessons",
+          "Start" : "11:00"
+        },
+        "Event8" : {
+          "Busy " : 1,
+          "Day" : "Thursday",
+          "End" : "23:00",
+          "Name" : "Timpani Lessons",
+          "Start" : "18:00"
+        }
+      },
+      "Token" : ""
+    },
+    "Matthew" : {
+      "Email" : "matthewwang2020@u.northwestern.edu",
+      "Schedule" : {
+        "Event1" : {
+          "Busy" : 1,
+          "Day" : "Monday",
+          "End" : "17:00",
+          "Name" : "Monday",
+          "Start" : "11:00"
+        },
+        "Event2" : {
+          "Busy" : 1,
+          "Day" : "Tuesday",
+          "End" : "15:00",
+          "Name" : "School",
+          "Start" : "11:00"
+        },
+        "Event3" : {
+          "Busy" : 1,
+          "Day" : "Wednesday",
+          "End" : "14:00",
+          "Name" : "School",
+          "Start" : "11:00"
+        },
+        "Event4" : {
+          "Busy" : 1,
+          "Day" : "Thursday",
+          "End" : "18:00",
+          "Name" : "School",
+          "Start" : "11:00"
+        }
+      },
+      "token" : " "
+    }
+  }
+  var bestTimes = scheduleBestTime(2,users);
   console.log(bestTimes);
 }
-// test();
+test();
 module.exports.scheduleBestTime = scheduleBestTime;
