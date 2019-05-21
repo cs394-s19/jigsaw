@@ -1,5 +1,4 @@
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-var map = {};
 
 // user is the name of the user
 // map is a hashmap
@@ -128,13 +127,18 @@ class timeBlock{
 // Takes in window.
 function timeCheck(window){
   //window[0][0], window[1][0];
-  for(var i = 1; i<window.length; i++){
-    var times = windows[i-1][0].split(":");
+  for(var i = 0; i<window.length-1; i++){
+    var times = window[i][0].split(":");
     var i = parseInt(times[0],10);
     var j = parseInt(times[1],10);
     var k = parseInt(times[2],10);
     // Second time
-    var times2 = windows[i][0].split(":");
+    // console.log(window[i]);
+    // console.log(window[i][0]);
+    if(i+1 >= window.length){
+      return true;
+    }
+    var times2 = window[i+1][0].split(":");
     var i2 = parseInt(times[0],10);
     var j2 = parseInt(times[1],10);
     var k2 = parseInt(times[2],10);
@@ -188,18 +192,21 @@ function getBestTimes(blockSize, map){
     // check for blocks that are in the same day...
     // given the window (size of blocksize), return bool if all blocks in window are valid
     // valid means all consecutive times in the window are 30 minutes apart.
+    // console.log(window);
     if(!timeCheck(window)){
       continue;
     }
 
     // grab intersection of people
     var smallWindow = {
-      starTime: window[0][0],
+      startTime: window[0][0],
       people: grabintersect(window),
     };
     bestTimes.push(smallWindow);
-  }
 
+    // order bestTimes by the amount of people.
+    bestTimes.sort((a, b) => a.people > b.people);
+  }
 }
 
 function test(){
