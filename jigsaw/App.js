@@ -9,7 +9,9 @@ export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
     fetchDataComplete: false,
-    currentUser: "andreskim315@gmail.com", // andreskim315@gmail.co
+
+    currentUser: "andreskim315@gmail.com", // adelinerohrbach2020@u.northwestern.edu
+
     data: {},
   };
 
