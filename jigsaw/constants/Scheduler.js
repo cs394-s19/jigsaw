@@ -115,14 +115,6 @@ function schedule(users, preferences) {
   return map;
 }
 
-class timeBlock{
-  constructor(){
-    var people = 0;
-    var startTime = 0;
-    var endTime = 0;
-  }
-}
-
 // grabintersect returns the people that are available for all blocks in window.
 // Takes in window.
 function timeCheck(window){
@@ -218,6 +210,19 @@ function getBestTimes(blockSize, map){
   return bestTimes;
 }
 
+var scheduleBestTime = (blockSize, users) {
+  var map = {};
+
+  // populate map with user data.
+  for (var user in users) {
+    if (users.hasOwnProperty(user)) {
+      var userEvents = parseEventForUser(user);
+      map = populateMapForUser(user.Email, userEvents, map);
+    }
+  }
+  return getBestTimes(blockSize, map);
+}
+
 function test(){
   var map = {};
   var events = [];
@@ -252,4 +257,5 @@ function test(){
   var bestTimes = getBestTimes(2,map);
   console.log(bestTimes);
 }
-test();
+// test();
+module.exports.scheduleBestTime = scheduleBestTime;
