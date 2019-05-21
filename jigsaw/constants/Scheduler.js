@@ -206,7 +206,15 @@ function getBestTimes(blockSize, map){
 
   }
   // order bestTimes by the amount of people.
-  bestTimes.sort((a, b) => a.people.length > b.people.length);
+  function compare(a, b){
+    if (a.people.length > b.people.length) {
+      return -1;
+    }
+    else{
+      return 1;
+    }
+  }
+  bestTimes.sort(compare);
   return bestTimes;
 }
 
@@ -241,6 +249,7 @@ function test(){
     return (a.Day > b.Day) ? 1 : ((b.Day > a.Day) ? -1 : ((a.Start > b.Start) ? 1 : ((b.Start > a.Start) ? -1 : ((a.End > b.End) ? 1 : 0))));
   })
   map = populateMapForUser("userA",events, map);
-  getBestTimes(2,map);
+  var bestTimes = getBestTimes(2,map);
+  console.log(bestTimes);
 }
 test();
