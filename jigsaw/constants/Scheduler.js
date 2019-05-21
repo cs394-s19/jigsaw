@@ -204,9 +204,10 @@ function getBestTimes(blockSize, map){
     };
     bestTimes.push(smallWindow);
 
-    // order bestTimes by the amount of people.
-    bestTimes.sort((a, b) => a.people > b.people);
   }
+  // order bestTimes by the amount of people.
+  bestTimes.sort((a, b) => a.people > b.people);
+  return bestTimes;
 }
 
 function test(){
