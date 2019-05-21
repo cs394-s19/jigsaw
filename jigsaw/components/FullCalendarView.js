@@ -4,8 +4,6 @@ import {
     View
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
-import 'babel-polyfill'
-
 
 
 export default class FullCalendarView extends Component {
