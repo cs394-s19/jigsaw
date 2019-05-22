@@ -54,13 +54,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     meetingName: {
-        position: 'absolute',
+        //position: 'absolute',
         top: 25,
     },
     timeField: {
         flex: 1,
         width: '100%',
-        top: 125,
+        //top: 125,
         alignItems: 'stretch',
     },
     timeLabel: {

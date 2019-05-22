@@ -58,6 +58,7 @@ export default class InviteMembersForm extends Component {
                 <ScrollView style={styles.userlist}>
                     {
                         this.props.data.data.map((userdata, index) => {
+                            if (userdata.Email != this.props.data.currentUser) {
                             return (
                                 <View key={index}>
                                     <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}} >
@@ -67,7 +68,7 @@ export default class InviteMembersForm extends Component {
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                            )
+                            )}
                         })
                     }
                 </ScrollView>
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
     userlist: {
         flex: 8,
         width: '100%',
-        position: 'absolute',
+        //position: 'absolute',
         top: 100,
     },
     noInfo: {

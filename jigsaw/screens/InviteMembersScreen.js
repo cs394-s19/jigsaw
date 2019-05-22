@@ -24,6 +24,12 @@ export default class CreateEventScreen extends React.Component {
   updateInvited = (invited) => {
     this.setState({invited});
   }
+  
+  invitedPlusOrganizer = (invitees) => {
+      let newInvites = invitees;
+      newInvites.push({email: this.props.screenProps.data.currentUser, status: 2, isOwner: true});
+      return newInvites
+  }
 
   sendInvites = () => {
     alert('Successfully Invited Members!');
@@ -42,7 +48,7 @@ export default class CreateEventScreen extends React.Component {
       title: this.state.eventDetails["eventName"],
       duration_hour: this.state.eventDetails["selectedHours"],
       duration_minute: this.state.eventDetails["selectedMinutes"],
-      members: members
+      members: this.invitedPlusOrganizer(members)
     }
 
     firebase.app().database().ref('Meetings/').push({
