@@ -51,16 +51,15 @@ export default class CreateEventForm extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'column',
+      paddingTop: "10%"
     },
     meetingName: {
-        position: 'absolute',
-        top: 25,
+
     },
     timeField: {
         flex: 1,
         width: '100%',
-        top: 125,
+        paddingTop: "10%",
         alignItems: 'stretch',
     },
     timeLabel: {
@@ -87,11 +86,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '70%',
         justifyContent: 'center',
+        marginBottom: 20
     },
     addButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        top: 200,
     },
     inputLabel: {
         fontSize: 18,
