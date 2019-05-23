@@ -5,12 +5,14 @@ const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", 
 // obj is a sorted array of events for the user
 function populateMapForUser(user,obj,map){
   var timeblock = 30;
-  for(var i = 1; i<8; i++){
-    for(var j = 0; j<24; j++){
-      for(var k = 0; k<2; k++){
-        var hash = i+":"+j+":"+(k*timeblock);
-        var empty = [];
-        map[hash] = empty;
+  if(Object.keys(map).length==0){
+    for(var i = 1; i<8; i++){
+      for(var j = 0; j<24; j++){
+        for(var k = 0; k<2; k++){
+          var hash = i+":"+j+":"+(k*timeblock);
+          var empty = [];
+          map[hash] = empty;
+        }
       }
     }
   }
@@ -126,8 +128,6 @@ function timeCheck(window){
     var j = parseInt(times[1],10);
     var k = parseInt(times[2],10);
     // Second time
-    // console.log(window[i]);
-    // console.log(window[i][0]);
     if(i+1 >= window.length){
       return true;
     }
@@ -413,7 +413,10 @@ function test(){
     }
   }
   var bestTimes = scheduleBestTime(2,users);
-  console.log(bestTimes);
+  var times = Object.keys(bestTimes);
+  for(var i = 0; i<times.length; i++){
+    console.log(bestTimes[times[i]]);
+  }
 }
 test();
 module.exports.scheduleBestTime = scheduleBestTime;
