@@ -41,7 +41,7 @@ export default class InviteMembersForm extends Component {
     }
 
     render() {
-        handleClick = (e) => {
+        handleClick = (e, user) => {
             let invited = [...this.state.invited];
 
             if (invited.includes(user)) {
