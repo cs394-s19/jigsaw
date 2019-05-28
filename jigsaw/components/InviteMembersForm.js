@@ -4,26 +4,30 @@ import {
     Text,
     View,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
 } from 'react-native';
 
 export default class InviteMembersForm extends Component {
+
     state = {
-        invited: []
+        invited: [],
     }
 
-    handleTapMember = (username) => {
+    handleTapMember = (user) => {
         let invited = [...this.state.invited];
 
-        if (invited.includes(username)) {
-            this.removeMember(username);
+        if (invited.includes(user)) {
+            this.removeMember(user);
             return
         }
-        
-        invited.push(username);
+
+        invited.push(user);
         this.setState({
             invited
         })
+
+        this.props.updateInvited(invited);
+
     }
 
     removeMember = (toDelete) => {
@@ -33,19 +37,33 @@ export default class InviteMembersForm extends Component {
         this.setState({
             invited
         })
+        this.props.updateInvited(invited);
     }
 
     render() {
+        handleClick = (e, user) => {
+            let invited = [...this.state.invited];
+
+            if (invited.includes(user)) {
+                e.style = styles.noInfo;
+            } else {
+                e.style = styles.greenInfo;
+            }
+        }
+
+
+        let invitelist = this.props.data.data.filter((user) => {return user.Email !== this.props.data.currentUser})
+        // console.log(invitelist)
         return (
             <View style={styles.container}>
                 <Text style={styles.header}>Invited members:</Text>
                 <View style={styles.invitedlist}>
                     {
-                        this.state.invited.map((username) => {
+                        this.state.invited.map((username, index) => {
                             return (
-                                <View style={styles.inviteduser}>
-                                    <TouchableOpacity onPress={() => {this.removeMember(username)}}>
-                                        <Text>{username}</Text>
+                                <View key={index} style={styles.inviteduser}>
+                                    <TouchableOpacity onPress={() => {this.removeMember(username.Email)}}>
+                                        <Text>{username.uid}</Text>
                                     </TouchableOpacity>
                                 </View>
                             )
@@ -54,11 +72,11 @@ export default class InviteMembersForm extends Component {
                 </View>
                 <ScrollView style={styles.userlist}>
                     {
-                        this.props.data.map((userdata, index) => {
+                        invitelist.map((userdata, index) => {
                             return (
-                                <View style={styles.userinfo}>
-                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata.uid)}}> 
-                                        <View>
+                                <View key={index}>
+                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}} onClick={((e) => this.handleClick(e))}>
+                                        <View style={this.state.invited.includes(userdata.Email) ? styles.greenInfo : styles.noInfo}>
                                             <Text style={styles.userid}>{userdata.uid}</Text>
                                             <Text style={styles.useremail}>{userdata.Email}</Text>
                                         </View>
@@ -68,9 +86,6 @@ export default class InviteMembersForm extends Component {
                         })
                     }
                 </ScrollView>
-                <TouchableOpacity>
-
-                </TouchableOpacity>
             </View>
         )
     }
@@ -101,8 +116,6 @@ const styles = StyleSheet.create({
     inviteduser: {
         height: 20,
         width: 50,
-        borderColor: 'black',
-        borderWidth: 2,
         fontSize: 20,
     },
     userlist: {
@@ -110,18 +123,21 @@ const styles = StyleSheet.create({
         width: '100%',
         position: 'absolute',
         top: 100,
-        borderColor: 'black',
-        borderWidth: 2
     },
-    userinfo: {
+    noInfo: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',
         height: 100,
-        borderColor: 'red',
-        borderWidth: 2,
-        backgroundColor: 'rgba(0, 0, 200, 0.1)'
+    },
+    greenInfo: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: '100%',
+        height: 100,
+        backgroundColor: 'green',
     },
     userid: {
         height: '70%',
@@ -131,6 +147,7 @@ const styles = StyleSheet.create({
         left: 10,
         color: 'black',
         fontSize: 30,
+        paddingTop: 20,
     },
     useremail: {
         height: '30%',
@@ -140,6 +157,7 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         fontSize: 15,
         color: 'rgba(0, 0, 0, 0.3)',
+        paddingBottom: 30,
     },
 
 

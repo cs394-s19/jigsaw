@@ -11,6 +11,8 @@ import { Input, Button } from 'react-native-elements';
 import TimePicker from 'react-native-simple-time-picker';
 import DateTimePicker from "react-native-modal-datetime-picker";
 
+import DateTimePicker from "react-native-modal-datetime-picker";
+
 export default class CreateEventForm extends Component {
     state = {
         eventName: '',
@@ -47,9 +49,9 @@ export default class CreateEventForm extends Component {
                     <Text style={styles.timeLabel}>Duration:</Text>
                     <View style={styles.time}>
                         <Text style={styles.timeInput}>
-                            {this.state.selectedHours > 12 ? (this.state.selectedHours - 12) : this.state.selectedHours}
+                            {this.state.selectedHours !== 0 ? (this.state.selectedHours > 12 ? (this.state.selectedHours - 12) : this.state.selectedHours) : '00'}
                             :
-                            {this.state.selectedMinutes}
+                            {this.state.selectedMinutes === 0 ? '00' : this.state.selectedMinutes}
                             {this.state.selectedHours >= 12 ? 'PM' : 'AM'}
                         </Text>
                     </View>
@@ -74,14 +76,14 @@ export default class CreateEventForm extends Component {
 
 const styles = StyleSheet.create({
     chooseTimeButton: {
-
+        margin: 10
     },
     container: {
         flexDirection: 'column',
     },
     meetingName: {
         position: 'absolute',
-        top: 25,
+        top: 40,
     },
     timeField: {
         flex: 1,
@@ -91,19 +93,21 @@ const styles = StyleSheet.create({
     },
     timeLabel: {
         flex: 4,
-        fontSize: 18,
+        fontSize: 20,
         marginLeft: 10,
-        color: 'gray',
-        fontWeight: 'bold',
+        color: 'black',
+        paddingTop: 30
     },
     timeInput: {
         flex: 6,
         fontSize: 20,
         fontWeight: 'bold',
-        marginLeft: 10,
+        marginLeft: '40%',
         justifyContent: 'center',
         alignContent: 'center',
         color: 'steelblue',
+        paddingTop: 20,
+        paddingBottom: 20,
     },
     time: {
         justifyContent: 'center',
@@ -117,11 +121,12 @@ const styles = StyleSheet.create({
     addButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'absolute',
         top: 200,
+        margin: 10,
     },
     inputLabel: {
-        fontSize: 18,
-        color: 'gray',
+        fontSize: 20,
+        color: 'black',
+        fontWeight: 'normal',
     }
 });
