@@ -8,16 +8,44 @@ import {
 } from 'react-native';
 import { ScrollableTabView, DefaultTabBar, ScrollableTabBar } from '@valdio/react-native-scrollable-tabview';
 
-export default class WeeklyCalendarView extends Component {
+export default class ViewProposedMeeting extends Component {
   state = {
     schedule: [],
   };
 
+  meetingTime = [
+    {
+      startTime: '7:22:30',
+      people: [ 'Andres', 'Justin', 'Matthew' ]
+    }
+  ]
+
+  week = ["Null","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+  dayOfWeek = week[meetingTime[startTime].split(':')[0]]
+  startTime = meetingTime[startTime].split(':').slice(1,2) 
+  people = meetingTime[people] 
+  
+  getEndTime = (startTime) => { 
+    let hour = parseInt(startTime[0]); 
+    let min = parseInt(startTime[1]);
+    
+
+  }
+  
   componentDidMount() {
-    console.log(this.props.data.data);
+    console.log(dayOfWeek);
     var userObject = this.props.data.data.filter((userdata) => { return userdata.Email == this.props.data.currentUser })[0];
     var schedule = [];
-    var schedule_obj = userObject["Schedule"];
+    var schedule_obj = {
+      ...userObject["Schedule"],
+      ...{ 
+        "newEvent": { 
+          "Busy": 1,
+          "Day": dayOfWeek,
+          "End": ""
+        }
+      }
+    };
     for (var property in schedule_obj) {
         if (schedule_obj.hasOwnProperty(property)) {
           schedule.push(schedule_obj[property]);
