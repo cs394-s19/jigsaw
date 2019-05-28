@@ -9,12 +9,27 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button } from 'react-native-elements';
 import TimePicker from 'react-native-simple-time-picker';
+import DateTimePicker from "react-native-modal-datetime-picker";
 
 export default class CreateEventForm extends Component {
     state = {
         eventName: '',
         selectedHours: 0,
-        selectedMinutes: 0
+        selectedMinutes: 0,
+        isDateTimePickerVisible: false,
+    };
+
+    showDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: true });
+    };
+
+    hideDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: false });
+    };
+
+    handleDatePicked = date => {
+        this.setState({ selectedHours: hours, })
+        this.hideDateTimePicker();
     };
 
     onChangeText = (key, value) => {
@@ -34,12 +49,12 @@ export default class CreateEventForm extends Component {
                         <Text style={styles.timeInput}> {this.state.selectedHours}hr {this.state.selectedMinutes}min</Text>
                     </View>
                     <View style={styles.timePicker}>
-                        <TimePicker
-                            selectedHours={this.state.selectedHours}
-                            selectedMinutes={this.state.selectedMinutes}
-                            onChange={(hours, minutes) =>
-                                this.setState({ selectedHours: hours, selectedMinutes: minutes })
-                            }
+                        <DateTimePicker
+                            isVisible={ this.state.isDateTimePickerVisible }
+                            onConfirm={ this.handleDatePicked }
+                            onCancel={ this.hideDateTimePicker }
+                            is24Hour={false}
+                            minuteInterval={30}
                         />
                     </View>
                 </View>
