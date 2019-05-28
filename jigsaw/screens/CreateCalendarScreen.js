@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 18,
-    color: 'gray',
+    color: 'black',
   },
   inputName: {
       marginTop: 5,
@@ -138,11 +138,13 @@ const styles = StyleSheet.create({
   },
   timeLabel: {
     fontSize: 18,
-    marginLeft: 10
+    marginBottom: 5,
+    marginTop: 40,
   },
   createButton: {
-    marginTop: 20,
-    alignItems: 'center',
+    marginTop: 50,
     justifyContent: 'center',
+    paddingLeft: 40,
+    paddingRight: 40,
   }
 });

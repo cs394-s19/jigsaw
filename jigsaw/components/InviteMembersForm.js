@@ -16,8 +16,8 @@ export default class InviteMembersForm extends Component {
     handleTapMember = (user) => {
         let invited = [...this.state.invited];
 
-        if (invited.includes(user.Email)) {
-            this.removeMember(user.Email);
+        if (invited.includes(user)) {
+            this.removeMember(user);
             return
         }
 
@@ -25,6 +25,7 @@ export default class InviteMembersForm extends Component {
         this.setState({
             invited
         })
+
         this.props.updateInvited(invited);
 
     }
@@ -36,19 +37,23 @@ export default class InviteMembersForm extends Component {
         this.setState({
             invited
         })
+        this.props.updateInvited(invited);
     }
 
     render() {
-        handleClick = (e) => {
+        handleClick = (e, user) => {
             let invited = [...this.state.invited];
 
-            if (invited.includes(user.Email)) {
+            if (invited.includes(user)) {
                 e.style = styles.noInfo;
             } else {
                 e.style = styles.greenInfo;
             }
         }
 
+
+        let invitelist = this.props.data.data.filter((user) => {return user.Email !== this.props.data.currentUser})
+        // console.log(invitelist)
         return (
             <View style={styles.container}>
                 <Text style={styles.header}>Invited members:</Text>
@@ -67,11 +72,10 @@ export default class InviteMembersForm extends Component {
                 </View>
                 <ScrollView style={styles.userlist}>
                     {
-                        this.props.data.data.map((userdata, index) => {
+                        invitelist.map((userdata, index) => {
                             return (
                                 <View key={index}>
-                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}}
-                                                      onClick={((e) => this.handleClick(e))}>
+                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}} onClick={((e) => this.handleClick(e))}>
                                         <View style={this.state.invited.includes(userdata.Email) ? styles.greenInfo : styles.noInfo}>
                                             <Text style={styles.userid}>{userdata.uid}</Text>
                                             <Text style={styles.useremail}>{userdata.Email}</Text>
@@ -82,9 +86,6 @@ export default class InviteMembersForm extends Component {
                         })
                     }
                 </ScrollView>
-                <TouchableOpacity>
-
-                </TouchableOpacity>
             </View>
         )
     }
