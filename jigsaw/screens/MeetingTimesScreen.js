@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+let scheduleBestTime = require('../constants/Scheduler.js');
 import {
     StyleSheet,
     Text,
@@ -9,8 +10,20 @@ import {
     Button
 } from 'react-native';
 
+
+/*
+flow of data.
+1. From user database data and event preferences, send it to scheduleBestTime.
+2. From return of scheduleBestTime, display the best times from first to last using a for loop.
+3. Each best time slot (maybe look like blocks) should be able to be clickable and action is schedule meeting.
+*/
+
+// We have access to.
+// user database -> this.props.screenProps.CurrentUser
+// block size -> this.props.naviagation.state.params.eventDetails
 export default class MeetingTimesScreen extends React.Component {
   render() {
+
     return (
       <ScrollView style={styles.container}>
         <Text>Optimal Meeting Times</Text>

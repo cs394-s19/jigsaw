@@ -200,7 +200,23 @@ function getBestTimes(blockSize, map){
   }
   // order bestTimes by the amount of people.
   function compare(a, b){
+    // const dayA = a.startTime[0];
+    // const dayB = b.startTime[0];
+    // const hourA = parseInt(a.startTime.substring(
+    //     a.startTime.lastIndexOf(":") + 1,
+    //     a.startTime.lastIndexOf(";")
+    // ));
+    // const hourB = parseInt(b.startTime.substring(
+    //     b.startTime.lastIndexOf(":") + 1,
+    //     b.startTime.lastIndexOf(";")
+    // ));
+    // const minutesA = parseInt(a.startTime.split(":").pop());
+    // const minutesB = parseInt(b.startTime.split(":").pop());
+
     if (a.people.length > b.people.length) {
+      return -1;
+    }
+    else if (a.people.length == b.people.length && (a.startTime < b.startTime)) {
       return -1;
     }
     else{
