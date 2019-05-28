@@ -28,7 +28,7 @@ export default class CreateEventForm extends Component {
     };
 
     handleDatePicked = date => {
-        this.setState({ selectedHours: hours, })
+        this.setState({ selectedHours: date.getHours(), selectedMinutes: date.getMinutes() });
         this.hideDateTimePicker();
     };
 
@@ -46,15 +46,22 @@ export default class CreateEventForm extends Component {
                 <View style={styles.timeField}>
                     <Text style={styles.timeLabel}>Duration:</Text>
                     <View style={styles.time}>
-                        <Text style={styles.timeInput}> {this.state.selectedHours}hr {this.state.selectedMinutes}min</Text>
+                        <Text style={styles.timeInput}>
+                            {this.state.selectedHours > 12 ? (this.state.selectedHours - 12) : this.state.selectedHours}
+                            :
+                            {this.state.selectedMinutes}
+                            {this.state.selectedHours >= 12 ? 'PM' : 'AM'}
+                        </Text>
                     </View>
+                    <Button style={styles.chooseTimeButton} title="Choose Meeting Duration" onPress={this.showDateTimePicker}/>
                     <View style={styles.timePicker}>
                         <DateTimePicker
+                            mode='time'
                             isVisible={ this.state.isDateTimePickerVisible }
                             onConfirm={ this.handleDatePicked }
                             onCancel={ this.hideDateTimePicker }
-                            is24Hour={false}
                             minuteInterval={30}
+                            date={new Date(String(this.state.selectedHours) + ":" + String(this.state.selectedMinutes))}
                         />
                     </View>
                 </View>
@@ -66,6 +73,9 @@ export default class CreateEventForm extends Component {
 }
 
 const styles = StyleSheet.create({
+    chooseTimeButton: {
+
+    },
     container: {
         flexDirection: 'column',
     },
