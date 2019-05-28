@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import firebase from 'firebase';
 
@@ -16,26 +16,44 @@ export default class RequestsScreen extends React.Component {
     var updatedMemberInfo;
     var member_index = -1;
     for (var i = 0; i < meeting.members.length; i++) {
-      if (meeting.members[i] == this.props.screenProps.data.currentUser) {
+      if (meeting.members[i].email == this.props.screenProps.data.currentUser) {
         member_index = i;
-        updatedMemberInfo = newMeeting.members[i];
+        updatedMemberInfo = meeting.members[i];
         updatedMemberInfo.status = 2; // ACCEPT
       }
     }
-    console.log(updatedMemberInfo);
-    firebase.ref('Meetings/' + meeting.uid + "/members/" + member_index.toString()).update(updatedMemberInfo);
+    firebase.database().ref('Meetings/' + meeting.uid + "/members/" + member_index.toString()).update(updatedMemberInfo).then((data) => {
+      alert(meeting.title + " added to your calendar!");
+      this.reloadMeetings();
+    });
   }
 
   declineMeeting = (meeting) => {
-
+    var updatedMemberInfo;
+    var member_index = -1;
+    for (var i = 0; i < meeting.members.length; i++) {
+      if (meeting.members[i].email == this.props.screenProps.data.currentUser) {
+        member_index = i;
+        updatedMemberInfo = meeting.members[i];
+        updatedMemberInfo.status = 0; // DECLINE
+      }
+    }
+    firebase.database().ref('Meetings/' + meeting.uid + "/members/" + member_index.toString()).update(updatedMemberInfo).then((data) => {
+      alert(meeting.title + " declined!");
+      this.reloadMeetings();
+    });
   }
 
-  componentDidMount() {
+  reloadMeetings = () => {
     var my_meetings = this.props.screenProps.data.meetings.filter(m => {
-      return m["members"].filter(mem => { return(mem.email == this.props.screenProps.data.currentUser && mem.isOwner != true )}).length > 0;
+      return m["members"].filter(mem => { return(mem.email == this.props.screenProps.data.currentUser && mem.isOwner != true && mem.status == 1 )}).length > 0;
     });
 
     this.setState({my_meetings: my_meetings});
+  }
+
+  componentDidMount() {
+    this.reloadMeetings();
   }
 
   render() {
@@ -44,7 +62,7 @@ export default class RequestsScreen extends React.Component {
         {
           this.state.my_meetings.map((m, index) => {
             return (
-              <TouchableOpacity key={index} style={styles.meetingContainer}>
+              <View key={index} style={styles.meetingContainer}>
                 <Text style={styles.meetingTitle}>{m.title}</Text>
                 <Text style={styles.meetingSize}>{"Members Invited: " + m.members.length}</Text>
                 {
@@ -57,13 +75,15 @@ export default class RequestsScreen extends React.Component {
                   })
                 }
                 <Text style={styles.meetingTime}>{m.duration_hour + "hrs " + m.duration_minute + "mins" }</Text>
-                <TouchableOpacity onClick={() => { this.acceptMeeting(m) }} style={styles.acceptButton}>
-                  <Text style={styles.buttonText}>Accept</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onClick={() => { this.declineMeeting(m) }}  style={styles.declineButton}>
-                  <Text style={styles.buttonText}>Decline</Text>
-                </TouchableOpacity>
-              </TouchableOpacity>
+                <View style={styles.buttonsContainer}>
+                  <TouchableOpacity onPress={() => { this.acceptMeeting(m) }} style={styles.acceptButton}>
+                    <Text style={styles.buttonText}>Accept</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => { this.declineMeeting(m) }}  style={styles.declineButton}>
+                    <Text style={styles.buttonText}>Decline</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             )
           })
         }
@@ -99,15 +119,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#56E87F",
     justifyContent: 'center',
     alignItems: 'center',
-    width: "45%"
+    width: "50%",
+    height: 30
   },
   declineButton: {
     backgroundColor: "#EB5A5A",
     justifyContent: 'center',
     alignItems: 'center',
-    width: "45%"
+    width: "50%",
+    height: 30
   },
   buttonText: {
     color: "#ffffff",
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10
   }
 });
