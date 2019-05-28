@@ -32,7 +32,7 @@ export default class RequestsScreen extends React.Component {
 
   componentDidMount() {
     var my_meetings = this.props.screenProps.data.meetings.filter(m => {
-      return m["members"].filter(mem => { return mem.email == this.props.screenProps.data.currentUser && !mem.isOwner }).length > 0;
+      return m["members"].filter(mem => { return(mem.email == this.props.screenProps.data.currentUser && mem.isOwner != true )}).length > 0;
     });
 
     this.setState({my_meetings: my_meetings});
