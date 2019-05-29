@@ -430,9 +430,9 @@ function test(){
   }
   var bestTimes = scheduleBestTime(2,users);
   var times = Object.keys(bestTimes);
-  for(var i = 0; i<times.length; i++){
-    console.log(bestTimes[times[i]]);
-  }
+  // for(var i = 0; i<times.length; i++){
+  //   console.log(bestTimes[times[i]]);
+  // }
 }
 test();
 module.exports.scheduleBestTime = scheduleBestTime;

@@ -8,8 +8,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button } from 'react-native-elements';
-import TimePicker from 'react-native-simple-time-picker';
-
 import DateTimePicker from "react-native-modal-datetime-picker";
 
 export default class CreateEventForm extends Component {
