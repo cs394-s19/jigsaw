@@ -75,15 +75,7 @@ export default class RequestsScreen extends React.Component {
                   })
                 }
                 <Text style={styles.meetingTime}>{m.duration_hour + "hrs " + m.duration_minute + "mins" }</Text>
-<<<<<<< HEAD
-                <TouchableOpacity onPress={() => { this.acceptMeeting(m) }} style={styles.acceptButton}>
-                  <Text style={styles.buttonText}>Accept</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { this.declineMeeting(m) }}  style={styles.declineButton}>
-                  <Text style={styles.buttonText}>Decline</Text>
-                </TouchableOpacity>
-              </TouchableOpacity>
-=======
+
                 <View style={styles.buttonsContainer}>
                   <TouchableOpacity onPress={() => { this.acceptMeeting(m) }} style={styles.acceptButton}>
                     <Text style={styles.buttonText}>Accept</Text>
@@ -93,7 +85,6 @@ export default class RequestsScreen extends React.Component {
                   </TouchableOpacity>
                 </View>
               </View>
->>>>>>> 659a0112e37d58abcdd1ceb50f6a56104a727ac8
             )
           })
         }

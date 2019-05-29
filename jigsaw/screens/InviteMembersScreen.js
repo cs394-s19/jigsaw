@@ -24,7 +24,7 @@ export default class CreateEventScreen extends React.Component {
   updateInvited = (invited) => {
     this.setState({invited});
   }
-  
+
   invitedPlusOrganizer = (invitees) => {
       let newInvites = invitees;
       newInvites.push({email: this.props.screenProps.data.currentUser, status: 2, isOwner: true});
@@ -35,12 +35,12 @@ export default class CreateEventScreen extends React.Component {
     alert('Successfully Invited Members!');
 
     // PUSH NEW MEETING TO FIREBASE DATABASE (commented out for testing purposes)
-
     var members = this.state.invited.map(i => {
       return {
         email: i["Email"],
         status: (i["Email"] == this.props.screenProps.data.currentUser) ? 2 : 1, // 0: declined, 1: invited, 2: accepted
-        isOwner: (i["Email"] == this.props.screenProps.data.currentUser) ? true : false
+        isOwner: (i["Email"] == this.props.screenProps.data.currentUser) ? true : false,
+        uid: i["uid"]
       }
     });
 
@@ -49,6 +49,7 @@ export default class CreateEventScreen extends React.Component {
       duration_hour: this.state.eventDetails["selectedHours"],
       duration_minute: this.state.eventDetails["selectedMinutes"],
       members: this.invitedPlusOrganizer(members)
+      // TODO: ADD DAY, START TIME, END TIME in MEETING TIMES SCREEN
     }
 
     firebase.app().database().ref('Meetings/').push({

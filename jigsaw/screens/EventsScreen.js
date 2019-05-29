@@ -24,27 +24,32 @@ export default class EventsScreen extends React.Component {
     this.setState({myEvents: myEvents});
   }
 
-<<<<<<< HEAD
-noResponse = (event) => {
-      return event["members"].filter(mem => { return mem.status == 1 });
-}
 
-meetAccepted = (event) => {
-      return event["members"].filter(mem => { return(mem.status == 2) });
-}
+  noResponse = (event) => {
+        return event["members"].filter(mem => { return mem.status == 1 && !mem.isOwner });
+  }
 
-meetDeclined = (event) => {
-      return event["members"].filter(mem => { return(mem.status == 0) });
-}
+  meetAccepted = (event) => {
+        return event["members"].filter(mem => { return(mem.status == 2 && !mem.isOwner) });
+  }
 
-returnNames = (members) => {
-    return members.forEach(mem => {return(Object.values(mem).filter(val => { return(val.toString().includes('@'))})) })
-}
-=======
+  meetDeclined = (event) => {
+        return event["members"].filter(mem => { return(mem.status == 0 && !mem.isOwner) });
+  }
+
+  returnNames = (members) => {
+      var names = members.map(mem => { return mem.uid });
+      if (names.length > 0) {
+        return names.join(', ');
+      }
+
+      return "None"
+      // return members.forEach(mem => {return(Object.values(mem).filter(val => { return(val.toString().includes('@'))})) })
+  }
+
   componentDidMount() {
     this.reloadMeetings();
   }
->>>>>>> 659a0112e37d58abcdd1ceb50f6a56104a727ac8
 
   render() {
     return (
@@ -82,9 +87,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     width: '100%',
-    height: 100,
     borderColor: '#000000',
     borderWidth: 2,
+    marginBottom: 10
   },
   meetingTitle: {
     fontSize: 20
