@@ -17,6 +17,22 @@ state = {
     this.setState({myEvents: myEvents});
   }
 
+noResponse = (event) => {
+      return event["members"].filter(mem => { return mem.status == 1 });
+}
+
+meetAccepted = (event) => {
+      return event["members"].filter(mem => { return(mem.status == 2) });
+}
+
+meetDeclined = (event) => {
+      return event["members"].filter(mem => { return(mem.status == 0) });
+}
+
+returnNames = (members) => {
+    return members.forEach(mem => {return(Object.values(mem).filter(val => { return(val.toString().includes('@'))})) })
+}
+
   render() {
     return (
       <ScrollView style={styles.container}>
@@ -26,6 +42,9 @@ state = {
               <TouchableOpacity key={index} style={styles.meetingContainer}>
                 <Text style={styles.meetingTitle}>{m.title}</Text>
                 <Text style={styles.meetingSize}>{"Members Invited: " + m.members.length}</Text>
+                <Text style={styles.meetingSize}>{"No Response: " + this.returnNames(this.noResponse(m))}</Text>
+                <Text style={styles.meetingSize}>{"Accepted: " + this.returnNames(this.meetAccepted(m))}</Text>
+                <Text style={styles.meetingSize}>{"Declined: " + this.returnNames(this.meetDeclined(m))}</Text>
                 <Text style={styles.meetingTime}>{m.duration_hour + "hrs " + m.duration_minute + "mins" }</Text>
 
               </TouchableOpacity>
