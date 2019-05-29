@@ -4,9 +4,59 @@ import {
     View
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
-
+import { Ionicons } from '@expo/vector-icons';
 
 export default class FullCalendarView extends Component {
+  state = {
+    schedule: [],
+  };
+
+  componentDidMount() {
+    var userObject = this.props.data.data.filter((userdata) => { return userdata.Email == this.props.data.currentUser })[0];
+    var schedule = [];
+    var schedule_obj = userObject["Schedule"];
+    for (var property in schedule_obj) {
+        if (schedule_obj.hasOwnProperty(property)) {
+          schedule.push(schedule_obj[property]);
+        }
+    }
+    this.setState({schedule: schedule});
+  }
+
+  renderEventDay(day) {
+    return this.state.schedule.map((event, index) => {
+      console.log(event["Day"]);
+      console.log(day);
+      if (event["Day"] == day) {
+        return (
+          <TouchableOpacity key={index} style={styles.eventContainer}>
+            <Text style={styles.eventTitle}>{event["Name"]}</Text>
+            <Text style={styles.eventTime}>{event["Start"]} - {event["End"]}</Text>
+          </TouchableOpacity>
+        )
+      } else {
+        return null;
+      }
+    });
+  }
+
+  myGetDay(day) {
+    var days = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ];
+
+    date = new Date(day.dateString);
+    return days[date.getDay()];
+  }
+  
+  
+  
   render() {
     return (
       <Agenda
@@ -24,15 +74,15 @@ export default class FullCalendarView extends Component {
   // callback that fires when the calendar is opened or closed
   onCalendarToggled={(calendarOpened) => {console.log(calendarOpened)}}
   // callback that gets called on day press
-  onDayPress={(day)=>{console.log('day pressed')}}
+  onDayPress={(day)=>{console.log(this.myGetDay(day));}}
   // callback that gets called when day changes while scrolling agenda list
   onDayChange={(day)=>{console.log('day changed')}}
   // initially selected day
-  selected={'2019-05-16'}
+  selected={new Date().toISOString().slice(0, 10)}
   // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
   minDate={'2018-05-10'}
   // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-  maxDate={'2020-05-30'}
+  maxDate={'2025-05-30'}
   // Max amount of months allowed to scroll to the past. Default = 50
   pastScrollRange={50}
   // Max amount of months allowed to scroll to the future. Default = 50
@@ -40,11 +90,11 @@ export default class FullCalendarView extends Component {
   // specify how each item should be rendered in agenda
   renderItem={(item, firstItemInDay) => {return (<View />);}}
   // specify how each date should be rendered. day can be undefined if the item is not first in that day.
-  renderDay={(day, item) => {return (<View />);}}
+  renderDay={(day, item) => {return renderEventDay(myGetDay(day));}}
   // specify how empty date content with no items should be rendered
   renderEmptyDate={() => {return (<View />);}}
   // specify how agenda knob should look like
-  renderKnob={() => {return (<View />);}}
+  renderKnob={() => {return (<Ionicons name="ios-arrow-down" size={32} color="goldenrod" />);}}
   // specify what should be rendered instead of ActivityIndicator
   renderEmptyData = {() => {return (<View />);}}
   // specify your item comparison function for increased performance
