@@ -21,6 +21,9 @@ flow of data.
 // We have access to.
 // user database -> this.props.screenProps.CurrentUser
 // block size -> this.props.naviagation.state.params.eventDetails
+// this.props.navigation.state.params contains: 
+//    eventdetails, invited array 
+
 export default class MeetingTimesScreen extends React.Component {
   render() {
 

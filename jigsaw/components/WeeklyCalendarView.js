@@ -14,16 +14,17 @@ export default class WeeklyCalendarView extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.data.data);
     var userObject = this.props.data.data.filter((userdata) => { return userdata.Email == this.props.data.currentUser })[0];
     var schedule = [];
     var schedule_obj = userObject["Schedule"];
+    console.log(schedule_obj);
     for (var property in schedule_obj) {
         if (schedule_obj.hasOwnProperty(property)) {
           schedule.push(schedule_obj[property]);
         }
     }
     this.setState({schedule: schedule});
+    console.log(schedule);
   }
 
   renderEventDay(day) {
@@ -39,6 +40,16 @@ export default class WeeklyCalendarView extends Component {
         return null;
       }
     });
+  }
+
+  createTab = (tabLabel, day) => { 
+    return (
+      <TouchableOpacity tabLabel={tabLabel}>
+        <ScrollView>
+          {this.renderEventDay(day)}
+        </ScrollView>
+      </TouchableOpacity>
+    )
   }
 
   render() {

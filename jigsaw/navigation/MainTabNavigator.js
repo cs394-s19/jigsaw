@@ -11,6 +11,7 @@ import CalendarScreen from '../screens/CalendarScreen';
 import CreateEventScreen from '../screens/CreateEventScreen';
 import InviteMembersScreen from '../screens/InviteMembersScreen';
 import MeetingTimesScreen from '../screens/MeetingTimesScreen';
+import ViewMeetingScreen from '../screens/ViewMeetingScreen';
 import EventsScreen from '../screens/EventsScreen';
 import RequestsScreen from '../screens/RequestsScreen';
 import AccountScreen from '../screens/AccountScreen';
@@ -37,7 +38,8 @@ CalendarStack.navigationOptions = {
 const CreateEventStack = createStackNavigator({
   CreateEvent: CreateEventScreen,
   InviteMembers: InviteMembersScreen,
-  MeetingTimes: MeetingTimesScreen
+  MeetingTimes: MeetingTimesScreen,
+  ViewMeeting: ViewMeetingScreen
 });
 CreateEventStack.navigationOptions = {
   tabBarLabel: 'Create Event',
