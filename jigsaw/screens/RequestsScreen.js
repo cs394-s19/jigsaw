@@ -64,12 +64,13 @@ export default class RequestsScreen extends React.Component {
             return (
               <View key={index} style={styles.meetingContainer}>
                 <Text style={styles.meetingTitle}>{m.title}</Text>
-                <Text style={styles.meetingSize}>{"Members Invited: " + m.members.length}</Text>
+                <Text style={styles.meetingTitle}>{m.day}</Text>
+                <Text style={styles.meetingSize}>{"Members: " + m.members.length}</Text>
                 {
                   m.members.map((mem, index) => {
                     if (mem.isOwner) {
                       return (
-                        <Text key={index} style={styles.meetingOwner}>{"Owner: " + mem.email}</Text>
+                        <Text key={index} style={styles.meetingOwner}>{"Owner: " + mem.uid}</Text>
                       )
                     }
                   })

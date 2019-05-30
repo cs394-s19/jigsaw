@@ -59,7 +59,8 @@ export default class EventsScreen extends React.Component {
             return (
               <TouchableOpacity key={index} style={styles.meetingContainer}>
                 <Text style={styles.meetingTitle}>{m.title}</Text>
-                <Text style={styles.meetingSize}>{"Members Invited: " + m.members.length}</Text>
+                <Text style={styles.meetingTitle}>{m.day}</Text>
+                <Text style={styles.meetingSize}>{"Members: " + m.members.length}</Text>
                 <Text style={styles.meetingSize}>{"No Response: " + this.returnNames(this.noResponse(m))}</Text>
                 <Text style={styles.meetingSize}>{"Accepted: " + this.returnNames(this.meetAccepted(m))}</Text>
                 <Text style={styles.meetingSize}>{"Declined: " + this.returnNames(this.meetDeclined(m))}</Text>
@@ -107,5 +108,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#ffffff",
-  }
+  },
+
 });

@@ -8,19 +8,43 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button } from 'react-native-elements';
-import TimePicker from 'react-native-simple-time-picker';
+import TimePicker from "react-native-24h-timepicker";
+import DateTimePicker from "react-native-modal-datetime-picker";
 
 export default class CreateEventForm extends Component {
     state = {
         eventName: '',
         selectedHours: 0,
-        selectedMinutes: 0
+        selectedMinutes: 0,
+        isDateTimePickerVisible: false,
+    };
+
+    showDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: true });
+    };
+
+    hideDateTimePicker = () => {
+        this.setState({ isDateTimePickerVisible: false });
+    };
+
+    handleDatePicked = date => {
+        this.setState({ selectedHours: date.getHours(), selectedMinutes: date.getMinutes() });
+        this.hideDateTimePicker();
     };
 
     onChangeText = (key, value) => {
         this.setState({
             [key]: value
         })
+    }
+
+    onCancel() {
+      this.TimePicker.close();
+    }
+
+    onConfirm(hour, minute) {
+      this.setState({ selectedHours: hour, selectedMinutes: minute });
+      this.TimePicker.close();
     }
 
     render() {
@@ -31,25 +55,49 @@ export default class CreateEventForm extends Component {
                 <View style={styles.timeField}>
                     <Text style={styles.timeLabel}>Duration:</Text>
                     <View style={styles.time}>
-                        <Text style={styles.timeInput}> {this.state.selectedHours}hr {this.state.selectedMinutes}min</Text>
+                        <Text style={styles.timeInput}>
+                            {this.state.selectedHours !== 0 ? (this.state.selectedHours > 12 ? (this.state.selectedHours - 12) : this.state.selectedHours) : '00'}
+                            :
+                            {this.state.selectedMinutes === 0 ? '00' : this.state.selectedMinutes}
+                        </Text>
                     </View>
+                    {/*
+                    <Button style={styles.chooseTimeButton} title="Choose Meeting Duration" onPress={this.showDateTimePicker}/>
                     <View style={styles.timePicker}>
-                        <TimePicker
-                            selectedHours={this.state.selectedHours}
-                            selectedMinutes={this.state.selectedMinutes}
-                            onChange={(hours, minutes) =>
-                                this.setState({ selectedHours: hours, selectedMinutes: minutes })
-                            }
+                        <DateTimePicker
+                            mode='time'
+                            isVisible={ this.state.isDateTimePickerVisible }
+                            onConfirm={ this.handleDatePicked }
+                            onCancel={ this.hideDateTimePicker }
+                            minuteInterval={30}
+                            date={new Date(String(this.state.selectedHours) + ":" + String(this.state.selectedMinutes))}
                         />
                     </View>
+                    */}
+                    <Button style={styles.chooseTimeButton} title="Choose Meeting Duration" onPress={() => this.TimePicker.open()}/>
+                    <TimePicker
+                      ref={ref => {
+                        this.TimePicker = ref;
+                      }}
+                      selectedHour={"00"}
+                      selectedMinute={"00"}
+                      onCancel={() => this.onCancel()}
+                      onConfirm={(hour, minute) => this.onConfirm(hour, minute)}
+                      minuteInterval={30}
+                    />
                 </View>
-                <Button style={styles.addButton} title='Create Event' onPress={() => {this.props.submitEvent({...this.state})}}/>
+
+                <Button buttonStyle={styles.addButton} title='Create Event' onPress={() => {this.props.submitEvent({...this.state})}}/>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    chooseTimeButton: {
+        margin: 10,
+        marginBottom: 20,
+    },
     container: {
       paddingTop: "10%"
     },
@@ -64,10 +112,10 @@ const styles = StyleSheet.create({
     },
     timeLabel: {
         flex: 4,
-        fontSize: 18,
+        fontSize: 20,
         marginLeft: 10,
-        color: 'gray',
-        fontWeight: 'bold',
+        color: 'black',
+        paddingTop: 30
     },
     timeInput: {
         flex: 6,
@@ -77,6 +125,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         color: 'steelblue',
+        paddingTop: 20,
+        paddingBottom: 20,
     },
     time: {
         justifyContent: 'center',
@@ -93,7 +143,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     inputLabel: {
-        fontSize: 18,
-        color: 'gray',
+        fontSize: 20,
+        color: 'black',
+        fontWeight: 'normal',
     }
 });

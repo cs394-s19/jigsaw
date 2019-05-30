@@ -15,7 +15,10 @@ export default class CreateEventScreen extends React.Component {
   };
 
   submitEvent = (eventdetails) => {
-    if (eventdetails["eventName"] == '' || (eventdetails["selectedHours"] === 0 && eventdetails["selectedMinutes"] === 0)) return
+    if (eventdetails["eventName"] == '' || (eventdetails["selectedHours"] === 0 && eventdetails["selectedMinutes"] === 0)) {
+      alert("Please add meeting title and duration.");
+      return;
+    }
     this.props.navigation.navigate('InviteMembers', {eventdetails});
   }
 

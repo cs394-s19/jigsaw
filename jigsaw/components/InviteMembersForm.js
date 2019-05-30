@@ -6,18 +6,18 @@ import {
     TouchableOpacity,
     ScrollView,
 } from 'react-native';
+import { Button } from 'react-native-elements';
 
 export default class InviteMembersForm extends Component {
-
     state = {
-        invited: [],
+        invited: this.props.data.data.filter((user) => {return user.Email == this.props.data.currentUser}),
     }
 
     handleTapMember = (user) => {
         let invited = [...this.state.invited];
 
-        if (invited.includes(user.Email)) {
-            this.removeMember(user.Email);
+        if (invited.includes(user)) {
+            this.removeMember(user);
             return
         }
 
@@ -25,6 +25,7 @@ export default class InviteMembersForm extends Component {
         this.setState({
             invited
         })
+
         this.props.updateInvited(invited);
 
     }
@@ -36,45 +37,52 @@ export default class InviteMembersForm extends Component {
         this.setState({
             invited
         })
+        this.props.updateInvited(invited);
+    }
+
+    inInvited = (email) => {
+      for (var i = 0; i < this.state.invited.length; i++) {
+        if (this.state.invited[i]["Email"] == email) {
+          return true;
+        }
+      }
+      return false;
     }
 
     render() {
+        handleClick = (e, user) => {
+            let invited = [...this.state.invited];
+
+            if (invited.includes(user)) {
+                e.style = styles.noInfo;
+            } else {
+                e.style = styles.greenInfo;
+            }
+        }
+
+
+        let invitelist = this.props.data.data.filter((user) => {return user.Email !== this.props.data.currentUser})
+        // console.log(invitelist)
         return (
             <View style={styles.container}>
-                <Text style={styles.header}>Invited members:</Text>
-                <View style={styles.invitedlist}>
-                    {
-                        this.state.invited.map((username, index) => {
-                            return (
-                                <View key={index} style={styles.inviteduser}>
-                                    <TouchableOpacity onPress={() => {this.removeMember(username.Email)}}>
-                                        <Text>{username.uid}</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            )
-                        })
-                    }
-                </View>
+                <Button buttonStyle={styles.inviteButton} title='Send Invites' onPress={() => {this.props.sendInvites()}}/>
                 <ScrollView style={styles.userlist}>
                     {
                         this.props.data.data.map((userdata, index) => {
                             if (userdata.Email != this.props.data.currentUser) {
                             return (
-                                <View key={index}>
-                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}} >
-                                        <View style={this.state.invited.includes(userdata.Email) ? styles.greenInfo : styles.noInfo}>
-                                            <Text style={styles.userid}>{userdata.uid}</Text>
-                                            <Text style={styles.useremail}>{userdata.Email}</Text>
-                                        </View>
+                                <View key={index} style={styles.userContainer}>
+                                    <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}} onClick={((e) => this.handleClick(e))}>
+                                    <View style={this.inInvited(userdata.Email) ? styles.greenInfo : styles.noInfo}>
+                                        <Text style={styles.userid}>{userdata.uid}</Text>
+                                        <Text style={styles.useremail}>{userdata.Email}</Text>
+                                    </View>
                                     </TouchableOpacity>
                                 </View>
                             )}
                         })
                     }
                 </ScrollView>
-                <TouchableOpacity>
-
-                </TouchableOpacity>
             </View>
         )
     }
@@ -83,35 +91,35 @@ export default class InviteMembersForm extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'flex-start',
+        // alignItems: 'flex-start',
         width: '100%',
         height: '100%'
     },
     header: {
-        flex: 4,
-        fontSize: 20
+        paddingLeft: 10,
+        fontSize: 20,
+        paddingTop: 10,
     },
     invitedlist: {
         flex: 2,
         flexDirection: 'row',
         flexWrap: 'wrap',
         width: '100%',
-        position: 'absolute',
-        top: 20,
+        // position: 'absolute',
+        // top: 20,
         height: 50,
         fontSize: 30,
         color: 'red',
     },
     inviteduser: {
         height: 20,
-        width: 50,
         fontSize: 20,
     },
     userlist: {
-        flex: 8,
+        flex: 1, //8
         width: '100%',
         //position: 'absolute',
-        top: 100,
+        // top: 100,
     },
     noInfo: {
         flex: 1,
@@ -126,7 +134,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         height: 100,
-        backgroundColor: 'green',
+        backgroundColor: '#2EE879',
     },
     userid: {
         height: '70%',
@@ -135,7 +143,7 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         left: 10,
         color: 'black',
-        fontSize: 30,
+        fontSize: 25,
         paddingTop: 20,
     },
     useremail: {
@@ -148,7 +156,13 @@ const styles = StyleSheet.create({
         color: 'rgba(0, 0, 0, 0.3)',
         paddingBottom: 30,
     },
-
-
-
+    userContainer: {
+      marginBottom: 20
+    },
+    inviteButton: {
+      marginTop: 20,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 20,
+    }
 });

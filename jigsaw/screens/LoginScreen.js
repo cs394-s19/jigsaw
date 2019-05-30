@@ -8,26 +8,49 @@ import {
     Image
 } from 'react-native';
 import { Input, Button } from 'react-native-elements';
+import RegisterScreen from './RegisterScreen';
 
 export default class LoginScreen extends Component {
   state = {
     email: "",
+    isRegistering: false,
+  }
+
+  goToRegisterScreen = () => {
+    this.setState({
+      isRegistering: true
+    })
+  }
+
+  returnToLogin = () => {
+    this.setState({
+      isRegistering: false
+    })
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Image source={require('../data/images/wave.png')} style={styles.logo} />
-        <Text style={styles.headerMessage}>Welcome to Jigsaw!</Text>
-        <Input labelStyle={styles.inputLabel} containerStyle={styles.email} label='Email:' onChangeText={val => this.setState({email: val})} value={this.state.email}/>
-        <TouchableOpacity>
-          <Text>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>Register</Text>
-        </TouchableOpacity>
-      </View>
-    )
+    if (!(this.state.isRegistering)){
+      return (
+        <View style={styles.container}>
+          <Image source={require('../data/images/wave.png')} style={styles.logo} />
+          <Text style={styles.headerMessage}>Welcome to Jigsaw!</Text>
+          <Input labelStyle={styles.inputLabel} containerStyle={styles.email} label='Email:' onChangeText={val => this.setState({email: val})} value={this.state.email}/>
+          <TouchableOpacity>
+            <Text>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.goToRegisterScreen}>
+            <Text>Register</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
+
+    else if (this.state.isRegistering) {
+      return (
+        <RegisterScreen email={this.state.email} submitUserData={this.props.submitUserData} returnToLogin={this.returnToLogin}/>
+      )
+    }
+
   }
 }
 
