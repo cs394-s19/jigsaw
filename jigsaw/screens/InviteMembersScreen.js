@@ -12,9 +12,9 @@ import InviteMembersForm from '../components/InviteMembersForm';
 import firebase from 'firebase';
 
 export default class CreateEventScreen extends React.Component {
-  componentDidMount () {
-    this.props.navigation.setParams({ sendInvites: this.sendInvites });
-  }
+  // componentDidMount () {
+  //   this.props.navigation.setParams({ sendInvites: this.sendInvites });
+  // }
 
   state = {
       eventDetails: this.props.navigation.state.params.eventdetails,
@@ -25,35 +25,20 @@ export default class CreateEventScreen extends React.Component {
     this.setState({invited});
   }
 
+  invitedPlusOrganizer = (invitees) => {
+      let newInvites = invitees;
+      newInvites.push({email: this.props.screenProps.data.currentUser, status: 2, isOwner: true});
+      return newInvites
+  }
+
   sendInvites = () => {
-    alert('Successfully Invited Members!');
-
-    // PUSH NEW MEETING TO FIREBASE DATABASE (commented out for testing purposes)
-
-    // const newMeeting = {
-    //   title: this.state.eventDetails["eventName"],
-    //   duration_hour: this.state.eventDetails["selectedHours"],
-    //   duration_minute: this.state.eventDetails["selectedMinutes"],
-    //   members: this.state.invited
-    // }
-    //
-    // firebase.app().database().ref('Meetings/').push({
-    //   ...newMeeting
-    // }).then((data) => {
-    //   console.log('data ' , data)
-    //   // do scheduling here maybe?
-    // }).catch((error) => {
-    //   console.log('error ' , error)
-    // });
-
     this.props.navigation.navigate('MeetingTimes', {...this.state});
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        <InviteMembersForm updateInvited={this.updateInvited} data={this.props.screenProps.data}/>
-        <Button title={"Invite"} onPress={this.sendInvites} />
+        <InviteMembersForm sendInvites={this.sendInvites} updateInvited={this.updateInvited} data={this.props.screenProps.data}/>
       </ScrollView>
     );
   }

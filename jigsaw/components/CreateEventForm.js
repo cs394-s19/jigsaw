@@ -8,8 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button } from 'react-native-elements';
-import TimePicker from 'react-native-simple-time-picker';
-
+import TimePicker from "react-native-24h-timepicker";
 import DateTimePicker from "react-native-modal-datetime-picker";
 
 export default class CreateEventForm extends Component {
@@ -39,6 +38,15 @@ export default class CreateEventForm extends Component {
         })
     }
 
+    onCancel() {
+      this.TimePicker.close();
+    }
+
+    onConfirm(hour, minute) {
+      this.setState({ selectedHours: hour, selectedMinutes: minute });
+      this.TimePicker.close();
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -51,9 +59,9 @@ export default class CreateEventForm extends Component {
                             {this.state.selectedHours !== 0 ? (this.state.selectedHours > 12 ? (this.state.selectedHours - 12) : this.state.selectedHours) : '00'}
                             :
                             {this.state.selectedMinutes === 0 ? '00' : this.state.selectedMinutes}
-                            {this.state.selectedHours >= 12 ? 'PM' : 'AM'}
                         </Text>
                     </View>
+                    {/*
                     <Button style={styles.chooseTimeButton} title="Choose Meeting Duration" onPress={this.showDateTimePicker}/>
                     <View style={styles.timePicker}>
                         <DateTimePicker
@@ -65,6 +73,18 @@ export default class CreateEventForm extends Component {
                             date={new Date(String(this.state.selectedHours) + ":" + String(this.state.selectedMinutes))}
                         />
                     </View>
+                    */}
+                    <Button style={styles.chooseTimeButton} title="Choose Meeting Duration" onPress={() => this.TimePicker.open()}/>
+                    <TimePicker
+                      ref={ref => {
+                        this.TimePicker = ref;
+                      }}
+                      selectedHour={"00"}
+                      selectedMinute={"00"}
+                      onCancel={() => this.onCancel()}
+                      onConfirm={(hour, minute) => this.onConfirm(hour, minute)}
+                      minuteInterval={30}
+                    />
                 </View>
 
                 <Button buttonStyle={styles.addButton} title='Create Event' onPress={() => {this.props.submitEvent({...this.state})}}/>
@@ -75,19 +95,19 @@ export default class CreateEventForm extends Component {
 
 const styles = StyleSheet.create({
     chooseTimeButton: {
-        margin: 10
+        margin: 10,
+        marginBottom: 20,
     },
     container: {
-        flexDirection: 'column',
+      paddingTop: "10%"
     },
     meetingName: {
-        position: 'absolute',
-        top: 40,
+
     },
     timeField: {
         flex: 1,
         width: '100%',
-        top: 125,
+        paddingTop: "10%",
         alignItems: 'stretch',
     },
     timeLabel: {
@@ -116,12 +136,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '70%',
         justifyContent: 'center',
+        marginBottom: 20
     },
     addButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        top: 200,
-        margin: 10,
     },
     inputLabel: {
         fontSize: 20,

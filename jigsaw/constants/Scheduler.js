@@ -434,5 +434,5 @@ function test(){
     console.log(bestTimes[times[i]]);
   }
 }
-test();
+// test();
 module.exports.scheduleBestTime = scheduleBestTime;
