@@ -11,10 +11,12 @@ export default class EventsScreen extends React.Component {
   }
 
   deleteMeeting = (meeting) => {
+    /*
     firebase.database().ref('Meetings/' + meeting.uid).remove().then((data) => {
       alert(meeting.title + " deleted!");
       this.reloadMeetings();
     });
+    */
   }
 
   reloadMeetings = () => {

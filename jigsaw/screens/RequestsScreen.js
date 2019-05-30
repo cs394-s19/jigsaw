@@ -22,10 +22,12 @@ export default class RequestsScreen extends React.Component {
         updatedMemberInfo.status = 2; // ACCEPT
       }
     }
+    /*
     firebase.database().ref('Meetings/' + meeting.uid + "/members/" + member_index.toString()).update(updatedMemberInfo).then((data) => {
       alert(meeting.title + " added to your calendar!");
       this.reloadMeetings();
     });
+    */
   }
 
   declineMeeting = (meeting) => {
@@ -38,10 +40,13 @@ export default class RequestsScreen extends React.Component {
         updatedMemberInfo.status = 0; // DECLINE
       }
     }
+
+    /*
     firebase.database().ref('Meetings/' + meeting.uid + "/members/" + member_index.toString()).update(updatedMemberInfo).then((data) => {
       alert(meeting.title + " declined!");
       this.reloadMeetings();
     });
+    */
   }
 
   reloadMeetings = () => {
