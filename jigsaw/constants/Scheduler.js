@@ -195,7 +195,11 @@ function getBestTimes(blockSize, map){
       startTime: window[0][0],
       people: grabintersect(window),
     };
-    bestTimes.push(smallWindow);
+    var hourCheck = parseInt(window[0][0].split(":")[1]);
+    var notShitTime = hourCheck>8 && hourCheck<21;
+    if(notShitTime){
+      bestTimes.push(smallWindow);
+    }
 
   }
   // order bestTimes by the amount of people.
@@ -234,205 +238,208 @@ var scheduleBestTime = (blockSize, users) => {
   for (var user in users) {
     if (users.hasOwnProperty(user)) {
       var userEvents = parseEventForUser(users[user]);
-      map = populateMapForUser(user, userEvents, map);
+      map = populateMapForUser(users[user].uid, userEvents, map);
     }
   }
-  return getBestTimes(blockSize, map);
+  var ans = getBestTimes(blockSize, map);
+  return ans;
 }
 
 function test(){
-  const users = {
-    "Andres" : {
-      "Email" : "andreskim315@gmail.com",
-      "Schedule" : {
-        "Event1" : {
-          "Busy" : 1,
-          "Day" : "Sunday",
-          "End" : "12:00",
-          "Name" : "School Work",
-          "Start" : "09:00"
-        },
-        "Event10" : {
-          "Busy" : 1,
-          "Day" : "Thursday",
-          "End" : "16:00",
-          "Name" : "School Work",
-          "Start" : "14:00"
-        },
-        "Event11" : {
-          "Busy" : 1,
-          "Day" : "Friday",
-          "End" : "12:00",
-          "Name" : "School Work",
-          "Start" : "09:00"
-        },
-        "Event12" : {
-          "Busy" : 1,
-          "Day" : "Saturday",
-          "End" : "12:00",
-          "Name" : "School Work",
-          "Start" : "09:00"
-        },
-        "Event2" : {
-          "Busy" : 1,
-          "Day" : "Monday",
-          "End" : "11:00",
-          "Name" : "School Work",
-          "Start" : "09:00"
-        },
-        "Event3" : {
-          "Busy" : 1,
-          "Day" : "Monday",
-          "End" : "16:00",
-          "Name" : "School Work",
-          "Start" : "14:00"
-        },
-        "Event4" : {
-          "Busy" : 1,
-          "Day" : "Monday",
-          "End" : "21:00",
-          "Name" : "School Work",
-          "Start" : "18:00"
-        },
-        "Event5" : {
-          "Busy" : 1,
-          "Day" : "Tuesday",
-          "End" : "13:00",
-          "Name" : "School Work",
-          "Start" : "09:00"
-        },
-        "Event6" : {
-          "Busy" : 1,
-          "Day" : "Tuesday",
-          "End" : "16:00",
-          "Name" : "School Work",
-          "Start" : "14:00"
-        },
-        "Event7" : {
-          "Busy" : 1,
-          "Day" : "Wednesday",
-          "End" : "12:00",
-          "Name" : "School Work",
-          "Start" : "09:00"
-        },
-        "Event8" : {
-          "Busy" : 1,
-          "Day" : "Wednesday",
-          "End" : "16:00",
-          "Name" : "School Work",
-          "Start" : "14:00"
-        },
-        "Event9" : {
-          "Busy" : 1,
-          "Day" : "Thursday",
-          "End" : "13:00",
-          "Name" : "School Work",
-          "Start" : "09:00"
-        }
-      }
-    },
-    "Justin" : {
-      "Email" : "justinpeh2019@u.northwestern.edu",
-      "Schedule" : {
-        "Event1" : {
-          "Busy " : 1,
-          "Day" : "Sunday",
-          "End" : "23:00",
-          "Name" : "Church",
-          "Start" : "09:00"
-        },
-        "Event2" : {
-          "Busy " : 1,
-          "Day" : "Monday",
-          "End" : "11:30",
-          "Name" : "Piano Lessons",
-          "Start" : "09:00"
-        },
-        "Event3" : {
-          "Busy " : 1,
-          "Day" : "Monday",
-          "End" : "17:00",
-          "Name" : "Guitar Lessons",
-          "Start" : "15:00"
-        },
-        "Event4" : {
-          "Busy " : 1,
-          "Day" : "Tuesday",
-          "End" : "16:00",
-          "Name" : "Violin Lessons",
-          "Start" : "11:00"
-        },
-        "Event5" : {
-          "Busy " : 1,
-          "Day" : "Wednesday",
-          "End" : "16:00",
-          "Name" : "Harp Lessons",
-          "Start" : "09:00"
-        },
-        "Event6" : {
-          "Busy " : 1,
-          "Day" : "Wednesday",
-          "End" : "23:00",
-          "Name" : "Gong Lessons",
-          "Start" : "22:00"
-        },
-        "Event7" : {
-          "Busy " : 1,
-          "Day" : "Thursday",
-          "End" : "16:00",
-          "Name" : "Drum Lessons",
-          "Start" : "11:00"
-        },
-        "Event8" : {
-          "Busy " : 1,
-          "Day" : "Thursday",
-          "End" : "23:00",
-          "Name" : "Timpani Lessons",
-          "Start" : "18:00"
-        }
-      },
-      "Token" : ""
-    },
-    "Matthew" : {
-      "Email" : "matthewwang2020@u.northwestern.edu",
-      "Schedule" : {
-        "Event1" : {
-          "Busy" : 1,
-          "Day" : "Monday",
-          "End" : "17:00",
-          "Name" : "Monday",
-          "Start" : "11:00"
-        },
-        "Event2" : {
-          "Busy" : 1,
-          "Day" : "Tuesday",
-          "End" : "15:00",
-          "Name" : "School",
-          "Start" : "11:00"
-        },
-        "Event3" : {
-          "Busy" : 1,
-          "Day" : "Wednesday",
-          "End" : "14:00",
-          "Name" : "School",
-          "Start" : "11:00"
-        },
-        "Event4" : {
-          "Busy" : 1,
-          "Day" : "Thursday",
-          "End" : "18:00",
-          "Name" : "School",
-          "Start" : "11:00"
-        }
-      },
-      "token" : " "
-    }
-  }
+  const users = [
+    {
+     "Email": "justinpeh2019@u.northwestern.edu",
+     "Schedule": {
+       "Event1": {
+         "Busy ": 1,
+         "Day": "Sunday",
+         "End": "23:00",
+         "Name": "Church",
+         "Start": "09:00",
+       },
+       "Event2": {
+         "Busy ": 1,
+         "Day": "Monday",
+         "End": "11:30",
+         "Name": "Piano Lessons",
+         "Start": "09:00",
+       },
+       "Event3": {
+         "Busy ": 1,
+         "Day": "Monday",
+         "End": "17:00",
+         "Name": "Guitar Lessons",
+         "Start": "15:00",
+       },
+       "Event4": {
+         "Busy ": 1,
+         "Day": "Tuesday",
+         "End": "16:00",
+         "Name": "Violin Lessons",
+         "Start": "11:00",
+       },
+       "Event5": {
+         "Busy ": 1,
+         "Day": "Wednesday",
+         "End": "16:00",
+         "Name": "Harp Lessons",
+         "Start": "09:00",
+       },
+       "Event6": {
+         "Busy ": 1,
+         "Day": "Wednesday",
+         "End": "23:00",
+         "Name": "Gong Lessons",
+         "Start": "22:00",
+       },
+       "Event7": {
+         "Busy ": 1,
+         "Day": "Thursday",
+         "End": "16:00",
+         "Name": "Drum Lessons",
+         "Start": "11:00",
+       },
+       "Event8": {
+         "Busy ": 1,
+         "Day": "Thursday",
+         "End": "23:00",
+         "Name": "Timpani Lessons",
+         "Start": "18:00",
+       },
+     },
+     "Token": "",
+     "uid": "Justin",
+   },
+   {
+     "Email": "andreskim315@gmail.com",
+     "Schedule": {
+       "Event1": {
+         "Busy": 1,
+         "Day": "Sunday",
+         "End": "12:00",
+         "Name": "School Work",
+         "Start": "09:00",
+       },
+       "Event10": {
+         "Busy": 1,
+         "Day": "Thursday",
+         "End": "16:00",
+         "Name": "School Work",
+         "Start": "14:00",
+       },
+       "Event11": {
+         "Busy": 1,
+         "Day": "Friday",
+         "End": "12:00",
+         "Name": "School Work",
+         "Start": "09:00",
+       },
+       "Event12": {
+         "Busy": 1,
+         "Day": "Saturday",
+         "End": "12:00",
+         "Name": "School Work",
+         "Start": "09:00",
+       },
+       "Event2": {
+         "Busy": 1,
+         "Day": "Monday",
+         "End": "11:00",
+         "Name": "School Work",
+         "Start": "09:00",
+       },
+       "Event3": {
+         "Busy": 1,
+         "Day": "Monday",
+         "End": "16:00",
+         "Name": "School Work",
+         "Start": "14:00",
+       },
+       "Event4": {
+         "Busy": 1,
+         "Day": "Monday",
+         "End": "21:00",
+         "Name": "School Work",
+         "Start": "18:00",
+       },
+       "Event5": {
+         "Busy": 1,
+         "Day": "Tuesday",
+         "End": "13:00",
+         "Name": "School Work",
+         "Start": "09:00",
+       },
+       "Event6": {
+         "Busy": 1,
+         "Day": "Tuesday",
+         "End": "16:00",
+         "Name": "School Work",
+         "Start": "14:00",
+       },
+       "Event7": {
+         "Busy": 1,
+         "Day": "Wednesday",
+         "End": "12:00",
+         "Name": "School Work",
+         "Start": "09:00",
+       },
+       "Event8": {
+         "Busy": 1,
+         "Day": "Wednesday",
+         "End": "16:00",
+         "Name": "School Work",
+         "Start": "14:00",
+       },
+       "Event9": {
+         "Busy": 1,
+         "Day": "Thursday",
+         "End": "13:00",
+         "Name": "School Work",
+         "Start": "09:00",
+       },
+     },
+     "uid": "Andres",
+   },
+   {
+     "Email": "matthewwang2020@u.northwestern.edu",
+     "Schedule": {
+       "Event1": {
+         "Busy": 1,
+         "Day": "Monday",
+         "End": "17:00",
+         "Name": "Monday",
+         "Start": "11:00",
+       },
+       "Event2": {
+         "Busy": 1,
+         "Day": "Tuesday",
+         "End": "15:00",
+         "Name": "School",
+         "Start": "11:00",
+       },
+       "Event3": {
+         "Busy": 1,
+         "Day": "Wednesday",
+         "End": "14:00",
+         "Name": "School",
+         "Start": "11:00",
+       },
+       "Event4": {
+         "Busy": 1,
+         "Day": "Thursday",
+         "End": "18:00",
+         "Name": "School",
+         "Start": "11:00",
+       },
+     },
+     "token": " ",
+     "uid": "Matthew",
+   },
+ ]
   var bestTimes = scheduleBestTime(2,users);
   var times = Object.keys(bestTimes);
-  for(var i = 0; i<times.length; i++){
-    console.log(bestTimes[times[i]]);
-  }
+
+  console.log(bestTimes);
 }
-// test();
+test();
 module.exports.scheduleBestTime = scheduleBestTime;

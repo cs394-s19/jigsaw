@@ -24,17 +24,18 @@ flow of data.
 // block size -> this.props.naviagation.state.params.eventDetails
 export default class MeetingTimesScreen extends React.Component {
   componentDidMount() {
-    // current logged in user
-    console.log("CURRENT USER: ");
-    console.log(this.props.screenProps.data.currentUser);
-    // duration (hrs)
-    console.log("DURATION: ");
-    console.log(this.props.navigation.state.params.eventDetails.selectedHours + " hrs");
-    // duration (mins already at interval of 30)
-    console.log(this.props.navigation.state.params.eventDetails.selectedMinutes + " mins");
-    // list of invited users and their schedules including current user
-    console.log("INVITED MEMBERS: ");
-    console.log(this.props.navigation.state.params.invited);
+    // // current logged in user
+    // console.log("CURRENT USER: ");
+    // console.log(this.props.screenProps.data.currentUser);
+    // // duration (hrs)
+    // console.log("DURATION: ");
+    // console.log(this.props.navigation.state.params.eventDetails.selectedHours + " hrs");
+    // // duration (mins already at interval of 30)
+    // console.log(this.props.navigation.state.params.eventDetails.selectedMinutes + " mins");
+    // // list of invited users and their schedules including current user
+    // console.log("INVITED MEMBERS: ");
+    // console.log(this.props.navigation.state.params.invited);
+    
   }
 
   sendInvites = (meetingInfo) => {
@@ -69,13 +70,48 @@ export default class MeetingTimesScreen extends React.Component {
   }
 
   render() {
+    var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    var blocksize = 2*parseInt(this.props.navigation.state.params.eventDetails.selectedHours);
+    blocksize += this.props.navigation.state.params.eventDetails.selectedMinutes == '00' ? 0:1;
+    var bestTimeMap = scheduleBestTime.scheduleBestTime(blocksize,this.props.navigation.state.params.invited);
+    var day1 = days[(bestTimeMap[0].startTime.split(":")[0])-1];
+    var day2 = days[(bestTimeMap[1].startTime.split(":")[0])-1];
+    var day3 = days[(bestTimeMap[2].startTime.split(":")[0])-1];
+    var duration1 ="Starting at "+bestTimeMap[0].startTime.split(":")[1] + ":" +bestTimeMap[0].startTime.split(":")[2];
+    var duration2 ="Starting at "+bestTimeMap[1].startTime.split(":")[1] + ":" +bestTimeMap[1].startTime.split(":")[2];
+    var duration3 ="Starting at "+bestTimeMap[2].startTime.split(":")[1] + ":" +bestTimeMap[2].startTime.split(":")[2];
+    var members = [];
+    for(var i = 0; i<3; i++){
+      members[i] = "Members: ";
+      for(var j = 0; j<bestTimeMap[i].people.length; j++){
+        if(j!=0){
+          members[i] += ", ";
+        }
+        members[i] += bestTimeMap[i].people[j];
+      }
+    }
+    console.log(bestTimeMap);
+    console.log(day1);
+    console.log(day2);
+    console.log(day3);
+    console.log(members);
     return (
       <ScrollView style={styles.container}>
         <Text>Optimal Meeting Times</Text>
-        <TouchableOpacity style={styles.meetingContainer} onPress={() => { this.sendInvites( {day: "Monday", startTime: "16:00", endTime: "18:00"} ) }}>
-          <Text style={styles.meetingDay}>Monday</Text>
-          <Text style={styles.meetingMembers}>Members: 4</Text>
-          <Text style={styles.meetingTime}>4:00pm - 6:00pm</Text>
+        <TouchableOpacity style={styles.meetingContainer} onPress={() => { this.sendInvites( {day: day1, startTime:duration1, endTime: "18:00"} ) }}>
+          <Text style={styles.meetingDay}>{day1}</Text>
+          <Text style={styles.meetingMembers}>{members[0]}</Text>
+          <Text style={styles.meetingTime}>{duration1}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.meetingContainer} onPress={() => { this.sendInvites( {day: day2, startTime:duration2, endTime: "18:00"} ) }}>
+          <Text style={styles.meetingDay}>{day2}</Text>
+          <Text style={styles.meetingMembers}>{members[1]}</Text>
+          <Text style={styles.meetingTime}>{duration2}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.meetingContainer} onPress={() => { this.sendInvites( {day: day3, startTime: duration3, endTime: "18:00"} ) }}>
+          <Text style={styles.meetingDay}>{day3}</Text>
+          <Text style={styles.meetingMembers}>{members[2]}</Text>
+          <Text style={styles.meetingTime}>{duration3}</Text>
         </TouchableOpacity>
       </ScrollView>
     );
