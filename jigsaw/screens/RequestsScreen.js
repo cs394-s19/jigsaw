@@ -64,8 +64,11 @@ export default class RequestsScreen extends React.Component {
             return (
               <View key={index} style={styles.meetingContainer}>
                 <Text style={styles.meetingTitle}>{m.title}</Text>
-                <Text style={styles.meetingTitle}>{m.day}</Text>
-                <Text style={styles.meetingSize}>{"Members: " + m.members.length}</Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.meetingDay}>{m.day}</Text>
+                  <Text style={styles.meetingTime}>{m.startTime + " - " + m.endTime}</Text>
+                </View>
+                <Text style={styles.meetingSize}>{m.members.length + " Members"}</Text>
                 {
                   m.members.map((mem, index) => {
                     if (mem.isOwner) {
@@ -75,7 +78,6 @@ export default class RequestsScreen extends React.Component {
                     }
                   })
                 }
-                <Text style={styles.meetingTime}>{m.duration_hour + "hrs " + m.duration_minute + "mins" }</Text>
 
                 <View style={styles.buttonsContainer}>
                   <TouchableOpacity onPress={() => { this.acceptMeeting(m) }} style={styles.acceptButton}>
@@ -85,6 +87,7 @@ export default class RequestsScreen extends React.Component {
                     <Text style={styles.buttonText}>Decline</Text>
                   </TouchableOpacity>
                 </View>
+                <View style={{marginTop: 10, backgroundColor: "#000000", opacity: "0.2", height: 1}}></View>
               </View>
             )
           })
@@ -104,15 +107,18 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    width: '100%',
-    borderColor: '#000000',
-    borderWidth: 2,
+    margin: 10
   },
   meetingTitle: {
-    fontSize: 20
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
+  meetingDay: {
+    fontSize: 20,
   },
   meetingTime: {
-    fontSize: 15
+    fontSize: 20,
+    marginLeft: 10
   },
   meetingOwner: {
     fontSize: 15

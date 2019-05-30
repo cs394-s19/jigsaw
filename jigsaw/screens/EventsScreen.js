@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 
 export default class EventsScreen extends React.Component {
   static navigationOptions = {
@@ -57,18 +57,23 @@ export default class EventsScreen extends React.Component {
         {
           this.state.myEvents.map((m, index) => {
             return (
-              <TouchableOpacity key={index} style={styles.meetingContainer}>
-                <Text style={styles.meetingTitle}>{m.title}</Text>
-                <Text style={styles.meetingTitle}>{m.day}</Text>
-                <Text style={styles.meetingSize}>{"Members: " + m.members.length}</Text>
-                <Text style={styles.meetingSize}>{"No Response: " + this.returnNames(this.noResponse(m))}</Text>
-                <Text style={styles.meetingSize}>{"Accepted: " + this.returnNames(this.meetAccepted(m))}</Text>
-                <Text style={styles.meetingSize}>{"Declined: " + this.returnNames(this.meetDeclined(m))}</Text>
-                <Text style={styles.meetingTime}>{m.duration_hour + "hrs " + m.duration_minute + "mins" }</Text>
-                <TouchableOpacity onPress={() => { this.deleteMeeting(m) }} style={styles.deleteButton}>
-                  <Text style={styles.buttonText}>Delete</Text>
+              <View key={index} >
+                <TouchableOpacity style={styles.meetingContainer}>
+                  <Text style={styles.meetingTitle}>{m.title}</Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.meetingDay}>{m.day}</Text>
+                    <Text style={styles.meetingTime}>{m.startTime + " - " + m.endTime}</Text>
+                  </View>
+                  <Text style={styles.meetingSize}>{m.members.length + " Members"}</Text>
+                  <Text style={styles.meetingNoResponse}>{"No Response: " + this.returnNames(this.noResponse(m))}</Text>
+                  <Text style={styles.meetingAccepted}>{"Accepted: " + this.returnNames(this.meetAccepted(m))}</Text>
+                  <Text style={styles.meetingDeclined}>{"Declined: " + this.returnNames(this.meetDeclined(m))}</Text>
+                  <TouchableOpacity onPress={() => { this.deleteMeeting(m) }} style={styles.deleteButton}>
+                    <Text style={styles.buttonText}>Delete</Text>
+                  </TouchableOpacity>
                 </TouchableOpacity>
-              </TouchableOpacity>
+                <View style={{marginTop: 10, backgroundColor: "#000000", opacity: "0.2", height: 1}}></View>
+              </View>
             )
           })
         }
@@ -87,16 +92,27 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    width: '100%',
-    borderColor: '#000000',
-    borderWidth: 2,
-    marginBottom: 10
+    margin: 10
   },
   meetingTitle: {
-    fontSize: 20
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
+  meetingDay: {
+    fontSize: 20,
   },
   meetingTime: {
-    fontSize: 15
+    fontSize: 20,
+    marginLeft: 10
+  },
+  meetingNoResponse: {
+
+  },
+  meetingAccepted: {
+    color: "#4DD682"
+  },
+  meetingDeclined: {
+    color: "#EB6C55"
   },
   deleteButton: {
     backgroundColor: "#EB5A5A",
