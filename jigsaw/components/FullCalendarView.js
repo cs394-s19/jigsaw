@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View
+    View,
+    TouchableOpacity,
+    Text
 } from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import { Ionicons } from '@expo/vector-icons';
@@ -23,21 +25,49 @@ export default class FullCalendarView extends Component {
     this.setState({schedule: schedule});
   }
 
+  /*renderEventDay(day) {
+    console.log
+    var todaysEvents = [];
+    //const sched = JSON.parse(this.state.schedule);
+    for (event in this.state.schedule){
+        if (event.Day == this.myGetDay(day)){
+          todaysEvents.push(event);
+        }
+      }
+    for (e in todaysEvents){
+      /*return(
+        <TouchableOpacity style={styles.eventContainer}>
+          <Text style={styles.eventTitle}>{e["Name"]}</Text>
+          <Text style={styles.eventTime}>{e["Start"]} - {e["End"]}</Text>
+        </TouchableOpacity>
+
+      );
+      console.log(e);
+    }
+    if (todaysEvents == []){
+      return null;
+    }
+  }*/
+
   renderEventDay(day) {
-    return this.state.schedule.map((event, index) => {
-      console.log(event["Day"]);
-      console.log(day);
-      if (event["Day"] == day) {
-        return (
+    var allEvents = [];
+    return this.state.schedule.map((event) => {
+      if (event["Day"] == this.myGetDay(day)) {
+        return (day.dateString + " : [{text: " + event["Name"] + "}]");
+      }
+      else{
+        return null;
+      }
+        //'2019-05-22': [{text: 'item 1 - any js object'}],
+        /*return (
           <TouchableOpacity key={index} style={styles.eventContainer}>
             <Text style={styles.eventTitle}>{event["Name"]}</Text>
             <Text style={styles.eventTime}>{event["Start"]} - {event["End"]}</Text>
-          </TouchableOpacity>
-        )
-      } else {
-        return null;
+          </TouchableOpacity>*/
+        
       }
-    });
+    );
+    //console.log(allEvents);
   }
 
   myGetDay(day) {
@@ -74,7 +104,7 @@ export default class FullCalendarView extends Component {
   // callback that fires when the calendar is opened or closed
   onCalendarToggled={(calendarOpened) => {console.log(calendarOpened)}}
   // callback that gets called on day press
-  onDayPress={(day)=>{console.log(this.myGetDay(day));}}
+  onDayPress={(day)=>{console.log(this.renderEventDay(day));}}
   // callback that gets called when day changes while scrolling agenda list
   onDayChange={(day)=>{console.log('day changed')}}
   // initially selected day
@@ -90,7 +120,7 @@ export default class FullCalendarView extends Component {
   // specify how each item should be rendered in agenda
   renderItem={(item, firstItemInDay) => {return (<View />);}}
   // specify how each date should be rendered. day can be undefined if the item is not first in that day.
-  renderDay={(day, item) => {return renderEventDay(myGetDay(day));}}
+  renderDay={(day, item) => {return this.renderEventDay(day);}}
   // specify how empty date content with no items should be rendered
   renderEmptyDate={() => {return (<View />);}}
   // specify how agenda knob should look like
