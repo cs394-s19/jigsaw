@@ -10,7 +10,7 @@ export default class CalendarScreen extends React.Component {
   }
 
   state = {
-    fullView: true // false
+    fullView: false
   }
 
   static navigationOptions = ({ navigation, screenProps }) => {
@@ -40,14 +40,14 @@ export default class CalendarScreen extends React.Component {
   render() {
     if (this.props.screenProps.data.fetchDataComplete) {
       return (
-
+          
             !this.state.fullView ? (
               <FullCalendarView data={this.props.screenProps.data} />
             ) : (
               <ScrollView style={styles.container}>
                   <WeeklyCalendarView data={this.props.screenProps.data} />
               </ScrollView>
-            )
+            )          
       );
     } else {
       return (
