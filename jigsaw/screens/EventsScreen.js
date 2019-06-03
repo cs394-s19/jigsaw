@@ -49,6 +49,10 @@ export default class EventsScreen extends React.Component {
       // return members.forEach(mem => {return(Object.values(mem).filter(val => { return(val.toString().includes('@'))})) })
   }
 
+  editEvent = (m) => {
+    this.props.navigation.navigate('EditEvent', {m});
+  }
+
   componentDidMount() {
     this.reloadMeetings();
   }
@@ -60,7 +64,7 @@ export default class EventsScreen extends React.Component {
           this.state.myEvents.map((m, index) => {
             return (
               <View key={index} >
-                <TouchableOpacity style={styles.meetingContainer}>
+                <TouchableOpacity  onPress={() => { this.editEvent(m) }} style={styles.meetingContainer}>
                   <Text style={styles.meetingTitle}>{m.title}</Text>
                   <View style={{flexDirection: 'row'}}>
                     <Text style={styles.meetingDay}>{m.day}</Text>
@@ -70,11 +74,11 @@ export default class EventsScreen extends React.Component {
                   <Text style={styles.meetingNoResponse}>{"No Response: " + this.returnNames(this.noResponse(m))}</Text>
                   <Text style={styles.meetingAccepted}>{"Accepted: " + this.returnNames(this.meetAccepted(m))}</Text>
                   <Text style={styles.meetingDeclined}>{"Declined: " + this.returnNames(this.meetDeclined(m))}</Text>
-                  <TouchableOpacity onPress={() => { this.deleteMeeting(m) }} style={styles.deleteButton}>
-                    <Text style={styles.buttonText}>Delete</Text>
+                  <TouchableOpacity onPress={() => { this.editEvent(m) }} style={styles.editButton}>
+                    <Text style={styles.buttonText}>Edit</Text>
                   </TouchableOpacity>
                 </TouchableOpacity>
-                <View style={{marginTop: 10, backgroundColor: "#000000", opacity: "0.2", height: 1}}></View>
+                <View style={{marginTop: 10, backgroundColor: "#000000", height: 1}}></View>
               </View>
             )
           })
@@ -116,8 +120,8 @@ const styles = StyleSheet.create({
   meetingDeclined: {
     color: "#EB6C55"
   },
-  deleteButton: {
-    backgroundColor: "#EB5A5A",
+  editButton: {
+    backgroundColor: "#fd7e14",
     justifyContent: 'center',
     alignItems: 'center',
     width: "100%",

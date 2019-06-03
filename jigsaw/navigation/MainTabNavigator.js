@@ -12,6 +12,7 @@ import CreateEventScreen from '../screens/CreateEventScreen';
 import InviteMembersScreen from '../screens/InviteMembersScreen';
 import MeetingTimesScreen from '../screens/MeetingTimesScreen';
 import EventsScreen from '../screens/EventsScreen';
+import EditEventScreen from '../screens/EditEventScreen';
 import RequestsScreen from '../screens/RequestsScreen';
 import AccountScreen from '../screens/AccountScreen';
 import CreateCalendarEventScreen from '../screens/CreateCalendarScreen'
@@ -55,6 +56,7 @@ CreateEventStack.navigationOptions = {
 
 const EventsStack = createStackNavigator({
   Events: EventsScreen,
+  EditEvent: EditEventScreen
 });
 EventsStack.navigationOptions = {
   tabBarLabel: 'Events',
@@ -111,4 +113,3 @@ export default createBottomTabNavigator({
   RequestsStack,
   AccountStack,
 });
-
