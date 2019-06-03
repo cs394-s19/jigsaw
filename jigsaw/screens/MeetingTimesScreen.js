@@ -35,7 +35,7 @@ export default class MeetingTimesScreen extends React.Component {
     // // list of invited users and their schedules including current user
     // console.log("INVITED MEMBERS: ");
     // console.log(this.props.navigation.state.params.invited);
-    
+
   }
 
   sendInvites = (meetingInfo) => {
@@ -69,6 +69,12 @@ export default class MeetingTimesScreen extends React.Component {
     alert('Successfully Invited Members!');
   }
 
+
+
+  formatMin  = (minutes) => {
+    return minutes.length == 1 ? minutes+"0" : minutes;
+  }
+
   render() {
     var days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
     var blocksize = 2*parseInt(this.props.navigation.state.params.eventDetails.selectedHours);
@@ -77,9 +83,15 @@ export default class MeetingTimesScreen extends React.Component {
     var day1 = days[(bestTimeMap[0].startTime.split(":")[0])-1];
     var day2 = days[(bestTimeMap[1].startTime.split(":")[0])-1];
     var day3 = days[(bestTimeMap[2].startTime.split(":")[0])-1];
-    var duration1 ="Starting at "+bestTimeMap[0].startTime.split(":")[1] + ":" +bestTimeMap[0].startTime.split(":")[2];
-    var duration2 ="Starting at "+bestTimeMap[1].startTime.split(":")[1] + ":" +bestTimeMap[1].startTime.split(":")[2];
-    var duration3 ="Starting at "+bestTimeMap[2].startTime.split(":")[1] + ":" +bestTimeMap[2].startTime.split(":")[2];
+    var startTime1 = bestTimeMap[0].startTime.split(":")[1] + ":" + this.formatMin(bestTimeMap[0].startTime.split(":")[2]);
+    var startTime2 = bestTimeMap[1].startTime.split(":")[1] + ":" + this.formatMin(bestTimeMap[1].startTime.split(":")[2]);
+    var startTime3 = bestTimeMap[2].startTime.split(":")[1] + ":" + this.formatMin(bestTimeMap[2].startTime.split(":")[2]);
+    var endTime1 = "18:00";
+    var endTime2 = "18:00";
+    var endTime3 = "18:00";
+    var duration1 = startTime1 + " - " + endTime1;
+    var duration2 = startTime2 + " - " + endTime2;
+    var duration3 = startTime3 + " - " + endTime3;
     var members = [];
     for(var i = 0; i<3; i++){
       members[i] = "Members: ";
@@ -98,17 +110,17 @@ export default class MeetingTimesScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <Text>Optimal Meeting Times</Text>
-        <TouchableOpacity style={styles.meetingContainer} onPress={() => { this.sendInvites( {day: day1, startTime:duration1, endTime: "18:00"} ) }}>
+        <TouchableOpacity style={styles.meetingContainer} onPress={() => { this.sendInvites( {day: day1, startTime:startTime1, endTime: endTime1} ) }}>
           <Text style={styles.meetingDay}>{day1}</Text>
           <Text style={styles.meetingMembers}>{members[0]}</Text>
           <Text style={styles.meetingTime}>{duration1}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.meetingContainer} onPress={() => { this.sendInvites( {day: day2, startTime:duration2, endTime: "18:00"} ) }}>
+        <TouchableOpacity style={styles.meetingContainer} onPress={() => { this.sendInvites( {day: day2, startTime:startTime2, endTime: endTime2} ) }}>
           <Text style={styles.meetingDay}>{day2}</Text>
           <Text style={styles.meetingMembers}>{members[1]}</Text>
           <Text style={styles.meetingTime}>{duration2}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.meetingContainer} onPress={() => { this.sendInvites( {day: day3, startTime: duration3, endTime: "18:00"} ) }}>
+        <TouchableOpacity style={styles.meetingContainer} onPress={() => { this.sendInvites( {day: day3, startTime: startTime3, endTime: endTime3} ) }}>
           <Text style={styles.meetingDay}>{day3}</Text>
           <Text style={styles.meetingMembers}>{members[2]}</Text>
           <Text style={styles.meetingTime}>{duration3}</Text>
