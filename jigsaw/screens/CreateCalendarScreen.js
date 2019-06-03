@@ -52,21 +52,22 @@ export default class CreateCalendarEventScreen extends Component {
       var day = weekdays[this.state.selectedDate.getDay()]; // CHANGE THIS EVENTUALLY
 
       const newEvent = {
-        name: this.state.name,
-        end: this.state.endTime,
-        start: this.state.startTime,
-        day: day,
-        busy: this.state.busy
+        Name: this.state.name,
+        End: this.state.endTime,
+        Start: this.state.startTime,
+        Day: day,
+        Busy: this.state.busy
       }
 
-      // firebase.app().database().ref('Users/').child(this.props.navigation.state.params.data.currentUser).push({
-      //   ...newEvent
-      // }).then((data) => {
-      //   console.log('data ' , data)
-      //   // do scheduling here maybe?
-      // }).catch((error) => {
-      //   console.log('error ' , error)
-      // });
+      firebase.app().database().ref('Users/').child(this.props.navigation.state.params.data.uid + "/Schedule").push({
+        ...newEvent
+      }).then((data) => {
+        // console.log('data ' , data)
+        // do scheduling here maybe?
+        alert("Event added to calendar!");
+      }).catch((error) => {
+        // console.log('error ' , error)
+      });
     } else {
       alert("Please select a date and name.");
     }
@@ -97,6 +98,7 @@ export default class CreateCalendarEventScreen extends Component {
             }}
             selectedHour={this.state.startTime.split(":")[0]}
             selectedMinute={this.state.startTime.split(":")[1]}
+            minuteInterval={30}
             onCancel={() => this.onCancel("start")}
             onConfirm={(hour, minute) => this.onConfirm(hour, minute, "start")}
           />
@@ -107,6 +109,7 @@ export default class CreateCalendarEventScreen extends Component {
             }}
             selectedHour={this.state.endTime.split(":")[0]}
             selectedMinute={this.state.endTime.split(":")[1]}
+            minuteInterval={30}
             onCancel={() => this.onCancel("end")}
             onConfirm={(hour, minute) => this.onConfirm(hour, minute, "end")}
           />
