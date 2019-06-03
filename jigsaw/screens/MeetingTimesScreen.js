@@ -102,11 +102,29 @@ export default class MeetingTimesScreen extends React.Component {
         members[i] += bestTimeMap[i].people[j];
       }
     }
-    console.log(bestTimeMap);
-    console.log(day1);
-    console.log(day2);
-    console.log(day3);
-    console.log(members);
+    
+    // Start is a string like "12:30"
+    // Duration is a string like "1:30"
+    function getEndTime(start,duration){
+      var durationHours = parseInt(duration.split(":")[0]);
+      var durationMinutes = parseInt(duration.split(":")[1]);
+      var count = durationHours*2+durationMinutes/30;
+      var endHour = parseInt(start.split(":")[0]);
+      var endMinute = parseInt(start.split(":")[1]);
+      while(count>0){
+        if(endMinute == 30){
+          endMinute = 0;
+          endHour++;
+        }
+        else{
+          endMinute = 30;
+        }
+        count--;
+        console.log(endHour+":"+endMinute);
+      }
+      return endHour+":"+endMinute;
+    }
+
     return (
       <ScrollView style={styles.container}>
         <Text>Optimal Meeting Times</Text>
