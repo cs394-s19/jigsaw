@@ -20,7 +20,7 @@ export default class CreateEventScreen extends React.Component {
       return;
     }
 
-    console.log(eventDetails);
+    console.log(eventdetails);
     this.props.navigation.navigate('InviteMembers', {eventdetails});
   }
 
