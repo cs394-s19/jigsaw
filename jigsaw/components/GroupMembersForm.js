@@ -85,12 +85,17 @@ export default class GroupMembersForm extends Component {
 //            }
 //        }
                 
-        let includelist = this.props.data.data.filter((user) => {return user.Email !== this.props.data.currentUser})
-        // console.log(includelist)
+        let includelist = this.props.data.data.filter((user) => {return user.Email !== this.props.data.currentUser});
+        let buttonstyle; 
+        if (this.state.included.length === 0) {
+            buttonstyle = styles.emptyButton
+        } else {
+            buttonstyle = styles.includeButton
+        }
         return (
             <View style={styles.container}>
             <Input labelStyle={styles.inputLabel} containerStyle={styles.meetingName} label='Group Name:' onChangeText={val => this.setState({groupName: val})} value={this.state.groupName}/>
-            <Button buttonStyle={styles.includeButton} title='Make Group' onPress={() => {this.createGroup()}}/> 
+            <Button buttonStyle={buttonstyle} title='Make Group' onPress={() => {this.createGroup()}}/> 
                 <ScrollView style={styles.userlist}>
                     {
                         this.props.data.data.map((userdata, index) => {
@@ -189,7 +194,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 20,
-      backgroundColor: '#4E2A84',
+      backgroundColor: '#800080',
+    },
+    emptyButton: {
+        marginTop: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
+        backgroundColor: '#A9A9A9',
     },
 //    emptyButton: {
 //      marginTop: 20,
