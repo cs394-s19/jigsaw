@@ -8,7 +8,12 @@ import firebase from 'firebase';
 
 export default class AccountScreen extends React.Component {
   static navigationOptions = {
-    title: 'Account',
+    headerTitle: 'Account',
+    headerTitleStyle: {
+      textAlign: 'center',
+      alignSelf:'center',
+      flex:1
+    }
   };
 
   makeGroup = (name, included) => {

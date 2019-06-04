@@ -4,7 +4,12 @@ import firebase from '../firebaseConfig';
 
 export default class EventsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Events',
+    headerTitle: 'Meetings',
+    headerTitleStyle: {
+      textAlign: 'center',
+      alignSelf:'center',
+      flex:1
+    }
   };
 
   state = {

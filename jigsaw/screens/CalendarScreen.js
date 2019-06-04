@@ -16,6 +16,11 @@ export default class CalendarScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => {
     return {
       headerTitle: 'Calendar',
+      headerTitleStyle: {
+        textAlign: 'center',
+        alignSelf:'center',
+        flex:1
+    },
       headerRight: (
         <Button
           onPress={() => { navigation.navigate('CreateCalendarEvent', screenProps); }}
