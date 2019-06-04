@@ -67,6 +67,7 @@ export default class MeetingTimesScreen extends React.Component {
     });
 
     alert('Successfully Invited Members!');
+    this.props.navigation.navigate('CreateEvent');
   }
 
   formatDuration = (hours, minutes) => {
