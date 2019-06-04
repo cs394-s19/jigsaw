@@ -19,6 +19,8 @@ export default class CreateEventScreen extends React.Component {
       alert("Please add meeting title and duration.");
       return;
     }
+
+    console.log(eventDetails);
     this.props.navigation.navigate('InviteMembers', {eventdetails});
   }
 

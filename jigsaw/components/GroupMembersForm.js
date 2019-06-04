@@ -6,66 +6,91 @@ import {
     TouchableOpacity,
     ScrollView,
 } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
 
-export default class InviteMembersForm extends Component {
+export default class GroupMembersForm extends Component {
     state = {
-        invited: this.props.data.data.filter((user) => {return user.Email == this.props.data.currentUser}),
+        included: [],
+        groupName: '',
     }
 
     handleTapMember = (user) => {
-        let invited = [...this.state.invited];
+        let included = [...this.state.included];
 
-        if (invited.includes(user)) {
+        if (included.includes(user)) {
             this.removeMember(user);
             return
         }
 
-        invited.push(user);
+        included.push(user);
         this.setState({
-            invited
-        })
+            included: included
+        });
 
-        this.props.updateInvited(invited);
-
+        //this.props.updateGroup(included);
     }
 
     removeMember = (toDelete) => {
-        let invited = [...this.state.invited].filter((username) => {
+        let included = [...this.state.included].filter((username) => {
             return username !== toDelete;
         })
         this.setState({
-            invited
-        })
-        this.props.updateInvited(invited);
+            included: included
+        });
+        //this.props.updateGroup(included);
     }
 
-    inInvited = (email) => {
-      for (var i = 0; i < this.state.invited.length; i++) {
-        if (this.state.invited[i]["Email"] == email) {
+    inIncluded = (email) => {
+      for (var i = 0; i < this.state.included.length; i++) {
+        if (this.state.included[i]["Email"] == email) {
           return true;
         }
       }
       return false;
     }
+    
+    createGroup = () => {
+        let included = [];
+        if (this.state.included === undefined || this.state.included.length == 0 || this.state.groupName === '') {
+            alert('Please specify a name and members for your group')
+            return;
+        } else {
+            this.props.makeGroup(this.state.groupName, this.state.included);
+            this.setState({
+                included: included,
+                groupName: '',
+            });
+        }
+    }
+    
 
     render() {
         handleClick = (e, user) => {
-            let invited = [...this.state.invited];
+            let included = [...this.state.included];
 
-            if (invited.includes(user)) {
+            if (included.includes(user)) {
                 e.style = styles.noInfo;
             } else {
                 e.style = styles.greenInfo;
             }
         }
-
-
-        let invitelist = this.props.data.data.filter((user) => {return user.Email !== this.props.data.currentUser})
-        // console.log(invitelist)
+        
+//        setStyles = () => {
+//            if (this.state.included === undefined || this.state.included.length == 0) {
+//                console.log(emptyButton);
+//                return styles.emptyButton;
+//            } else {
+//                console.log(includeButton);
+//                return styles.includeButton;
+//            }
+//        }
+                
+        let includelist = this.props.data.data.filter((user) => {return user.Email !== this.props.data.currentUser})
+        // console.log(includelist)
         return (
             <View style={styles.container}>
-                <Button buttonStyle={styles.inviteButton} title='Send Invites' onPress={() => {this.props.sendInvites()}}/>
+            <Input labelStyle={styles.inputLabel} containerStyle={styles.meetingName} label='Group Name:' onChangeText={val => this.setState({groupName: val})} value={this.state.groupName}/>
+            <Button buttonStyle={styles.includeButton} title='Make Group' onPress={() => {this.createGroup()}}/> 
                 <ScrollView style={styles.userlist}>
                     {
                         this.props.data.data.map((userdata, index) => {
@@ -73,7 +98,7 @@ export default class InviteMembersForm extends Component {
                             return (
                                 <View key={index} style={styles.userContainer}>
                                     <TouchableOpacity onPress={() => {this.handleTapMember(userdata)}} onClick={((e) => this.handleClick(e))}>
-                                    <View style={this.inInvited(userdata.Email) ? styles.greenInfo : styles.noInfo}>
+                                    <View style={this.inIncluded(userdata.Email) ? styles.greenInfo : styles.noInfo}>
                                         <Text style={styles.userid}>{userdata.uid}</Text>
                                         <Text style={styles.useremail}>{userdata.Email}</Text>
                                     </View>
@@ -100,7 +125,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         paddingTop: 10,
     },
-    invitedlist: {
+    includedlist: {
         flex: 2,
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -111,7 +136,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: 'red',
     },
-    inviteduser: {
+    includeduser: {
         height: 20,
         fontSize: 20,
     },
@@ -159,10 +184,18 @@ const styles = StyleSheet.create({
     userContainer: {
       marginBottom: 20
     },
-    inviteButton: {
+    includeButton: {
       marginTop: 20,
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 20,
+      backgroundColor: '#4E2A84',
     },
+//    emptyButton: {
+//      marginTop: 20,
+//      alignItems: 'center',
+//      justifyContent: 'center',
+//      marginBottom: 20,
+//      backgroundColor: '#d1d1d1',
+//    },
 });
