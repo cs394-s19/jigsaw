@@ -74,7 +74,7 @@ export default class EventsScreen extends React.Component {
                     <Text style={styles.buttonText}>Delete</Text>
                   </TouchableOpacity>
                 </TouchableOpacity>
-                <View style={{marginTop: 10, backgroundColor: "#000000", opacity: "0.2", height: 1}}></View>
+                <View style={{marginTop: 10, backgroundColor: "#000000", height: 1}}></View>
               </View>
             )
           })

@@ -92,7 +92,7 @@ export default class RequestsScreen extends React.Component {
                     <Text style={styles.buttonText}>Decline</Text>
                   </TouchableOpacity>
                 </View>
-                <View style={{marginTop: 10, backgroundColor: "#000000", opacity: "0.2", height: 1}}></View>
+                <View style={{marginTop: 10, backgroundColor: "#000000", height: 1}}></View>
               </View>
             )
           })
