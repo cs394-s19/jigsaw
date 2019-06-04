@@ -70,10 +70,8 @@ export default class EventsScreen extends React.Component {
                     <Text style={styles.meetingDay}>{m.day}</Text>
                     <Text style={styles.meetingTime}>{m.startTime + " - " + m.endTime}</Text>
                   </View>
-                  <Text style={styles.meetingSize}>{m.members.length + " Members"}</Text>
-                  <Text style={styles.meetingNoResponse}>{"No Response: " + this.returnNames(this.noResponse(m))}</Text>
-                  <Text style={styles.meetingAccepted}>{"Accepted: " + this.returnNames(this.meetAccepted(m))}</Text>
-                  <Text style={styles.meetingDeclined}>{"Declined: " + this.returnNames(this.meetDeclined(m))}</Text>
+                  <Text style={styles.meetingSize}>{m.members.length + " Invited Members"}</Text>
+                  {m.description !== undefined ? <Text>{"Description: " + m.description}</Text> : <Text></Text>}
                   <TouchableOpacity onPress={() => { this.editEvent(m) }} style={styles.editButton}>
                     <Text style={styles.buttonText}>Edit</Text>
                   </TouchableOpacity>

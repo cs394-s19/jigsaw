@@ -35,7 +35,7 @@ export default class MeetingTimesScreen extends React.Component {
     // // list of invited users and their schedules including current user
     // console.log("INVITED MEMBERS: ");
     // console.log(this.props.navigation.state.params.invited);
-    
+
   }
 
   sendInvites = (meetingInfo) => {
@@ -55,7 +55,8 @@ export default class MeetingTimesScreen extends React.Component {
       members: members,
       day: meetingInfo.day,
       startTime: meetingInfo.startTime,
-      endTime: meetingInfo.endTime
+      endTime: meetingInfo.endTime,
+      description: ''
     }
 
     firebase.app().database().ref('Meetings/').push({

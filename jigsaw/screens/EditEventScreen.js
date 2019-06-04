@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import EditDescriptionForm from '../components/EditDescriptionForm';
-
+import firebase from 'firebase';
 
 export default class EditEvent extends React.Component {
   static navigationOptions = {
@@ -9,8 +9,7 @@ export default class EditEvent extends React.Component {
   };
 
   deleteMeeting = (meeting) => {
-    console.log("DELETE");
-    console.log(meeting);
+    console.log("DELETE", meeting);
     /*
     firebase.database().ref('Meetings/' + meeting.uid).remove().then((data) => {
       alert(meeting.title + " deleted!");
@@ -42,11 +41,10 @@ export default class EditEvent extends React.Component {
   }
 
   submitDesc = (description) => {
-    // if (eventdetails["eventName"] == '' || (eventdetails["selectedHours"] === 0 && eventdetails["selectedMinutes"] === 0)) {
-    //   alert("Please add meeting title and duration.");
-    //   return;
-    // }
-    // this.props.navigation.navigate('InviteMembers', {eventdetails});
+    firebase.database().ref('Meetings/' + this.props.navigation.state.params.m.uid + "/description").set(description.description).then((data) => {
+      alert(description.description + " saved!");
+      this.props.navigation.navigate('Events');
+    });
   }
 
   render() {
@@ -59,12 +57,10 @@ export default class EditEvent extends React.Component {
           <Text style={styles.meetingTime}>{m.startTime + " - " + m.endTime}</Text>
         </View>
         <Text style={styles.meetingSize}>{m.members.length + " Members"}</Text>
-        <EditDescriptionForm submitEvent={this.submitDesc}/>
-        {/*
-          <Text style={styles.meetingNoResponse}>{"No Response: " + this.returnNames(this.noResponse(m))}</Text>
-          <Text style={styles.meetingAccepted}>{"Accepted: " + this.returnNames(this.meetAccepted(m))}</Text>
-          <Text style={styles.meetingDeclined}>{"Declined: " + this.returnNames(this.meetDeclined(m))}</Text>
-        */}
+        <Text style={styles.meetingNoResponse}>{"No Response: " + this.returnNames(this.noResponse(m))}</Text>
+        <Text style={styles.meetingAccepted}>{"Accepted: " + this.returnNames(this.meetAccepted(m))}</Text>
+        <Text style={styles.meetingDeclined}>{"Declined: " + this.returnNames(this.meetDeclined(m))}</Text>
+        <EditDescriptionForm submitDesc={this.submitDesc} description={m.description}/>
         <TouchableOpacity onPress={() => { this.deleteMeeting(m) }} style={styles.deleteButton}>
           <Text style={styles.buttonText}>Delete</Text>
         </TouchableOpacity>

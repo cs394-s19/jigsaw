@@ -11,7 +11,7 @@ import { Input, Button } from 'react-native-elements';
 
 export default class EditDescriptionForm extends Component {
     state = {
-        description: '',
+        description: this.props.description,
     };
 
     onChangeText = (key, value) => {
@@ -24,7 +24,7 @@ export default class EditDescriptionForm extends Component {
         return (
             <View style={styles.container}>
                 <Input labelStyle={styles.inputLabel} label='Description: ' onChangeText={val => this.setState({description: val})} value={this.state.description}/>
-                <TouchableOpacity style={styles.saveButton} onPress={() => {this.props.submitEvent({...this.state})}}>
+                <TouchableOpacity style={styles.saveButton} onPress={() => {this.props.submitDesc({...this.state})}}>
                   <Text style={styles.saveButtonText}>Save Description</Text>
                 </TouchableOpacity>
             </View>
@@ -34,19 +34,17 @@ export default class EditDescriptionForm extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      paddingTop: "10%"
+      paddingTop: "10%",
+      width: "100%",
     },
     saveButtonText: {
       color: '#FFFFFF',
-      fontSize: 20,
-      textAlign: 'center'
     },
     saveButton: {
       backgroundColor: "#007BFF",
+      width: "100%",
       justifyContent: 'center',
       alignItems: 'center',
-      width: "100%",
       height: 30,
       marginTop: 10
     },
