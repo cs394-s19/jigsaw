@@ -27,7 +27,7 @@ export default class GroupMembersForm extends Component {
             included: included
         });
 
-        this.props.updateGroup(included);
+        //this.props.updateGroup(included);
     }
 
     removeMember = (toDelete) => {
@@ -37,7 +37,7 @@ export default class GroupMembersForm extends Component {
         this.setState({
             included: included
         });
-        this.props.updateGroup(included);
+        //this.props.updateGroup(included);
     }
 
     inIncluded = (email) => {
@@ -55,7 +55,7 @@ export default class GroupMembersForm extends Component {
             alert('Please specify a name and members for your group')
             return;
         } else {
-            this.props.makeGroup(this.state.groupName);
+            this.props.makeGroup(this.state.groupName, this.state.included);
             this.setState({
                 included: included,
                 groupName: '',
@@ -191,11 +191,11 @@ const styles = StyleSheet.create({
       marginBottom: 20,
       backgroundColor: '#4E2A84',
     },
-    emptyButton: {
-      marginTop: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginBottom: 20,
-      backgroundColor: '#d1d1d1',
-    },
+//    emptyButton: {
+//      marginTop: 20,
+//      alignItems: 'center',
+//      justifyContent: 'center',
+//      marginBottom: 20,
+//      backgroundColor: '#d1d1d1',
+//    },
 });

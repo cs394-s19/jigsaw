@@ -11,26 +11,10 @@ export default class AccountScreen extends React.Component {
     title: 'Account',
   };
 
-  state = {
-      included: [],
-  }
-
-  //onPress={() => {this.makeGroup()}}
-  //onPress={() => {this.handleTapMember(userdata)}} onClick={((e) => this.handleClick(e))} 
-  // style={this.inInvited(userdata.Email) ? styles.greenInfo : styles.noInfo}
-  // style={styles.userContainer}
-  // style={styles.userid}
-  // style={styles.useremail}
-
-
-  updateGroup = (included) => {
-    this.setState({included: included});
-  }
-  
-  makeGroup = (name) => {
+  makeGroup = (name, included) => {
       const newGroup = {
       name: name,
-      included: this.state.included
+      included: included
         }
 
     firebase.app().database().ref('Groups/').push({
@@ -43,16 +27,12 @@ export default class AccountScreen extends React.Component {
 
     alert('Successfully Created Group!');
       return
-  }
-
-//  sendInvites = () => {
-//    this.props.navigation.navigate('MeetingTimes', {...this.state});
-//  }
-
+  } 
+  
   render() {
     return (
       <ScrollView style={styles.container}>
-        <GroupMembersForm makeGroup={this.makeGroup} updateGroup={this.updateGroup} data={this.props.screenProps.data}/>
+        <GroupMembersForm makeGroup={this.makeGroup} data={this.props.screenProps.data}/>
       </ScrollView>
     );
   }
