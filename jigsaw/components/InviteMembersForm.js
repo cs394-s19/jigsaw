@@ -136,11 +136,11 @@ export default class InviteMembersForm extends Component {
                                           group.included.map((user, idx) => {
                                             if (idx == group.included.length - 1) {
                                               return (
-                                                <Text style={{color:"rgba(0, 0, 0, 0.3)" }} key={idx}>{user.uid + ""}</Text>
+                                                <Text style={{color:"#969696" }} key={idx}>{user.uid + ""}</Text>
                                               )
                                             } else {
                                               return (
-                                                <Text style={{color:"rgba(0, 0, 0, 0.3)" }} key={idx}>{user.uid + ", "}</Text>
+                                                <Text style={{color:"#969696" }} key={idx}>{user.uid + ", "}</Text>
                                               )
                                             }
                                           })
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
         left: 10,
         alignSelf: 'stretch',
         fontSize: 15,
-        color: 'rgba(0, 0, 0, 0.3)',
+        color: '#969696',
         paddingBottom: 30,
     },
     userContainer: {

@@ -44,8 +44,8 @@ export default class CreateEventScreen extends React.Component {
         var userAlreadyAdded = addedGroupMembers.filter((mem) => { return mem["Email"] == user["Email"] }).length > 0;
         if (!userAlreadyAdded && user["Email"] != this.props.screenProps.data.currentUser) {
           addedGroupMembers.push({
-            email: user["Email"],
-            schedule: user["Schedule"],
+            Email: user["Email"],
+            Schedule: user["Schedule"],
             uid: user["uid"]
           });
         }

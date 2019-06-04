@@ -39,6 +39,7 @@ export default class MeetingTimesScreen extends React.Component {
   }
 
   sendInvites = (meetingInfo) => {
+    console.log(this.props.navigation.state.params.allinvited);
     var members = this.props.navigation.state.params.allinvited.map(i => {
       return {
         email: i["Email"],
