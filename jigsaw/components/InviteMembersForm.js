@@ -11,6 +11,7 @@ import { Button } from 'react-native-elements';
 export default class InviteMembersForm extends Component {
     state = {
         invited: this.props.data.data.filter((user) => {return user.Email == this.props.data.currentUser}),
+        invited_groups: []
     }
 
     handleTapMember = (user) => {
@@ -40,9 +41,44 @@ export default class InviteMembersForm extends Component {
         this.props.updateInvited(invited);
     }
 
+    handleTapGroup = (group) => {
+      let invited_groups = [...this.state.invited_groups];
+      if (invited_groups.includes(group)) {
+          this.removeGroup(group);
+          return;
+      }
+
+      invited_groups.push(group);
+      this.setState({
+          invited_groups
+      })
+
+      this.props.updateInvited(this.state.invited);
+      this.props.updateInvitedGroups(invited_groups);
+    }
+
+    removeGroup = (toDelete) => {
+      let invited_groups = [...this.state.invited_groups].filter((group) => {
+          return group !== toDelete;
+      })
+      this.setState({
+          invited_groups
+      })
+      this.props.updateInvitedGroups(invited_groups);
+    }
+
     inInvited = (email) => {
       for (var i = 0; i < this.state.invited.length; i++) {
         if (this.state.invited[i]["Email"] == email) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    inInvitedGroups = (group) => {
+      for (var i = 0; i < this.state.invited_groups.length; i++) {
+        if (this.state.invited_groups[i].name == group.name) {
           return true;
         }
       }
@@ -66,6 +102,8 @@ export default class InviteMembersForm extends Component {
         return (
             <View style={styles.container}>
                 <Button buttonStyle={styles.inviteButton} title='Send Invites' onPress={() => {this.props.sendInvites()}}/>
+                <Text style={styles.headerText}>Users</Text>
+                <View style={{height: 1, backgroundColor: "#3e3e3e", marginTop: 10}} />
                 <ScrollView style={styles.userlist}>
                     {
                         this.props.data.data.map((userdata, index) => {
@@ -80,6 +118,38 @@ export default class InviteMembersForm extends Component {
                                     </TouchableOpacity>
                                 </View>
                             )}
+                        })
+                    }
+                </ScrollView>
+                <Text style={styles.headerText}>Groups</Text>
+                <View style={{height: 1, backgroundColor: "#3e3e3e", marginTop: 10}} />
+                <ScrollView style={styles.userlist}>
+                    {
+                        this.props.data.groups.map((group, index) => {
+                          return (
+                              <View key={index} style={styles.userContainer}>
+                                  <TouchableOpacity onPress={() => {this.handleTapGroup(group)}} onClick={((e) => this.handleClick(e))}>
+                                  <View style={this.inInvitedGroups(group) ? styles.greenInfo : styles.noInfo}>
+                                      <Text style={styles.userid}>{group.name}</Text>
+                                      <View style={{flexDirection: 'row', marginLeft: 10}}>
+                                        {
+                                          group.included.map((user, idx) => {
+                                            if (idx == group.included.length - 1) {
+                                              return (
+                                                <Text style={{color:"rgba(0, 0, 0, 0.3)" }} key={idx}>{user.uid + ""}</Text>
+                                              )
+                                            } else {
+                                              return (
+                                                <Text style={{color:"rgba(0, 0, 0, 0.3)" }} key={idx}>{user.uid + ", "}</Text>
+                                              )
+                                            }
+                                          })
+                                        }
+                                      </View>
+                                  </View>
+                                  </TouchableOpacity>
+                              </View>
+                          )
                         })
                     }
                 </ScrollView>
@@ -165,4 +235,8 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       marginBottom: 20,
     },
+    headerText: {
+      textAlign: 'center',
+      fontSize: 20
+    }
 });
