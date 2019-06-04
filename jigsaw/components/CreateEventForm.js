@@ -87,7 +87,7 @@ export default class CreateEventForm extends Component {
                     />
                 </View>
 
-                <Button buttonStyle={styles.addButton} title='Create Event' onPress={() => {this.props.submitEvent({...this.state})}}/>
+                <Button buttonStyle={styles.addButton} title='Create Meeting' onPress={() => {this.props.submitEvent({...this.state})}}/>
             </View>
         )
     }

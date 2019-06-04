@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -21,7 +21,7 @@ const CalendarStack = createStackNavigator({
   CreateCalendarEvent: CreateCalendarEventScreen
 });
 CalendarStack.navigationOptions = {
-  tabBarLabel: 'Calendar',
+  tabBarLabel: ({ focused }) => ( <Text style={{ fontSize: 10, color: focused ? '#6767ff' : '#8E8E8E', textAlign: "center"}}>Calendar</Text>),
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -40,7 +40,7 @@ const CreateEventStack = createStackNavigator({
   MeetingTimes: MeetingTimesScreen
 });
 CreateEventStack.navigationOptions = {
-  tabBarLabel: 'Create Event',
+  tabBarLabel: ({ focused }) => ( <Text style={{ fontSize: 10, color: focused ? '#6767ff' : '#8E8E8E', textAlign: "center"}}>Create Meeting</Text>),
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -57,7 +57,7 @@ const EventsStack = createStackNavigator({
   Events: EventsScreen,
 });
 EventsStack.navigationOptions = {
-  tabBarLabel: 'Events',
+  tabBarLabel: ({ focused }) => ( <Text style={{ fontSize: 10, color: focused ? '#6767ff' : '#8E8E8E', textAlign: "center"}}>Meetings</Text>),
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -74,7 +74,7 @@ const RequestsStack = createStackNavigator({
   Requests: RequestsScreen,
 });
 RequestsStack.navigationOptions = {
-  tabBarLabel: 'Requests',
+  tabBarLabel: ({ focused }) => ( <Text style={{ fontSize: 10, color: focused ? '#6767ff' : '#8E8E8E', textAlign: "center"}}>Requests</Text>),
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -91,7 +91,7 @@ const AccountStack = createStackNavigator({
   Requests: AccountScreen,
 });
 AccountStack.navigationOptions = {
-  tabBarLabel: 'Account',
+  tabBarLabel: ({ focused }) => ( <Text style={{ fontSize: 10, color: focused ? '#6767ff' : '#8E8E8E', textAlign: "center"}}>Account</Text>),
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
