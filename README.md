@@ -8,6 +8,11 @@ React Native applications that facilitates scheduling among groups of people. Sc
 • Streamline meeting invites by saving attendee groups<br>
 • View your schedule and calendar after scheduling events<br>
 
+# Application Screenshots
+![Creating Event](/jigsaw/assets/images/img1.png?raw=true)
+![Viewing Optimal Times](/jigsaw/assets/images/img2.png?raw=true)
+![Creation Successful](/jigsaw/assets/images/img3.png?raw=true)
+![Event Requests](/jigsaw/assets/images/img4.png?raw=true)
 ## Setup
 Make sure you install all the dependencies:
 
