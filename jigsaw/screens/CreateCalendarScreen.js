@@ -114,7 +114,7 @@ export default class CreateCalendarEventScreen extends Component {
             onConfirm={(hour, minute) => this.onConfirm(hour, minute, "end")}
           />
 
-          <Button style={styles.createButton} title={"Create Event"} onPress={() => this.createEvent()}></Button>
+          <Button style={styles.createButton} title={"Create Meeting"} onPress={() => this.createEvent()}></Button>
         </View>
       </TouchableWithoutFeedback>
     )

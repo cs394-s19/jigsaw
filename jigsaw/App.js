@@ -31,11 +31,16 @@ export default class App extends React.Component {
           ...pulledData["Meetings"][key],
           uid: key
         }));
+        const groups_data = Object.keys(pulledData["Groups"]).map(key => ({
+          ...pulledData["Groups"][key],
+          uid: key
+        }));
 
         this.setState({
           fetchDataComplete: true,
           data: user_data,
-          meetings: meetings_data
+          meetings: meetings_data,
+          groups: groups_data
         });
       }
     });
@@ -51,11 +56,16 @@ export default class App extends React.Component {
           ...pulledData["Meetings"][key],
           uid: key
         }));
+        const groups_data = Object.keys(pulledData["Groups"]).map(key => ({
+          ...pulledData["Groups"][key],
+          uid: key
+        }));
 
         this.setState({
           fetchDataComplete: true,
           data: user_data,
-          meetings: meetings_data
+          meetings: meetings_data,
+          groups: groups_data
         });
       }
     });

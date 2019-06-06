@@ -11,7 +11,12 @@ import CreateEventForm from '../components/CreateEventForm';
 
 export default class CreateEventScreen extends React.Component {
   static navigationOptions = {
-    title: 'Create Event',
+    headerTitle: 'Create Meeting',
+    headerTitleStyle: {
+      textAlign: 'center',
+      alignSelf:'center',
+      flex:1
+    }
   };
 
   submitEvent = (eventdetails) => {
@@ -20,7 +25,7 @@ export default class CreateEventScreen extends React.Component {
       return;
     }
 
-    console.log(eventDetails);
+    console.log(eventdetails);
     this.props.navigation.navigate('InviteMembers', {eventdetails});
   }
 

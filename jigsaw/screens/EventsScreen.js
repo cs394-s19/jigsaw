@@ -1,9 +1,15 @@
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import firebase from '../firebaseConfig';
 
 export default class EventsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Events',
+    headerTitle: 'Meetings',
+    headerTitleStyle: {
+      textAlign: 'center',
+      alignSelf:'center',
+      flex:1
+    }
   };
 
   state = {
@@ -11,12 +17,10 @@ export default class EventsScreen extends React.Component {
   }
 
   deleteMeeting = (meeting) => {
-    /*
     firebase.database().ref('Meetings/' + meeting.uid).remove().then((data) => {
       alert(meeting.title + " deleted!");
       this.reloadMeetings();
     });
-    */
   }
 
   reloadMeetings = () => {
