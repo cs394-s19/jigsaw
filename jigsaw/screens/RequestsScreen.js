@@ -5,7 +5,12 @@ import firebase from 'firebase';
 
 export default class RequestsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Requests',
+    headerTitle: 'Requests',
+    headerTitleStyle: {
+      textAlign: 'center',
+      alignSelf:'center',
+      flex:1
+    }
   };
 
   state = {
